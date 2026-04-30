@@ -13,7 +13,7 @@ import LayoutApp from '../Layouts/LayoutApp';
 
 export default function Dashboard() {
 
-    // Card Data Rekomendasi
+    // Card Product Rekomendasi
     const products = [
         {
             id: 'P-001',
@@ -216,7 +216,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <Head title="Go&mdash;UMKM | Dashboard" />
+            <Head title="Go-UMKM | Dashboard" />
 
             <LayoutApp
                 pageTitle="Home Dashboard"
@@ -260,7 +260,7 @@ export default function Dashboard() {
                 {/* Rekomendasi Produk */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8">
                     <h3 className="text-2xl font-extrabold text-slate-900">Rekomendasi Untuk Kamu</h3>
-                    <p className="mt-2 text-slate-600">Disusun berdasarkan produk terlaris dan tren lokal.</p>
+                    <p className="mt-2 text-slate-600">Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.</p>
 
                     <div className="mt-5 overflow-hidden">
                         <div 
@@ -351,7 +351,7 @@ export default function Dashboard() {
                 {/* Pesanan Customer */}
                 <section className="glass-panel fade-in-up-delay p-6 sm:p-8">
                     <h3 className="text-2xl font-extrabold text-slate-900">Pesanan</h3>
-                    <p className="mt-2 text-slate-600">Daftar produk pesanan yang telah kamu lakukan.</p>
+                    <p className="mt-2 text-slate-600">Daftar produk yang kamu pesanan saat ini.</p>
 
                     <div className="mt-5 overflow-hidden">
                         <div 

@@ -49,66 +49,71 @@ export default function Home() {
     // Rekomendasi Produk
     const products = [
         {
-            id: 'P-001',
             name: 'Sambal Cumi Asin Premium',
             description: 'Dimasak perlahan dengan rempah pilihan, tanpa MSG tambahan.',
             badge: 'Terlaris',
-            favorite: true,
             price: 'Rp 40.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s',
-            popularity: 95,
             category: 'kuliner',
         },
         {
-            id: 'P-002',
             name: 'Outer Batik Cap Abstrak',
             description: 'Bahan katun dingin dengan motif eksklusif buatan tangan.',
-            badge: 'Baru',
+            badge: 'Populer',
             price: 'Rp 120.000',
             image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae',
-            popularity: 88,
             category: 'fashion',
         },
         {
-            id: 'P-003',
             name: 'Reed Diffuser Serai Wangi',
             description: 'Aroma menenangkan khas spa Bali untuk ruangan Anda.',
             badge: 'Populer',
-            price: 'Rp 120.000',
-            favorite: true,
+            price: 'Rp 80.000',
             image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp',
-            popularity: 72,
             category: 'home',
         },
         {
-            id: 'P-004',
             name: 'Kopi Luwak Single Origin',
             description: 'Kopi premium dengan cita rasa kompleks dan aftertaste panjang.',
-            badge: 'Mewah',
-            price: 'Rp 450.000',
+            badge: 'Terlaris',
+            price: 'Rp 45.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s',
-            popularity: 60,
             category: 'kuliner',
         },
         {
-            id: 'P-005',
             name: 'Kerupuk Ikan Khas Daerah',
             description: 'Camilan gurih dengan bahan lokal segar.',
             badge: 'Spesial',
-            price: 'Rp 15.000',
+            price: 'Rp 35.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s',
-            popularity: 70,
             category: 'kuliner',
+        },
+        {
+            name: 'Kerajinan Anyaman Bambu',
+            description: 'Wadah serbaguna estetik hasil anyaman tangan pengrajin desa.',
+            badge: 'Mewah',
+            price: 'Rp 85.000',
+            image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png',
+            category: 'fashion',
+        },
+        {
+            name: 'Sabun Kopi Organik',
+            description: 'Eksfoliasi alami dengan aroma kopi asli yang menyegarkan kulit.',
+            badge: 'Spesial',
+            price: 'Rp 70.000',
+            image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp',
+            category: 'home',
         },
     ];
 
-    // Favorit: gunakan flag favorite jika ada, jika tidak gunakan top popularity
-    const favorites = products.filter((p) => p.favorite);
-    const favoriteList = favorites.length ? favorites : products.sort((a, b) => b.popularity - a.popularity).slice(0, 5);
+    // Filter products list: show Populer first then Terlaris
+    const populerItems = products.filter((p) => p.badge === 'Populer');
+    const terlarisItems = products.filter((p) => p.badge === 'Terlaris');
+    const heroList = [...populerItems, ...terlarisItems].filter((v, i, a) => a.findIndex(x => x.name === v.name) === i);
 
     return (
         <>
-            <Head title="Go&mdash;UMKM | Home" />
+            <Head title="Go-UMKM | Home" />
 
             <LayoutApp
                 pageTitle="Marketplace Lokal"
@@ -122,7 +127,7 @@ export default function Home() {
             >
 
                 {/* Hero Section */}
-                <section className="grid gap-4 lg:grid-cols-[1.3fr_0.9fr]">
+                <section className="grid gap-4 lg:grid-cols-[1.3fr_0.8fr]">
                     <article className="glass-panel fade-in-up p-6 sm:p-8">
                         <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
                             <Store className="size-4" />
@@ -155,9 +160,9 @@ export default function Home() {
 
                         <div className="mt-6 grid gap-3 sm:grid-cols-3">
                             {[
-                                { value: '2.500+', label: 'Mitra UMKM' },
+                                { value: '2.500+', label: 'Mitra Usaha' },
                                 { value: '18k', label: 'Produk Mitra' },
-                                { value: '4.8/5', label: 'Rating Kepuasan' },
+                                { value: '4.8/5', label: 'Rating Penjualan' },
                             ].map((stat) => (
                                 <div
                                     key={stat.label}
@@ -171,25 +176,22 @@ export default function Home() {
                     </article>
 
                     <article className="glass-panel fade-in-up-delay p-6 sm:p-8">
-                        <p className="text-sm font-bold uppercase tracking-wide text-slate-500">Produk Hari Ini</p>
+                        <p className="text-sm font-bold uppercase tracking-wide text-slate-500">Produk Populer & Terlaris Saat Ini</p>
                         <ul className="mt-4 space-y-3">
-                            {[
-                                { name: 'Kopi Arabika Gayo Honey', price: 'Rp75.000' },
-                                { name: 'Cokelat Majapahit 70%', price: 'Rp35.000' },
-                                { name: 'Tas Anyaman Pandan', price: 'Rp215.000' },
-                            ].map((item) => (
+                            {heroList.map((item) => (
                                 <li
                                     key={item.name}
                                     className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3"
                                 >
                                     <span className="text-sm font-semibold text-slate-600">{item.name}</span>
-                                    <strong className="text-sm font-extrabold text-slate-900">{item.price}</strong>
+                                    <span className={`ml-2 mr-2 inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold ${item.badge === 'Populer' ? 'bg-amber-100 text-amber-700' : item.badge === 'Terlaris' ? 'bg-teal-100 text-teal-700' : 'bg-slate-100 text-slate-700'}`}>{item.badge}</span>
+                                    <strong className="ml-auto text-sm font-extrabold text-slate-900">{item.price}</strong>
                                 </li>
                             ))}
                         </ul>
                         <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2 text-sm font-medium text-orange-800">
-                            <Truck className="size-4" />
-                            Gratis ongkir transaksi pertama di atas Rp150.000
+                            <Star className="size-4" />
+                            Dapatkan produk unggulan anda sekarang juga
                         </p>
                     </article>
                 </section>
@@ -242,7 +244,7 @@ export default function Home() {
                                         <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
                                         <div className="absolute left-3 top-3">
                                             <p className="inline-flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm px-2 py-1 text-[10px] font-bold uppercase text-slate-700 shadow-sm">
-                                                <Store className="size-3 text-teal-600" />
+                                                <Sparkles className="size-3 text-orange-500" />
                                                 {product.badge} | {product.category}
                                             </p>
                                         </div>
