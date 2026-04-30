@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@layer base {
+    body {
+        font-family: 'Space Grotesk', sans-serif;
+        @apply text-slate-900;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Sora', sans-serif;
+    }
+}
+
+@layer components {
+    .glass-panel {
+        @apply rounded-3xl border border-white/45 bg-white/70 shadow-[0_24px_48px_rgba(15,23,42,0.12)] backdrop-blur-md;
+    }
+
+    .nav-link {
+        @apply rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-teal-50 hover:text-teal-800;
+    }
+
+    .fade-in-up {
+        animation: fade-up 0.7s ease-out both;
+    }
+
+    .fade-in-up-delay {
+        animation: fade-up 0.7s ease-out 0.16s both;
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
