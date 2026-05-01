@@ -23,23 +23,26 @@ export default function LayoutApp({ pageTitle, navItems = [], cta, children }) {
                             </div>
                         </div>
 
+                        {/* DESKTOP NAVIGATION */}
                         <nav className="hidden items-center gap-1 sm:flex">
                             {navItems.map((item) => {
                                 const Icon = item.icon;
-                                const itemClassName = item.badge
-                                    ? 'inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800'
+                                const baseClass = "inline-flex items-center gap-2 px-3 py-2 text-sm font-bold transition hover:-translate-y-0.5 rounded-xl";
+                                const variantClass = item.badge
+                                    ? 'bg-slate-900 text-white hover:bg-slate-800'
                                     : item.variant === 'home'
-                                        ? 'inline-flex items-center gap-2 rounded-xl bg-teal-100 px-3 py-2 text-sm font-semibold text-teal-800 transition hover:-translate-y-0.5 hover:bg-teal-200'
-                                        : 'nav-link';
+                                        ? 'bg-teal-100 text-teal-800 hover:bg-teal-200'
+                                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'; 
+                                const finalClass = `${baseClass} ${variantClass}`;
 
                                 return item.type === 'anchor' ? (
-                                    <a key={item.label} href={item.href} className={itemClassName}>
-                                        {Icon ? <Icon className="size-4" /> : null}
+                                    <a key={item.label} href={item.href} className={finalClass}>
+                                        {Icon ? <Icon className="size-4 shrink-0" /> : null}
                                         {item.label}
                                     </a>
                                 ) : (
-                                    <Link key={item.label} href={item.href} className={itemClassName}>
-                                        {Icon ? <Icon className="size-4" /> : null}
+                                    <Link key={item.label} href={item.href} className={finalClass}>
+                                        {Icon ? <Icon className="size-4 shrink-0" /> : null}
                                         {item.label}
                                     </Link>
                                 );
@@ -64,24 +67,27 @@ export default function LayoutApp({ pageTitle, navItems = [], cta, children }) {
                         </button>
                     </div>
 
+                    {/* MOBILE NAVIGATION */}
                     {isMenuOpen && (
                         <nav className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 sm:hidden">
                             {navItems.map((item) => {
                                 const Icon = item.icon;
-                                const itemClassName = item.badge
-                                    ? 'flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-slate-800'
+                                const baseClass = "flex items-center gap-3 px-3 py-2.5 text-sm font-bold rounded-xl transition";
+                                
+                                const variantClass = item.badge
+                                    ? 'bg-slate-900 text-white'
                                     : item.variant === 'home'
-                                        ? 'flex items-center gap-2 rounded-xl bg-teal-100 px-3 py-2 text-sm font-semibold text-teal-800 transition hover:bg-teal-200'
-                                        : 'flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition';
+                                        ? 'bg-teal-100 text-teal-800'
+                                        : 'text-slate-600 hover:bg-slate-50';
 
                                 return item.type === 'anchor' ? (
-                                    <a key={item.label} href={item.href} className={itemClassName} onClick={() => setIsMenuOpen(false)}>
-                                        {Icon ? <Icon className="size-4" /> : null}
+                                    <a key={item.label} href={item.href} className={`${baseClass} ${variantClass}`} onClick={() => setIsMenuOpen(false)}>
+                                        {Icon ? <Icon className="size-5" /> : null}
                                         {item.label}
                                     </a>
                                 ) : (
-                                    <Link key={item.label} href={item.href} className={itemClassName} onClick={() => setIsMenuOpen(false)}>
-                                        {Icon ? <Icon className="size-4" /> : null}
+                                    <Link key={item.label} href={item.href} className={`${baseClass} ${variantClass}`} onClick={() => setIsMenuOpen(false)}>
+                                        {Icon ? <Icon className="size-5" /> : null}
                                         {item.label}
                                     </Link>
                                 );

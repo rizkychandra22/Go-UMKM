@@ -1,19 +1,18 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import LayoutApp from '../Layouts/LayoutApp';
+import LayoutApp from '../Layouts/App';
 import {
     ArrowRight,
-    Gift,
-    Flower2,
     HandPlatter,
     House,
     LogIn,
     Shirt,
     ShoppingBasket,
     Sparkles,
+    Package,
     Star,
     Store,
-    Truck,
+    Eye,
 } from 'lucide-react';
 
 export default function Home() {
@@ -119,10 +118,10 @@ export default function Home() {
                 pageTitle="Marketplace Lokal"
                 navItems={[
                     { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Populer', href: '', type: 'anchor' },
-                    { label: 'Produk', href: '', type: 'anchor' },
-                    { label: 'Mitra', href: '', type: 'anchor' },
-                    { label: 'Masuk', href: route('dashboard'), type: 'link', badge: true, icon: LogIn },
+                    { label: 'Populer', href: '', type: 'anchor', icon: Sparkles },
+                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
+                    { label: 'Mitra', href: '', type: 'anchor', icon: Store },
+                    { label: 'Masuk', href: route('dashboardSeller'), type: 'link', badge: true, icon: LogIn },
                 ]}
             >
 
@@ -143,7 +142,7 @@ export default function Home() {
 
                         <div className="mt-6 flex flex-wrap gap-3">
                             <Link
-                                href={route('dashboard')}
+                                href={route('dashboardSeller')}
                                 className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
                             >
                                 Mulai Belanja
@@ -254,8 +253,8 @@ export default function Home() {
                                         <p className="mt-2 text-sm leading-relaxed text-slate-600 line-clamp-2">{product.description}</p>
                                     </div>
                                     <div className="mt-4">
-                                        <Link href={route('dashboard')} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 hover:text-white transition-colors">
-                                            <ShoppingBasket className="size-4" />
+                                        <Link href={route('dashboardSeller')} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 hover:text-white transition-colors">
+                                            <Eye className="size-4" />
                                             Lihat Produk
                                         </Link>
                                     </div>

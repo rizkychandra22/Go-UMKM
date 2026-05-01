@@ -8,8 +8,14 @@ import {
     LogOut,
     ShoppingBasket,
     Sparkles,
+    LayoutDashboard,
+    Package,
+    ClipboardList,
+    ShoppingCart,
+        Minus,
+        Plus,
 } from 'lucide-react';
-import LayoutApp from '../Layouts/LayoutApp';
+import LayoutApp from '../../Layouts/App';
 
 export default function Dashboard() {
 
@@ -23,6 +29,7 @@ export default function Dashboard() {
             price: 'Rp 40.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s',
             popularity: 95,
+            stock: 10,
             category: 'kuliner',
         },
         {
@@ -33,6 +40,7 @@ export default function Dashboard() {
             price: 'Rp 120.000',
             image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae',
             popularity: 88,
+            stock: 3,
             category: 'fashion',
         },
         {
@@ -43,6 +51,7 @@ export default function Dashboard() {
             price: 'Rp 70.000',
             image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp',
             popularity: 72,
+            stock: 15,
             category: 'home',
         },
         {
@@ -53,6 +62,7 @@ export default function Dashboard() {
             price: 'Rp 45.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s',
             popularity: 60,
+            stock: 5,
             category: 'kuliner',
         },
         {
@@ -63,6 +73,7 @@ export default function Dashboard() {
             price: 'Rp 15.000',
             image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s',
             popularity: 70,
+            stock: 50,
             category: 'kuliner',
         },
         {
@@ -73,6 +84,7 @@ export default function Dashboard() {
             price: 'Rp 85.000',
             image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png',
             popularity: 75,
+            stock: 8,
             category: 'fashion',
         },
         {
@@ -83,6 +95,7 @@ export default function Dashboard() {
             price: 'Rp 35.000',
             image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp',
             popularity: 82,
+            stock: 20,
             category: 'home',
         },
     ];
@@ -219,13 +232,13 @@ export default function Dashboard() {
             <Head title="Go-UMKM | Dashboard" />
 
             <LayoutApp
-                pageTitle="Home Dashboard"
+                pageTitle="Dashboard Customer"
                 navItems={[
                     { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Dashboard', href: route('dashboard'), type: 'link' },
-                    { label: 'Produk', href: '', type: 'anchor' },
-                    { label: 'Keranjang', href: '', type: 'anchor' },
-                    { label: 'Pesanan', href: '', type: 'anchor' },
+                    { label: 'Dashboard', href: route('dashboardCustomer'), type: 'link', icon: LayoutDashboard },
+                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
+                    { label: 'Keranjang', href: '', type: 'anchor', icon: ShoppingCart },
+                    { label: 'Pesanan', href: '', type: 'anchor', icon: ClipboardList },
                     { label: 'Keluar', href: route('home'), type: 'link', badge: true, icon: LogOut },
                 ]}
             >
@@ -235,12 +248,12 @@ export default function Dashboard() {
                     <div className="grid items-center gap-4 md:grid-cols-[1.4fr_0.6fr]">
                         <div>
                             <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
-                                <Sparkles className="size-4" />
+                                <ShoppingBasket className="size-4" />
                                 Halaman utama pelanggan
                             </p>
                             <h2 className="mt-3 flex items-center gap-3 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
                                 <Sparkles className="size-8 text-teal-600 sm:size-10" />
-                                Selamat datang di pusat belanja UMKM favorit kamu
+                                Selamat Datang di Pusat Belanja UMKM Favorit Kamu
                             </h2>
                             <p className="mt-3 text-base leading-7 text-slate-600">
                                 Dukung ekonomi lokal dengan satu klik. Pantau status pesanan dan temukan kurasi produk terbaik minggu ini.
@@ -251,7 +264,7 @@ export default function Dashboard() {
                             <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Notifikasi</p>
                             <p className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-slate-700">
                                 <BellRing className="size-4 text-orange-500" />
-                                3 promo baru untukmu hari ini
+                                7 Produk rekomendasi untuk kamu
                             </p>
                         </div>
                     </div>
@@ -295,14 +308,19 @@ export default function Dashboard() {
                                         <p className="mt-2 text-sm leading-relaxed text-slate-600 line-clamp-2">
                                             {product.description}
                                         </p>
-                                        <p className="mt-auto pt-3 text-lg font-bold text-slate-900">
-                                            {product.price}
-                                        </p>
+                                        <div className="flex items-center">
+                                            <p className="inline-flex items-center mt-auto pt-3 text-lg font-bold text-slate-900">
+                                                {product.price}
+                                            </p>
+                                            <p className="ml-auto inline-flex items-center mt-auto pt-3 text-sm font-bold text-slate-600">
+                                                Stok: {product.stock} PCS
+                                            </p>
+                                        </div>
                                     </div>
 
                                     <div className="mt-4">
                                         <a href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 hover:text-white transition-colors">
-                                            <ShoppingBasket className="size-4" />
+                                            <ShoppingCart className="size-4" />
                                             Tambah ke Keranjang
                                         </a>
                                     </div>
@@ -334,13 +352,24 @@ export default function Dashboard() {
                                     <div className="flex flex-1 flex-col">
                                         <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1">{item.name}</h4>
                                         <p className="mt-1 text-sm leading-relaxed text-slate-600 line-clamp-1">{item.detail}</p>
-                                        <p className="mt-1 text-sm text-slate-600">Jumlah: <strong className="text-slate-800">{item.qty}</strong></p>
                                         <p className="text-sm text-slate-500">Stok penjual: {item.stock}</p>
                                         <p className="mt-auto pt-3 text-lg font-bold text-slate-900">{item.price}</p>
                                     </div>
                                     <div className="mt-4 flex items-center gap-2">
-                                        <a href="#" className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-1 text-sm font-semibold text-white hover:bg-slate-800">Checkout</a>
-                                        <a href="#" className="text-sm font-bold text-teal-700 hover:text-teal-800">Ubah Jumlah</a>
+                                        <a href="#" className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-1 text-sm font-semibold text-white hover:bg-slate-800">
+                                            <ShoppingCart className="size-4" />
+                                            Checkout
+                                        </a>
+
+                                        <div className="ml-auto inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-2 py-1">
+                                            <button type="button" className="inline-flex items-center justify-center p-1 text-slate-600 hover:bg-slate-100 rounded" aria-label="Decrease">
+                                                <Minus className="size-4" />
+                                            </button>
+                                            <div className="px-3 text-sm font-bold text-slate-900">{item.qty}</div>
+                                            <button type="button" className="inline-flex items-center justify-center p-1 text-slate-600 hover:bg-slate-100 rounded" aria-label="Increase">
+                                                <Plus className="size-4" />
+                                            </button>
+                                        </div>
                                     </div>
                                 </article>
                             ))}
