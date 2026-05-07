@@ -1,17 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import {
-    ArrowRight,
-    BellRing,
-    House,
-    LogOut,
-    Sparkles,
-    PlusCircle,
-    Package,
-    ClipboardList,
-    LayoutDashboard,
-    Edit,
-    TrendingUp
+    ArrowRight, BellRing, House, LogOut,
+    Sparkles, PlusCircle, Package, ClipboardList,
+    LayoutDashboard, Edit, TrendingUp
 } from 'lucide-react';
 import LayoutApp from '../../Layouts/App';
 
@@ -42,18 +34,9 @@ export default function DashboardSeller() {
     return (
         <>
             <Head title="Go-UMKM | Dashboard" />
-            <LayoutApp
-                pageTitle="Dashboard Seller"
-                navItems={[
-                    { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Dashboard', href: '', type: 'link', icon: LayoutDashboard },
-                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
-                    { label: 'Penjualan', href: '', type: 'anchor', icon: ClipboardList },
-                    { label: 'Keluar', href: route('home'), type: 'link', badge: true, icon: LogOut },
-                ]}
-            >
+            <LayoutApp pageTitle="Dashboard Seller">
                 {/* Hero Section */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
                     <div className="grid items-center gap-4 md:grid-cols-[1.4fr_0.6fr]">
                         <div>
                             <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
@@ -79,7 +62,7 @@ export default function DashboardSeller() {
                 </section>
 
                 {/* Produk Saya */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Produk Saya</h3>
                     <p className="mt-1 text-slate-600">Pantau ketersediaan stok produk Anda.</p>
                     
@@ -113,7 +96,7 @@ export default function DashboardSeller() {
                 </section>
 
                 {/* Pesanan Masuk */}
-                <section className="glass-panel fade-in-up-delay p-6 sm:p-8">
+                <section className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-emerald-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Pesanan Masuk</h3>
                     <p className="mt-2 text-slate-600">Daftar pesanan yang perlu diproses.</p>
 
