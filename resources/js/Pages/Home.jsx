@@ -2,17 +2,9 @@ import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../Layouts/App';
 import {
-    ArrowRight,
-    HandPlatter,
-    House,
-    LogIn,
-    Shirt,
-    ShoppingBasket,
-    Sparkles,
-    Package,
-    Star,
-    Store,
-    Eye,
+    ArrowRight, HandPlatter, House, LogIn, Shirt,
+    ShoppingBasket, Sparkles, Package, Star,
+    Store, Eye,
 } from 'lucide-react';
 
 export default function Home() {
@@ -114,20 +106,11 @@ export default function Home() {
         <>
             <Head title="Go-UMKM | Home" />
 
-            <LayoutApp
-                pageTitle="Marketplace Lokal"
-                navItems={[
-                    { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Populer', href: '', type: 'anchor', icon: Sparkles },
-                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
-                    { label: 'Mitra', href: '', type: 'anchor', icon: Store },
-                    { label: 'Masuk', href: route('login'), type: 'link', badge: true, icon: LogIn },
-                ]}
-            >
+            <LayoutApp pageTitle="Marketplace Lokal">
 
                 {/* Hero Section */}
                 <section className="grid gap-4 lg:grid-cols-[1.3fr_0.8fr]">
-                    <article className="glass-panel fade-in-up p-6 sm:p-8">
+                    <article className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-teal-400">
                         <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
                             <Store className="size-4" />
                             Marketplace produk lokal
@@ -142,17 +125,17 @@ export default function Home() {
 
                         <div className="mt-6 flex flex-wrap gap-3">
                             <Link
-                                href={route('dashboardSeller')}
+                                href={route('dashboardCustomer')}
                                 className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
                             >
                                 Mulai Belanja
                                 <ArrowRight className="size-4" />
                             </Link>
                             <a
-                                href=""
+                                href={route('dashboardCustomer')}
                                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700"
                             >
-                                Lihat Unggulan
+                                Best Seller
                                 <Star className="size-4" />
                             </a>
                         </div>
@@ -174,7 +157,7 @@ export default function Home() {
                         </div>
                     </article>
 
-                    <article className="glass-panel fade-in-up-delay p-6 sm:p-8">
+                    <article className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-amber-400">
                         <p className="text-sm font-bold uppercase tracking-wide text-slate-500">Produk Populer & Terlaris Saat Ini</p>
                         <ul className="mt-4 space-y-3">
                             {heroList.map((item) => (
@@ -196,7 +179,7 @@ export default function Home() {
                 </section>
 
                 {/* Kategori Produk */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-rose-400">
                     <div className="flex items-end justify-between gap-3">
                         <div>
                             <h3 className="text-2xl font-extrabold text-slate-900">Kategori Produk</h3>
@@ -224,7 +207,7 @@ export default function Home() {
                 </section>
 
                 {/* Rekomendasi Produk */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-sky-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Rekomendasi Produk Terbaik.</h3>
                     <p className="mt-2 text-slate-600">Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.</p>
 
@@ -265,7 +248,7 @@ export default function Home() {
                 </section>
 
                 {/* Review Seller */}
-                <section className="glass-panel fade-in-up-delay p-6 text-center sm:p-8">
+                <section className="glass-panel fade-in-up-delay p-6 text-center sm:p-8 border-t-4 border-t-slate-500">
                     <p className="mx-auto max-w-3xl text-xl font-extrabold leading-relaxed text-slate-900 sm:text-2xl">
                         "Sejak gabung Go-Umkm, toko saya dapat pelanggan dari luar kota dan repeat order naik 3x dalam 2 bulan."
                     </p>

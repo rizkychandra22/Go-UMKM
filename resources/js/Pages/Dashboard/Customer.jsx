@@ -221,20 +221,10 @@ export default function Dashboard() {
         <>
             <Head title="Go-UMKM | Dashboard" />
 
-            <LayoutApp
-                pageTitle="Dashboard Customer"
-                // navItems={[
-                //     { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                //     { label: 'Dashboard', href: route('dashboardCustomer'), type: 'link', icon: LayoutDashboard },
-                //     { label: 'Produk', href: '', type: 'anchor', icon: Package },
-                //     { label: 'Keranjang', href: '', type: 'anchor', icon: ShoppingCart },
-                //     { label: 'Pesanan', href: '', type: 'anchor', icon: ClipboardList },
-                //     { label: 'Keluar', href: route('logout'), type: 'logout', badge: true, icon: LogOut },
-                // ]}
-            >
+            <LayoutApp pageTitle="Dashboard Customer">
 
                 {/* Hero Section */}
-                <section className="glass-panel fade-in-up overflow-hidden p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-indigo-400">
                     <div className="grid items-center gap-4 md:grid-cols-[1.4fr_0.6fr]">
                         <div>
                             <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
@@ -261,7 +251,7 @@ export default function Dashboard() {
                 </section>
 
                 {/* Rekomendasi Produk */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-indigo-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Rekomendasi Untuk Kamu</h3>
                     <p className="mt-2 text-slate-600">Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.</p>
 
@@ -321,7 +311,7 @@ export default function Dashboard() {
                 </section>
 
                 {/* Keranjang Customer */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-indigo-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Keranjang</h3>
                     <p className="mt-2 text-slate-600">Ringkasan produk yang sudah kamu pilih sebelum checkout.</p>
 
@@ -368,7 +358,7 @@ export default function Dashboard() {
                 </section>
                 
                 {/* Pesanan Customer */}
-                <section className="glass-panel fade-in-up-delay p-6 sm:p-8">
+                <section className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-indigo-400">
                     <h3 className="text-2xl font-extrabold text-slate-900">Pesanan</h3>
                     <p className="mt-2 text-slate-600">Daftar produk yang kamu pesanan saat ini.</p>
 
