@@ -1,16 +1,36 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\SellerController;
+use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard/customer', function () {
-    return Inertia::render('Dashboard/Customer');
-})->name('dashboardCustomer');
+// Auth pages (only for guests)
+Route::middleware('guest')->group(function () {
+    // Page Login
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
-Route::get('/dashboard/seller', function () {
-    return Inertia::render('Dashboard/Seller');
-})->name('dashboardSeller');
+    // Page Register
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+});
+
+// Group khusus Customer
+Route::middleware('RoleAkses:customer')->group(function () {
+    Route::get('/dashboard/customer', [CustomerController::class, 'index'])->name('dashboardCustomer');
+});
+
+// Group khusus Seller
+Route::middleware('RoleAkses:seller')->group(function () {
+    Route::get('/dashboard/seller', [SellerController::class, 'index'])->name('dashboardSeller');
+});
+
+// Logout
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+});

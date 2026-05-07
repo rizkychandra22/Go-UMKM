@@ -1,17 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import {
-    ArrowRight,
-    BellRing,
-    House,
-    LogOut,
-    Sparkles,
-    PlusCircle,
-    Package,
-    ClipboardList,
-    LayoutDashboard,
-    Edit,
-    TrendingUp
+    ArrowRight, BellRing, House, LogOut,
+    Sparkles, PlusCircle, Package, ClipboardList,
+    LayoutDashboard, Edit, TrendingUp
 } from 'lucide-react';
 import LayoutApp from '../../Layouts/App';
 
@@ -44,13 +36,13 @@ export default function DashboardSeller() {
             <Head title="Go-UMKM | Dashboard" />
             <LayoutApp
                 pageTitle="Dashboard Seller"
-                navItems={[
-                    { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Dashboard', href: '', type: 'link', icon: LayoutDashboard },
-                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
-                    { label: 'Penjualan', href: '', type: 'anchor', icon: ClipboardList },
-                    { label: 'Keluar', href: route('home'), type: 'link', badge: true, icon: LogOut },
-                ]}
+                // navItems={[
+                //     { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
+                //     { label: 'Dashboard', href: '', type: 'link', icon: LayoutDashboard },
+                //     { label: 'Produk', href: '', type: 'anchor', icon: Package },
+                //     { label: 'Penjualan', href: '', type: 'anchor', icon: ClipboardList },
+                //     { label: 'Keluar', href: route('logout'), type: 'logout', badge: true, icon: LogOut },
+                // ]}
             >
                 {/* Hero Section */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8">

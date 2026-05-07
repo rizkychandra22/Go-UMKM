@@ -121,7 +121,7 @@ export default function Home() {
                     { label: 'Populer', href: '', type: 'anchor', icon: Sparkles },
                     { label: 'Produk', href: '', type: 'anchor', icon: Package },
                     { label: 'Mitra', href: '', type: 'anchor', icon: Store },
-                    { label: 'Masuk', href: route('dashboardSeller'), type: 'link', badge: true, icon: LogIn },
+                    { label: 'Masuk', href: route('login'), type: 'link', badge: true, icon: LogIn },
                 ]}
             >
 

@@ -1,19 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import {
-    ArrowRight,
-    BadgePercent,
-    BellRing,
-    House,
-    LogOut,
-    ShoppingBasket,
-    Sparkles,
-    LayoutDashboard,
-    Package,
-    ClipboardList,
-    ShoppingCart,
-        Minus,
-        Plus,
+    ArrowRight, BadgePercent, BellRing, House,
+    LogOut, ShoppingBasket, Sparkles, LayoutDashboard,
+    Package, ClipboardList, ShoppingCart, Minus, Plus,
 } from 'lucide-react';
 import LayoutApp from '../../Layouts/App';
 
@@ -233,14 +223,14 @@ export default function Dashboard() {
 
             <LayoutApp
                 pageTitle="Dashboard Customer"
-                navItems={[
-                    { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
-                    { label: 'Dashboard', href: route('dashboardCustomer'), type: 'link', icon: LayoutDashboard },
-                    { label: 'Produk', href: '', type: 'anchor', icon: Package },
-                    { label: 'Keranjang', href: '', type: 'anchor', icon: ShoppingCart },
-                    { label: 'Pesanan', href: '', type: 'anchor', icon: ClipboardList },
-                    { label: 'Keluar', href: route('home'), type: 'link', badge: true, icon: LogOut },
-                ]}
+                // navItems={[
+                //     { label: 'Home', href: route('home'), type: 'link', variant: 'home', icon: House },
+                //     { label: 'Dashboard', href: route('dashboardCustomer'), type: 'link', icon: LayoutDashboard },
+                //     { label: 'Produk', href: '', type: 'anchor', icon: Package },
+                //     { label: 'Keranjang', href: '', type: 'anchor', icon: ShoppingCart },
+                //     { label: 'Pesanan', href: '', type: 'anchor', icon: ClipboardList },
+                //     { label: 'Keluar', href: route('logout'), type: 'logout', badge: true, icon: LogOut },
+                // ]}
             >
 
                 {/* Hero Section */}
