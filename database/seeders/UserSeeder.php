@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
                 'email' => 'admin@example.com',
                 'password' => bcrypt('password'),
+                'address' => 'Jl. Admin No. 1',
+                'image' => null,
             ],
             [
                 'name' => 'Chandra Customer',
@@ -27,6 +29,8 @@ class UserSeeder extends Seeder
                 'role' => 'customer',
                 'email' => 'customer@example.com',
                 'password' => bcrypt('password'),
+                'address' => 'Jl. Customer No. 1',
+                'image' => null, 
             ],
             [
                 'name' => 'Chandra Seller',
@@ -34,6 +38,8 @@ class UserSeeder extends Seeder
                 'role' => 'seller',
                 'email' => 'seller@example.com',
                 'password' => bcrypt('password'),
+                'address' => 'Jl. Seller No. 1',
+                'image' => null,
             ]
         ];
 

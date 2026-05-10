@@ -1,9 +1,10 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
+import HeroSection from '../../Components/Home.HeroSection';
 import { 
-    House, Sparkles, Package, Store, LogIn, 
-    ShieldAlert, XCircle, Mail, Lock, ArrowRight, Star 
+    House, Sparkles, Package, LogIn, 
+    ShieldAlert, XCircle, Mail, Lock, 
 } from 'lucide-react';
 
 export default function Login() {
@@ -14,53 +15,9 @@ export default function Login() {
             <LayoutApp pageTitle="Login Akun">
                 {/* Main Hero Login */}
                 <section className="grid gap-4 lg:grid-cols-[1.3fr_0.8fr]">
+
                     {/* Sisi Kiri: Hero Content */}
-                    <article className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-teal-400">
-                        <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
-                            <Store className="size-4" />
-                            Marketplace produk lokal
-                        </p>
-                        <h2 className="mt-3 text-3xl font-extrabold leading-tight text-slate-900 sm:text-5xl">
-                            Belanja UMKM dengan rasa pasar tradisional, pengalaman digital modern
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-                            Temukan makanan, fashion, kerajinan, dan produk unik langsung dari pelaku UMKM Indonesia.
-                            Satu keranjang, banyak cerita lokal.
-                        </p>
-
-                        <div className="mt-6 flex flex-wrap gap-3">
-                            <Link
-                                href={route('dashboardCustomer')}
-                                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-                            >
-                                Mulai Belanja
-                                <ArrowRight className="size-4" />
-                            </Link>
-                            <a
-                                href=""
-                                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700"
-                            >
-                                Lihat Unggulan
-                                <Star className="size-4" />
-                            </a>
-                        </div>
-
-                        <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                            {[
-                                { value: '2.500+', label: 'Mitra Usaha' },
-                                { value: '18k', label: 'Produk Mitra' },
-                                { value: '4.8/5', label: 'Rating Penjualan' },
-                            ].map((stat) => (
-                                <div
-                                    key={stat.label}
-                                    className="rounded-xl border border-teal-100 bg-teal-50/60 p-3"
-                                >
-                                    <p className="text-lg font-extrabold text-slate-900">{stat.value}</p>
-                                    <p className="text-sm text-slate-600">{stat.label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </article>
+                    <HeroSection type="login" />
 
                     {/* Sisi Kanan: Form Login */}
                     <article className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-amber-400">
