@@ -13,12 +13,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Auth pages (only for guests)
 Route::middleware('guest')->group(function () {
     // Page Login
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+    Route::get('/auth/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/auth/login', [LoginController::class, 'store'])->name('login.store');
 
     // Page Register
-    Route::get('/register', [RegisterController::class, 'index'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('/auth/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/auth/register', [RegisterController::class, 'store'])->name('register.store');
 });
 
 // Profile User Setting

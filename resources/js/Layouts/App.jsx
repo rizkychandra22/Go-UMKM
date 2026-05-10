@@ -12,7 +12,7 @@ export default function LayoutApp({ pageTitle, children }) {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef(null);
     
-    const { auth } = usePage().props;
+    const { auth } = usePage().props ?? {};
     const { url } = usePage();
 
     const isDashboard = url.startsWith('/dashboard');
@@ -31,10 +31,10 @@ export default function LayoutApp({ pageTitle, children }) {
         { label: 'Beranda', href: route('home'), type: 'link', variant: 'home', icon: House },
     ];
 
-    if (auth.user) {
+    if (auth?.user) {
         navItems.push({ 
             label: 'Dashboard', 
-            href: auth.user.role === 'seller' ? route('dashboardSeller') : route('dashboardCustomer'), 
+            href: auth?.user?.role === 'seller' ? route('dashboardSeller') : route('dashboardCustomer'), 
             type: 'link', 
             icon: LayoutDashboard 
         });
@@ -42,7 +42,7 @@ export default function LayoutApp({ pageTitle, children }) {
 
     if (isDashboard) {
         navItems.push({ label: 'Produk', href: '#', type: 'anchor', icon: Package });
-        if (auth.user.role === 'seller') {
+        if (auth?.user?.role === 'seller') {
             navItems.push({ label: 'Penjualan', href: '#', type: 'anchor', icon: ClipboardList });
         } else {
             navItems.push(
@@ -108,20 +108,20 @@ export default function LayoutApp({ pageTitle, children }) {
 
                             {/* PROFILE DROPDOWN */}
                             <div className="relative ml-2 border-l border-slate-200 pl-3" ref={profileRef}>
-                                {auth.user ? (
+                                {auth?.user ? (
                                     <div className="relative">
                                         <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex size-10 items-center justify-center overflow-hidden rounded-2xl border-2 border-white bg-white shadow-md transition-all hover:scale-105 active:scale-95">
-                                            {auth.user.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserCircle className="size-7 text-slate-400" />}
+                                            {auth?.user?.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserCircle className="size-7 text-slate-400" />}
                                         </button>
                                         {isProfileOpen && (
                                             <div className="absolute right-0 mt-3 w-52 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl fade-in-up origin-top-right">
                                                 <div className="px-3 py-2 border-b border-slate-50 mb-1">
-                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter leading-none">Halo, {auth.user.role}</p>
-                                                    <p className="text-sm font-bold text-slate-900 truncate mt-1">{auth.user.name}</p>
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter leading-none">Halo, {auth?.user?.role}</p>
+                                                    <p className="text-sm font-bold text-slate-900 truncate mt-1">{auth?.user?.name}</p>
                                                 </div>
-                                                <button onClick={() => router.get(route('profile'))} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                                <Link href={route('profile')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
                                                     <Settings className="size-4" /> Profile
-                                                </button>
+                                                </Link>
                                                 <button onClick={() => router.post(route('logout'))} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors">
                                                     <LogOut className="size-4" /> Keluar
                                                 </button>
@@ -147,11 +147,11 @@ export default function LayoutApp({ pageTitle, children }) {
                             {auth.user && (
                                 <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-2xl mb-2">
                                     <div className="size-10 overflow-hidden rounded-xl bg-white border border-slate-200 flex items-center justify-center">
-                                        {auth.user.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserIcon className="size-6 text-slate-300" />}
+                                        {auth?.user?.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserIcon className="size-6 text-slate-300" />}
                                     </div>
                                     <div>
-                                        <p className="text-sm font-bold text-slate-900 leading-none">{auth.user.name}</p>
-                                        <p className="text-[10px] font-bold text-teal-600 uppercase mt-1 tracking-wider">{auth.user.role}</p>
+                                        <p className="text-sm font-bold text-slate-900 leading-none">{auth?.user?.name}</p>
+                                        <p className="text-[10px] font-bold text-teal-600 uppercase mt-1 tracking-wider">{auth?.user?.role}</p>
                                     </div>
                                 </div>
                             )}
@@ -186,11 +186,11 @@ export default function LayoutApp({ pageTitle, children }) {
                             
                             {/* PROFILE DROPDOWN */}
                             <div className="mt-2 border-t border-slate-100 pt-3">
-                                {auth.user ? (
+                                {auth?.user ? (
                                     <div className="space-y-1">
-                                        <button onClick={() => { setIsMenuOpen(false); router.get(route('profile')); }} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-xl">
+                                        <Link onClick={() => { setIsMenuOpen(false); }} href={route('profile')} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-xl">
                                             <Settings className="size-5" /> Profile
-                                        </button>
+                                        </Link>
                                         <button onClick={() => { setIsMenuOpen(false); router.post(route('logout')); }} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-white bg-red-500 rounded-xl">
                                             <LogOut className="size-5" /> Keluar
                                         </button>

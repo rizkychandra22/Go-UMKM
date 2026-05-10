@@ -5,6 +5,7 @@ import {
     Sparkles, PlusCircle, Package, ClipboardList,
     LayoutDashboard, Edit, TrendingUp
 } from 'lucide-react';
+import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
 import LayoutApp from '../../Layouts/App';
 
 export default function DashboardSeller() {
@@ -37,28 +38,7 @@ export default function DashboardSeller() {
             <LayoutApp pageTitle="Dashboard Seller">
                 {/* Hero Section */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
-                    <div className="grid items-center gap-4 md:grid-cols-[1.4fr_0.6fr]">
-                        <div>
-                            <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800">
-                                <TrendingUp className="size-4" />
-                                Mitra Usaha Digital
-                            </p>
-                            <h2 className="mt-3 flex items-center gap-3 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
-                                <Sparkles className="size-8 text-teal-600 sm:size-10" />
-                                Kelola Bisnis Anda Dengan Lebih Mudah dan Efisien
-                            </h2>
-                            <p className="mt-3 text-base leading-7 text-slate-600">
-                                Kelola produk dan stok Anda dengan mudah melalui platform digital kami.
-                            </p>
-                        </div>
-                        <div className="rounded-2xl border border-teal-100 bg-gradient-to-br from-teal-50 to-orange-50 p-5">
-                            <p className="text-xs font-bold uppercase text-slate-500">Saldo Penjualan</p>
-                            <p className="mt-1 text-3xl font-black text-teal-700">Rp 4.250.000</p>
-                            <p className="mt-2 flex items-center gap-2 text-xs font-medium text-slate-600">
-                                <BellRing className="size-4 text-orange-500" /> 5 Pesanan baru belum diproses
-                            </p>
-                        </div>
-                    </div>
+                    <CardHelloDashboard />
                 </section>
 
                 {/* Produk Saya */}
@@ -84,7 +64,7 @@ export default function DashboardSeller() {
                                     <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1">{product.name}</h4>
                                     <p className="mt-auto pt-3 text-lg font-bold text-slate-900">{product.price}</p>
                                     <div className="mt-4 flex gap-2">
-                                        <a href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 hover:text-white transition-colors">
+                                        <a href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
                                             <Edit className="size-4" />
                                             Edit Produk
                                         </a>
@@ -103,7 +83,7 @@ export default function DashboardSeller() {
                     {/* Grid 2 Kolom Pesanan */}
                     <div className="mt-6 grid gap-4 lg:grid-cols-2">
                         {incomingOrders.map((order) => (
-                            <div key={order.id} className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 transition-all hover:border-teal-200 hover:shadow-md">
+                            <div key={order.id} className="flex items-center gap-4 rounded-2xl border border-slate-300 bg-white p-4 transition-all hover:border-teal-300 hover:shadow-md">
                                 <div className="size-20 flex-none overflow-hidden rounded-xl bg-slate-50">
                                     <img src={order.image} className="h-full w-full object-cover" />
                                 </div>

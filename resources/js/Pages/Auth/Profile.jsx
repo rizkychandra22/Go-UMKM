@@ -3,13 +3,13 @@ import LayoutApp from '../../Layouts/App';
 import { User, Mail, Phone, MapPin, Camera, Save, CheckCircle, Lock } from 'lucide-react';
 
 export default function Profile() {
-    const { auth, status } = usePage().props;
+    const { auth, status } = usePage().props ?? {};
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: auth.user.name || '',
-        email: auth.user.email || '',
-        phone: auth.user.phone || '',
-        address: auth.user.address || '',
+        name: auth?.user?.name || '',
+        email: auth?.user?.email || '',
+        phone: auth?.user?.phone || '',
+        address: auth?.user?.address || '',
         password: '',
         password_confirmation: '',
         image: null,
@@ -48,7 +48,7 @@ export default function Profile() {
                                 <div className="size-28 overflow-hidden rounded-3xl border-4 border-white shadow-xl bg-white flex items-center justify-center">
                                     {data.image ? (
                                         <img src={URL.createObjectURL(data.image)} className="h-full w-full object-cover" />
-                                    ) : auth.user.image ? (
+                                    ) : auth?.user?.image ? (
                                         <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" />
                                     ) : (
                                         <User className="size-12 text-slate-300" />
@@ -62,7 +62,7 @@ export default function Profile() {
                             <div className="text-center sm:text-left">
                                 <h4 className="text-base font-black text-slate-900">Foto Profil</h4>
                                 <p className="text-xs text-slate-500 mt-1">
-                                    {auth.user.role === 'seller' 
+                                    {auth?.user?.role === 'seller' 
                                         ? 'Unggah foto terbaik untuk membangun kepercayaan pembeli dan identitas toko Anda.' 
                                         : 'Unggah foto profil agar penjual dan kurir lebih mudah mengenali Anda.'}
                                 </p>

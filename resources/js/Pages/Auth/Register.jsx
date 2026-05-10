@@ -1,10 +1,10 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
+import HeroSection from '../../Components/Home.HeroSection';
 import { 
     House, Sparkles, Package, Store, LogIn, 
-    User, Mail, Phone, Lock, UserCircle, 
-    ArrowRight, Star, Store as StoreIcon 
+    User, Mail, Phone, Lock, UserCircle,
 } from 'lucide-react';
 
 export default function Register() {
@@ -15,52 +15,10 @@ export default function Register() {
             <LayoutApp pageTitle="Daftar Akun">
                 <section className="grid gap-4 lg:grid-cols-[1fr_0.95fr]">
                     
-                    {/* SISI KIRI: HERO CONTENT (Identik dengan Home/Login) */}
-                    <article className="glass-panel fade-in-up p-6 sm:p-8 flex flex-col justify-center border-t-4 border-t-teal-400">
-                        <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 w-fit">
-                            <Store className="size-4" />
-                            Marketplace produk lokal
-                        </p>
-                        <h2 className="mt-4 text-3xl font-extrabold leading-tight text-slate-900 sm:text-5xl">
-                            Saatnya Produk Lokal Kamu Go Digital
-                        </h2>
-                        <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-                            Buka toko online gratis, kelola pesanan dengan mudah, jangkau lebih banyak pelanggan di seluruh Indonesia, dan nikmati berbagai keuntungan.
-                        </p>
+                    {/* Sisi Kiri: Hero Content */}
+                    <HeroSection type="register" />
 
-                        <div className="mt-6 space-y-4">
-                            {[
-                                { title: 'Pendaftaran Gratis', desc: 'Tanpa biaya admin bulanan.' },
-                                { title: 'Kelola Stok Mudah', desc: 'Pantau produk hanya dari satu dashboard.' },
-                                { title: 'Dukungan UMKM', desc: 'Promosi khusus untuk produk-produk unggulan.' },
-                            ].map((feature, i) => (
-                                <div key={i} className="flex items-start gap-3 group">
-                                    <div className="mt-1 grid size-5 place-content-center rounded-full bg-teal-600 text-white group-hover:scale-110 transition-transform">
-                                        <ArrowRight className="size-3" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-bold text-slate-900">{feature.title}</h4>
-                                        <p className="text-xs text-slate-500">{feature.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="mt-10 grid gap-3 sm:grid-cols-3">
-                            {[
-                                { value: '2.500+', label: 'Mitra Usaha' },
-                                { value: '18k', label: 'Produk Mitra' },
-                                { value: '4.8/5', label: 'Rating' },
-                            ].map((stat) => (
-                                <div key={stat.label} className="rounded-xl border border-teal-100 bg-teal-50/60 p-3 hover:bg-teal-50 transition-colors">
-                                    <p className="text-lg font-black text-slate-900">{stat.value}</p>
-                                    <p className="text-[10px] uppercase font-bold text-slate-500 tracking-tighter">{stat.label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </article>
-
-                    {/* SISI KANAN: FORM REGISTER */}
+                    {/* Sisi Kanan: Form Register */}
                     <article className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-amber-400">
                         <div className="mb-6">
                             <h3 className="text-2xl font-black text-slate-900 leading-none">Buat Akun</h3>
@@ -123,7 +81,7 @@ function RegisterForm() {
                                 : 'border-slate-200 bg-white/50 text-slate-500 hover:border-orange-200'
                         }`}
                     >
-                        <StoreIcon className={`size-4 ${data.role === 'seller' ? 'animate-pulse' : ''}`} />
+                        <Store className={`size-4 ${data.role === 'seller' ? 'animate-pulse' : ''}`} />
                         <span className="text-sm font-bold">Mitra</span>
                     </button>
                 </div>
