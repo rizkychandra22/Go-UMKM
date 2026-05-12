@@ -6,7 +6,7 @@ import CategoryProduct from '../Components/Home.HeroCategory';
 import RecomendMarquee from '../Components/Products/RecomendMarquee';
 import { LogIn, Eye, Sparkles, Package, Star } from 'lucide-react';
 
-export default function Home() {
+export default function Home({categories}) {
     // Rekomendasi Produk
     const products = [
         {
@@ -112,7 +112,7 @@ export default function Home() {
 
                 {/* Kategori Produk */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-rose-400">
-                    <CategoryProduct/>
+                    <CategoryProduct categories={categories}/>
                 </section>
 
                 {/* Rekomendasi Produk */}

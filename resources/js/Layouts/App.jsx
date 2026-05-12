@@ -64,20 +64,20 @@ export default function LayoutApp({ pageTitle, children }) {
             <div className="pointer-events-none absolute -right-24 top-0 size-72 rounded-full bg-teal-200/50 blur-3xl"></div>
 
             <div className="relative mx-auto w-[min(1160px,92vw)] py-6 sm:py-8">
-                <header className="glass-panel sticky top-4 z-50 px-4 py-3 sm:px-5">
+                <header className="glass-panel sticky top-0 sm:top-4 z-50 px-4 py-3">
                     <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                            <div className="grid size-10 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg transition-transform hover:rotate-6">
+                        <div className="flex items-center gap-3 min-w-20">
+                            <div className="grid size-10 shrink-0 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg transition-transform hover:rotate-6">
                                 <Store className="size-5" />
                             </div>
                             <div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Go-Umkm</p>
-                                <h1 className="text-base font-extrabold text-slate-900 sm:text-lg leading-none">{pageTitle}</h1>
+                                <h1 className="text-base font-extrabold text-slate-900 sm:text-lg leading-none truncate">{pageTitle}</h1>
                             </div>
                         </div>
 
                         {/* DESKTOP NAVIGATION */}
-                        <div className="hidden items-center gap-2 sm:flex">
+                        <div className="hidden items-center gap-2 md:flex">
                             {/* NAVIGATION ITEMS */}
                             <nav className="flex items-center gap-1">
                                 {navItems.map((item, idx) => {
@@ -136,14 +136,14 @@ export default function LayoutApp({ pageTitle, children }) {
                             </div>
                         </div>
 
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 sm:hidden">
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 md:hidden">
                             {isMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
                         </button>
                     </div>
 
                     {/* MOBILE NAVIGATION */}
                     {isMenuOpen && (
-                        <nav className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 sm:hidden fade-in-up">
+                        <nav className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 md:hidden fade-in-up">
                             {auth.user && (
                                 <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-2xl mb-2">
                                     <div className="size-10 overflow-hidden rounded-xl bg-white border border-slate-200 flex items-center justify-center">
