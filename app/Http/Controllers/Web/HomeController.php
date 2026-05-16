@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return inertia('Home',[
+        return inertia('Web/Home',[
             'categories' => Category::all()
         ]);
     }

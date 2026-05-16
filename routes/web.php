@@ -5,10 +5,18 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SellerController;
+use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\MitraController;
+use App\Http\Controllers\Web\PopulerController;
+use App\Http\Controllers\Web\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/category', [CategoryController::class, 'index'])->name('category');
+Route::get('/populer', [PopulerController::class, 'index'])->name('populer');
+Route::get('/product', [ProductController::class, 'index'])->name('product');
+Route::get('/mitra', [MitraController::class, 'index'])->name('mitra');
 
 // Auth pages (only for guests)
 Route::middleware('guest')->group(function () {

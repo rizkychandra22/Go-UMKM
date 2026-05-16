@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket } from 'lucide-react';
+import { route } from 'ziggy-js';
 
 export default function CategoryProduct({categories}) {
     // Kategori Product
@@ -24,10 +25,14 @@ export default function CategoryProduct({categories}) {
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {categories.map((item) => {
-                    const { icon: Icon, tone } = getStyle(item.slug);
+                    const style = getStyle(item.slug);
+                    const Icon = style.icon;
+                    const tone = style.tone;
+                    const href = `${route('category')}?slug=${encodeURIComponent(item.slug)}`;
+
                     return (
                         <Link
-                            href="" 
+                            href={href}
                             key={item.id}
                             className={`rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg`}
                         >

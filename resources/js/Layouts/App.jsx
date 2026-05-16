@@ -52,9 +52,9 @@ export default function LayoutApp({ pageTitle, children }) {
         }
     } else {
         navItems.push(
-            { label: 'Populer', href: '#', type: 'anchor', icon: Sparkles },
-            { label: 'Produk', href: '#', type: 'anchor', icon: Package },
-            { label: 'Mitra', href: '#', type: 'anchor', icon: Users }
+            { label: 'Populer', href: route('populer'), type: 'link', icon: Sparkles },
+            { label: 'Produk', href: route('product'), type: 'link', icon: Package },
+            { label: 'Mitra', href: route('mitra'), type: 'link', icon: Users }
         );
     }
 
