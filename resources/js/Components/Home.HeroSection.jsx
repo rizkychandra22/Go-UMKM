@@ -30,14 +30,14 @@ export default function HeroSection({ type = 'home' }) {
                     {type === 'home' && (
                         <div className="mt-6 flex flex-wrap gap-3">
                             <Link
-                                href={route('dashboardCustomer')}
+                                href={route('product')}
                                 className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
                             >
                                 Mulai Belanja
                                 <ArrowRight className="size-4" />
                             </Link>
                             <a
-                                href={route('dashboardCustomer')}
+                                href={route('populer')}
                                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700"
                             >
                                 Best Seller
