@@ -82,7 +82,7 @@ export default function Populer() {
     
                     {/* Populer Produk */}
                     <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-indigo-400">
-                                <div className="space-y-6">
+                        <div className="space-y-6">
                             {/* Tombol Kembali & Header */}
                             <div className="flex items-center gap-4">
                                 <Link href={route('home')} className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50">
