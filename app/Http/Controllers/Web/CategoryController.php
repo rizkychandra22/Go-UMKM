@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index($slug = null)
     {
-        $slug = request()->query('slug');
+        // $slug = key(request()->query());
 
         return inertia('Web/Category', [
             'categories' => Category::all(),

@@ -15,15 +15,14 @@ export default function Mitra({categories, slug}) {
 
                 {/* Kategori Produk */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-teal-400">
-                    {selected && (
-                        <p className="mb-4 text-lg font-semibold text-slate-700">Menampilkan produk berdasarkan kategori: {selected.name}</p>
-                    )}
                     <CategoryProduct categories={categories}/>
                 </section>
 
                 {/* Produk berdasarkan kategori */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-amber-400">
-                    {/* <CategoryProduct categories={categories}/> */}
+                    {selected && (
+                        <p className="mb-4 text-lg font-semibold text-slate-700">Menampilkan produk berdasarkan kategori: {selected.name}</p>
+                    )}
                     <p>Desain card untuk menampilkan data produk berdasarkan kategori yang dipilih.</p>
                 </section>
             </LayoutApp>

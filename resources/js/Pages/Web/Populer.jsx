@@ -2,6 +2,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
 import { LogIn, Eye, Sparkles, Package, Star, ArrowLeft, ShoppingCart } from 'lucide-react';
+import BackRightLink from '../../Components/BackRight';
 
 export default function Populer() {
     const { auth } = usePage().props ?? {};
@@ -84,18 +85,11 @@ export default function Populer() {
                     <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-indigo-400">
                         <div className="space-y-6">
                             {/* Tombol Kembali & Header */}
-                            <div className="flex items-center gap-4">
-                                <Link href={route('home')} className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50">
-                                    <ArrowLeft className="size-5" />
-                                </Link>
-                                <div>
-                                    <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-                                        <Sparkles className="size-5 text-amber-500 animate-pulse" />
-                                        Produk Terlaris & Populer
-                                    </h2>
-                                    <p className="text-xs font-medium text-slate-500 mt-0.5">Produk unggulan yang paling banyak diminati saat ini.</p>
-                                </div>
-                            </div>
+                            <BackRightLink 
+                                title="Produk Terlaris & Populer"
+                                subtitle="Produk unggulan yang paling banyak diminati saat ini."
+                                icon={Sparkles}
+                            />
 
                             {/* Grid Card Produk */}
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

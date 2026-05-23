@@ -13,7 +13,7 @@ use App\Http\Controllers\Web\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/category', [CategoryController::class, 'index'])->name('category');
+Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('category');
 Route::get('/populer', [PopulerController::class, 'index'])->name('populer');
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::get('/mitra', [MitraController::class, 'index'])->name('mitra');
