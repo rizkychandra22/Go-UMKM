@@ -1,11 +1,11 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import LayoutApp from '../../Layouts/App';
-import HeroSection from '../../Components/Home.HeroSection';
-import CategoryProduct from '../../Components/Home.HeroCategory';
-import RecomendMarquee from '../../Components/Products/RecomendMarquee';
+import LayoutApp from '@/Layouts/App';
+import HeroSection from '@/Components/Home.HeroSection';
+import CategoryProduct from '@/Components/Home.HeroCategory';
+import RecomendMarquee from '@/Components/Products/RecomendMarquee';
 import { LogIn, Eye, Sparkles, Package, Star } from 'lucide-react';
-import { products } from '../../Constants/Data.Products';
+import { products } from '@/Constants/Data.Products';
 
 export default function Home({categories}) {
     const populerItems = products.filter((p) => p.badge === 'Populer');

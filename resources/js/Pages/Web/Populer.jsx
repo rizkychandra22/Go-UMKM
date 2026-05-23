@@ -1,9 +1,9 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import LayoutApp from '../../Layouts/App';
+import LayoutApp from '@/Layouts/App';
 import { LogIn, Eye, Sparkles, Package, Star, ArrowLeft, ShoppingCart } from 'lucide-react';
-import BackRightLink from '../../Components/BackRight';
-import { products } from '../../Constants/Data.Products';
+import BackRightLink from '@/Components/BackRight';
+import { products } from '@/Constants/Data.Products';
 
 export default function Populer() {
     const { auth } = usePage().props ?? {};

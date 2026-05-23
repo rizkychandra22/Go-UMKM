@@ -1,11 +1,11 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import LayoutApp from '../../Layouts/App';
+import LayoutApp from '@/Layouts/App';
 import { LogIn, Eye, Package, Star, ArrowLeft, ShoppingCart, Search, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import BackRightLink from '../../Components/BackRight';
-import { FilterBadge, FilterCategory, SearchBar } from '../../Components/FilterData';
-import { products } from '../../Constants/Data.Products';
+import BackRightLink from '@/Components/BackRight';
+import { FilterBadge, FilterCategory, SearchBar } from '@/Components/FilterData';
+import { products } from '@/Constants/Data.Products';
 
 export default function Product({ categories = [] }) { 
     const { auth } = usePage().props ?? {};

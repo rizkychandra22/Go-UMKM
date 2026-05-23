@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import LayoutApp from '../../Layouts/App';
-import CategoryProduct from '../../Components/Home.HeroCategory';
+import LayoutApp from '@/Layouts/App';
+import CategoryProduct from '@/Components/Home.HeroCategory';
 import { LogIn, Eye, Sparkles, Package, Star } from 'lucide-react';
 
 export default function Mitra({categories, slug}) {
