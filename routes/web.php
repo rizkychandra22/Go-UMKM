@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Auth\ProfileBusinessController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SellerController;
@@ -33,6 +34,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile/user/settings', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/profile/user/settings', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/business/settings', [ProfileBusinessController::class, 'edit'])->name('profile.business');
+    Route::post('/profile/business/settings', [ProfileBusinessController::class, 'update'])->name('profile.business.update');
 });
 
 // Group khusus Customer

@@ -25,10 +25,10 @@ export function FilterCategory({ categories, selectedCategory, setSelectedCatego
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Semua Kategori</option>
+                <option value="">Semua Kategori Produk</option>
                 {categories.map((cat) => (
                     <option key={cat.id} value={cat.slug}>
-                        {cat.name}
+                        Produk {cat.name}
                     </option>
                 ))}
             </select>
@@ -44,11 +44,11 @@ export function FilterBadge({ selectedBadge, setSelectedBadge, value }) {
                 onChange={(e) => setSelectedBadge(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Semua Kebutuhan</option>
-                <option value="Populer">Populer</option>
-                <option value="Terlaris">Terlaris</option>
-                <option value="Spesial">Spesial</option>
-                <option value="Mewah">Mewah</option>
+                <option value="">Semua Label Produk</option>
+                <option value="Populer">Produk Populer</option>
+                <option value="Terlaris">Produk Terlaris</option>
+                <option value="Spesial">Produk Spesial</option>
+                <option value="Mewah">Produk Mewah</option>
             </select>
         </>
     )

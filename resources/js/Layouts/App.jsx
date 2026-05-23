@@ -16,6 +16,7 @@ export default function LayoutApp({ pageTitle, children }) {
     const { url } = usePage();
 
     const isDashboard = url.startsWith('/dashboard');
+    const isSeller = auth?.user?.role === 'seller'
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -119,9 +120,19 @@ export default function LayoutApp({ pageTitle, children }) {
                                                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter leading-none">Halo, {auth?.user?.role}</p>
                                                     <p className="text-sm font-bold text-slate-900 truncate mt-1">{auth?.user?.name}</p>
                                                 </div>
+
+                                                {/* Link Profile All User */}
                                                 <Link href={route('profile')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
-                                                    <Settings className="size-4" /> Profile
+                                                    <Settings className="size-4" /> Profile User
                                                 </Link>
+
+                                                {/* Link Business Role Seller */}
+                                                {isSeller && (
+                                                    <Link href={route('profile.business')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
+                                                        <Store className="size-4" /> Profile Business
+                                                    </Link>
+                                                )}
+
                                                 <button onClick={() => router.post(route('logout'))} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-colors">
                                                     <LogOut className="size-4" /> Keluar
                                                 </button>
@@ -188,9 +199,18 @@ export default function LayoutApp({ pageTitle, children }) {
                             <div className="mt-2 border-t border-slate-100 pt-3">
                                 {auth?.user ? (
                                     <div className="space-y-1">
+                                        {/* Link Profile All User */}
                                         <Link onClick={() => { setIsMenuOpen(false); }} href={route('profile')} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-xl">
-                                            <Settings className="size-5" /> Profile
+                                            <Settings className="size-5" /> Profile User
                                         </Link>
+
+                                        {/* Link Business Role Seller */}
+                                        {isSeller && (
+                                            <Link onClick={() => { setIsMenuOpen(false); }} href={route('profile.business')} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-xl">
+                                                <Store className="size-5" /> Profile Business
+                                            </Link>
+                                        )}
+                                        
                                         <button onClick={() => { setIsMenuOpen(false); router.post(route('logout')); }} className="flex w-full items-center gap-4 px-4 py-3.5 text-sm font-bold text-white bg-red-500 rounded-xl">
                                             <LogOut className="size-5" /> Keluar
                                         </button>

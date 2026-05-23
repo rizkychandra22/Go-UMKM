@@ -6,7 +6,7 @@ export default function BackRightLink({ title, subtitle, icon: Icon, backRoute =
         <div className="flex items-center gap-4">
             <Link 
                 href={route(backRoute)} 
-                className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50"
+                className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50"
             >
                 <ArrowLeft className="size-5" />
             </Link>
