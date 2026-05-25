@@ -112,7 +112,7 @@ export default function LayoutApp({ pageTitle, children }) {
                                 {auth?.user ? (
                                     <div className="relative">
                                         <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex size-10 items-center justify-center overflow-hidden rounded-2xl border-2 border-white bg-white shadow-md transition-all hover:scale-105 active:scale-95">
-                                            {auth?.user?.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserCircle className="size-7 text-slate-400" />}
+                                            {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : <UserCircle className="size-7 text-slate-400" />}
                                         </button>
                                         {isProfileOpen && (
                                             <div className="absolute right-0 mt-3 w-52 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl fade-in-up origin-top-right">
@@ -158,7 +158,7 @@ export default function LayoutApp({ pageTitle, children }) {
                             {auth.user && (
                                 <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-2xl mb-2">
                                     <div className="size-10 overflow-hidden rounded-xl bg-white border border-slate-200 flex items-center justify-center">
-                                        {auth?.user?.image ? <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" /> : <UserIcon className="size-6 text-slate-300" />}
+                                        {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : <UserIcon className="size-6 text-slate-300" />}
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold text-slate-900 leading-none">{auth?.user?.name}</p>

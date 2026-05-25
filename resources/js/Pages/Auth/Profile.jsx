@@ -49,7 +49,7 @@ export default function Profile() {
                                     {data.image ? (
                                         <img src={URL.createObjectURL(data.image)} className="h-full w-full object-cover" />
                                     ) : auth?.user?.image ? (
-                                        <img src={`/storage/${auth.user.image}`} className="h-full w-full object-cover" />
+                                        <img src={auth.user.image} className="h-full w-full object-cover" />
                                     ) : (
                                         <User className="size-12 text-slate-300" />
                                     )}

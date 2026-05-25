@@ -2,11 +2,11 @@
 
 namespace App\Services\Auth;
 
-use App\Models\User;
 use App\Models\Mitra;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; 
 
 class ProfileBusiness
 {
@@ -26,14 +26,43 @@ class ProfileBusiness
         $mitra->business = $data['business'];
         $mitra->description = $data['description'] ?? null;
 
-        // Handle Image
+        // Handle Image Avatar Pribadi langsung menembak API Cloudinary
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+            
+            // JIKA ADA GAMBAR LAMA: Hapus dari Cloudinary menggunakan helper Public ID bawaan
             if ($mitra->image) {
-                Storage::disk('public')->delete($mitra->image);
+                $oldPublicId = $this->getCloudinaryPublicId($mitra->image);
+                if ($oldPublicId) {
+                    Cloudinary::uploadApi()->destroy($oldPublicId);
+                }
             }
-            $mitra->image = $data['image']->store('profiles/business', 'public');
+
+            // PROSES UPLOAD UMUM: Otomatis membuat folder / masuk ke folder yang ditentukan
+            $result = Cloudinary::uploadApi()->upload($data['image']->getRealPath(), [
+                'folder' => 'go-umkm/profile-account',
+            ]);
+
+            // Ambil secure URL HTTPS jika tersedia
+            $mitra->image = $result['secure_url'] ?? $result['url'] ?? null;
         }
 
         return $mitra->save();
+    }
+
+    /**
+     * Extract Cloudinary public id from a stored URL
+     */
+    private function getCloudinaryPublicId(string $url): ?string
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        if (!$path) return null;
+
+        $segments = explode('/', $path);
+        $startIndex = array_search('go-umkm', $segments);
+
+        if ($startIndex === false) return null;
+        $pathWithExtension = implode('/', array_slice($segments, $startIndex));
+
+        return pathinfo($pathWithExtension, PATHINFO_DIRNAME) . '/' . pathinfo($pathWithExtension, PATHINFO_FILENAME);
     }
 }

@@ -45,7 +45,7 @@ export default function Profile() {
                                     {data.image ? (
                                         <img src={URL.createObjectURL(data.image)} className="h-full w-full object-cover" />
                                     ) : auth?.user?.mitra?.image ? (
-                                        <img src={`/storage/${auth.user.mitra.image}`} className="h-full w-full object-cover" />
+                                        <img src={auth.user.mitra.image} className="h-full w-full object-cover" />
                                     ) : (
                                         <Store className="size-12 text-slate-300" />
                                     )}
