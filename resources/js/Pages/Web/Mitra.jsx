@@ -31,7 +31,7 @@ export default function Mitra({ userMitra = [] }) {
                                         <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-100 shadow-inner flex items-center justify-center">
                                             {mitra.mitra?.image ? (
                                                 <img 
-                                                    src={`/storage/${mitra.mitra?.image}`} 
+                                                    src={mitra.mitra?.image}
                                                     alt={mitra.mitra?.business} 
                                                     className="h-full w-full object-cover" 
                                                 />
@@ -67,7 +67,7 @@ export default function Mitra({ userMitra = [] }) {
                                                 <div className="size-13 flex-none overflow-hidden rounded-full border-2 border-slate-100 bg-slate-50 flex items-center justify-center shadow-sm">
                                                     {mitra.image ? (
                                                         <img 
-                                                            src={`/storage/${mitra.image}`} 
+                                                            src={mitra.image} 
                                                             alt={mitra.name} 
                                                             className="h-full w-full object-cover"
                                                         />

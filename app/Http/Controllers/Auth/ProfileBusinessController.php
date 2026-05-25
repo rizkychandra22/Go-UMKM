@@ -27,8 +27,8 @@ class ProfileBusinessController extends Controller
     {
         $user = $request->user();
 
-        $validated = $this->profileBusinessService->validateProfile($request->all(), $user->id);
-        $this->profileBusinessService->updateProfile($user, $validated);
+        $this->profileBusinessService->validateProfile($request->all(), $user->id);
+        $this->profileBusinessService->updateProfile($user, $request->all());
 
         return back()->with('status', 'profile-business-updated');
     }
