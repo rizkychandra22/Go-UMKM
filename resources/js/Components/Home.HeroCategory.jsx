@@ -1,6 +1,7 @@
-import { Link } from '@inertiajs/react';
-import { HandPlatter, House, Shirt, ShoppingBasket } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
+import BackRightLink from './BackRight';
 
 export default function CategoryProduct({categories}) {
     // Kategori Product
@@ -14,13 +15,28 @@ export default function CategoryProduct({categories}) {
         return styles[slug];
     };
 
+    const { url } = usePage();
+    const isHome = url === '/';
+    const isCategory = url.startsWith('/category');
+
     return(
         <>
             <div className="flex items-end justify-between gap-3">
-                <div>
-                    <h3 className="text-2xl font-extrabold text-slate-900">Kategori Produk</h3>
-                    <p className="mt-2 text-slate-600">Pilih sesuai kebutuhan: kuliner harian sampai hampers premium.</p>
-                </div>
+                {isHome && (
+                    <div>
+                        <h3 className="text-2xl font-extrabold text-slate-900">Kategori Produk</h3>
+                        <p className="mt-2 text-slate-600">Pilih sesuai kebutuhan: kuliner harian sampai hampers premium.</p>
+                    </div>
+                )}
+
+                {/* Tombol Kembali & Header */}
+                {isCategory && (
+                    <BackRightLink
+                        title="Kategori Produk"
+                        subtitle="Pilih sesuai kebutuhan: kuliner harian sampai hampers premium."
+                        icon={LayoutDashboard}
+                    />
+                )}
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -28,7 +44,7 @@ export default function CategoryProduct({categories}) {
                     const style = getStyle(item.slug);
                     const Icon = style.icon;
                     const tone = style.tone;
-                    const href = `${route('category')}?slug=${encodeURIComponent(item.slug)}`;
+                    const href = route('category', { slug: item.slug });
 
                     return (
                         <Link

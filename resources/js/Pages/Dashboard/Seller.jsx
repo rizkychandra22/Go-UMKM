@@ -7,31 +7,10 @@ import {
 } from 'lucide-react';
 import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
 import LayoutApp from '../../Layouts/App';
+import { products as myProducts } from '../../Constants/Data.Products';
+import { orders as incomingOrders } from '../../Constants/Data.Orders';
 
 export default function DashboardSeller() {
-
-    // Data Produk Saya (7 Data - Mengikuti jumlah produk customer)
-    const myProducts = [
-        { id: 'P-001', name: 'Sambal Cumi Asin Premium', stock: 45, price: 'Rp 40.000', badge: 'Terlaris', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s' },
-        { id: 'P-002', name: 'Outer Batik Cap Abstrak', stock: 12, price: 'Rp 120.000', badge: 'Populer', image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae' },
-        { id: 'P-003', name: 'Reed Diffuser Serai Wangi', stock: 25, price: 'Rp 70.000', badge: 'Stok Aman', image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp' },
-        { id: 'P-004', name: 'Kopi Luwak Single Origin', stock: 8, price: 'Rp 45.000', badge: 'Limit', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s' },
-        { id: 'P-005', name: 'Kerupuk Ikan Khas Daerah', stock: 100, price: 'Rp 15.000', badge: 'Grosir', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s' },
-        { id: 'P-006', name: 'Kerajinan Anyaman Bambu', stock: 5, price: 'Rp 85.000', badge: 'Handmade', image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png' },
-        { id: 'P-007', name: 'Sabun Kopi Organik', stock: 30, price: 'Rp 35.000', badge: 'Baru', image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp' },
-    ];
-
-    // Data Pesanan Masuk (7 Data - Mengikuti jumlah pesanan customer)
-    const incomingOrders = [
-        { id: 'INV-001', customer: 'Andi Hermawan', date: '2026-05-01', product: 'Sambal Cumi Asin', price: 'Rp 40.000', qty: 2, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s' },
-        { id: 'INV-002', customer: 'Siti Aminah', date: '2026-05-01', product: 'Outer Batik Cap', price: 'Rp 120.000', qty: 1, image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae' },
-        { id: 'INV-003', customer: 'Budi Doremi', date: '2026-05-02', product: 'Reed Diffuser', price: 'Rp 70.000', qty: 3, image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp' },
-        { id: 'INV-004', customer: 'Dewi Sartika', date: '2026-05-02', product: 'Kopi Luwak', price: 'Rp 45.000', qty: 1, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s' },
-        { id: 'INV-005', customer: 'Rizky Chandra', date: '2026-05-03', product: 'Kerupuk Ikan', price: 'Rp 15.000', qty: 5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s' },
-        { id: 'INV-006', customer: 'Kayla Putri', date: '2026-05-03', product: 'Anyaman Bambu', price: 'Rp 85.000', qty: 2, image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png' },
-        { id: 'INV-007', customer: 'Gilang Ramadhan', date: '2026-05-04', product: 'Sabun Kopi', price: 'Rp 35.000', qty: 4, image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp' },
-    ];
-
     return (
         <>
             <Head title="Go-UMKM | Dashboard" />
@@ -64,10 +43,10 @@ export default function DashboardSeller() {
                                     <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1">{product.name}</h4>
                                     <p className="mt-auto pt-3 text-lg font-bold text-slate-900">{product.price}</p>
                                     <div className="mt-4 flex gap-2">
-                                        <a href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
+                                        <Link href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
                                             <Edit className="size-4" />
                                             Edit Produk
-                                        </a>
+                                        </Link>
                                     </div>
                                 </article>
                             ))}
@@ -99,9 +78,9 @@ export default function DashboardSeller() {
                                             {order.price}
                                             <span className="ml-2 text-xs font-medium text-slate-500">· {order.qty} pcs</span>
                                         </p>
-                                        <button className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
+                                        <Link className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
                                             Proses Pesanan <ArrowRight className="size-3" />
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
