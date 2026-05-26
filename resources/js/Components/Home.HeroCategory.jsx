@@ -3,23 +3,25 @@ import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'luci
 import { route } from 'ziggy-js';
 import BackRightLink from './BackRight';
 
-export default function CategoryProduct({categories}) {
+export default function CategoryProduct({ categories }) {
     // Kategori Product
-    const getStyle = (slug) =>{
+    const getStyle = (slug) => {
         const styles = {
-            'kuliner-lokal': { icon: HandPlatter, tone: 'from-amber to-amber-100' },
-            'trending-fashion': { icon: Shirt, tone: 'from-pink to-rose-100' },
-            'rumah-dekor': { icon: House, tone: 'from-sky to-sky-100' },
-            'kebutuhan-harian': { icon: ShoppingBasket, tone: 'from-emerald to-emerald-100' },
+            'kuliner-lokal': { icon: HandPlatter, tone: 'from-amber-50 to-amber-100' },
+            'trending-fashion': { icon: Shirt, tone: 'from-pink-50 to-rose-100' },
+            'rumah-dekor': { icon: House, tone: 'from-sky-50 to-sky-100' },
+            'kebutuhan-harian': { icon: ShoppingBasket, tone: 'from-emerald-50 to-emerald-100' },
         };
-        return styles[slug];
+        // Pengaman: Jika slug tidak terdaftar di hardcode ini, beri style default
+        return styles[slug] ?? { icon: LayoutDashboard, tone: 'from-slate-50 to-slate-200' };
     };
 
     const { url } = usePage();
     const isHome = url === '/';
-    const isCategory = url.startsWith('/category');
+    // Diubah agar mendeteksi halaman /category maupun /mitra kamu
+    const isCategory = url.startsWith('/category') || url.startsWith('/mitra');
 
-    return(
+    return (
         <>
             <div className="flex items-end justify-between gap-3">
                 {isHome && (
@@ -44,6 +46,8 @@ export default function CategoryProduct({categories}) {
                     const style = getStyle(item.slug);
                     const Icon = style.icon;
                     const tone = style.tone;
+                    
+                    // Di sini diarahkan ke route category kamu bawaan backend
                     const href = route('category', { slug: item.slug });
 
                     return (
