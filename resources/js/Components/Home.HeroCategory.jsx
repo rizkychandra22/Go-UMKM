@@ -56,11 +56,13 @@ export default function CategoryProduct({ categories }) {
                             key={item.id}
                             className={`rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg`}
                         >
-                            <div className="inline-flex rounded-xl bg-slate-900 p-2 text-white">
-                                <Icon className="size-4" />
+                            <div className="flex items-center gap-4">
+                                <div className="inline-flex rounded-xl bg-slate-900 p-2 text-white">
+                                    <Icon className="size-4" />
+                                </div>
+                                <h4 className="text-base font-extrabold text-slate-900">{item.name}</h4>
                             </div>
-                            <h4 className="mt-3 text-base font-extrabold text-slate-900">{item.name}</h4>
-                            <p className="mt-1 text-sm leading-6 text-slate-600">{item.description}</p>
+                            <p className="mt-3 text-sm leading-6 text-slate-600">{item.description}</p>
                         </Link>
                     );
                 })}
