@@ -14,12 +14,9 @@ export default function Login() {
 
             <LayoutApp pageTitle="Login Akun">
                 {/* Main Hero Login */}
-                <section className="grid gap-4 lg:grid-cols-[1.3fr_0.8fr]">
+                <section className="grid gap-4 lg:grid-cols-[0.8fr_1.3fr]">
 
-                    {/* Sisi Kiri: Hero Content */}
-                    <HeroSection type="login" />
-
-                    {/* Sisi Kanan: Form Login */}
+                    {/* Sisi Kiri: Form Login */}
                     <article className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-amber-400">
                         <div className="mb-6">
                             <h2 className="text-2xl font-extrabold text-slate-900">Login Akun</h2>
@@ -28,6 +25,10 @@ export default function Login() {
 
                         <LoginForm />
                     </article>
+
+                    {/* Sisi Kanan: Hero Content */}
+                    <HeroSection type="login" />
+                    
                 </section>
             </LayoutApp>
         </>

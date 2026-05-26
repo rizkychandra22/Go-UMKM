@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 
+// Component for the search bar
 export function SearchBar({ searchQuery, setSearchQuery, value }) {
     return (
         <>
@@ -17,6 +18,7 @@ export function SearchBar({ searchQuery, setSearchQuery, value }) {
     )
 }
 
+// Component for the category filter
 export function FilterCategory({ categories, selectedCategory, setSelectedCategory, value }) {
     return (
         <>
@@ -36,6 +38,7 @@ export function FilterCategory({ categories, selectedCategory, setSelectedCatego
     )
 }
 
+// Component for the badge filter
 export function FilterBadge({ selectedBadge, setSelectedBadge, value }) {
     return (
         <>
