@@ -45,16 +45,14 @@ export default function Mitra({ categories, slug, product }) {
                         {selected ? (
                             <div className="space-y-6">
                                 {/* Header Info Kategori Terpilih */}
-                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4">
-                                    <div>
-                                        <h2 className="flex items-center gap-2 text-xl font-extrabold text-slate-900">
-                                            <Sparkles className="size-5 animate-pulse text-amber-500" />
-                                            {selected.name}
-                                        </h2>
-                                        <p className="mt-0.5 text-xs font-medium text-slate-500">
-                                            Menampilkan {filteredProducts.length} produk lokal.
-                                        </p>
-                                    </div>
+                                <div>
+                                    <h2 className="flex items-center gap-2 text-xl font-extrabold text-slate-900">
+                                        <Sparkles className="size-5 animate-pulse text-amber-500" />
+                                        {selected.name}
+                                    </h2>
+                                    <p className="mt-0.5 text-xs font-medium text-slate-500">
+                                        Menampilkan {filteredProducts.length} produk lokal.
+                                    </p>
                                 </div>
 
                                 {/* Grid Produk */}
