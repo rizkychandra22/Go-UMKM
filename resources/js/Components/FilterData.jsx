@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 
+// Component for the search bar
 export function SearchBar({ searchQuery, setSearchQuery, value }) {
     return (
         <>
@@ -17,6 +18,7 @@ export function SearchBar({ searchQuery, setSearchQuery, value }) {
     )
 }
 
+// Component for the category filter
 export function FilterCategory({ categories, selectedCategory, setSelectedCategory, value }) {
     return (
         <>
@@ -25,7 +27,7 @@ export function FilterCategory({ categories, selectedCategory, setSelectedCatego
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Semua Kategori Produk</option>
+                <option value="">Kategori Produk</option>
                 {categories.map((cat) => (
                     <option key={cat.id} value={cat.slug}>
                         Produk {cat.name}
@@ -36,6 +38,7 @@ export function FilterCategory({ categories, selectedCategory, setSelectedCatego
     )
 }
 
+// Component for the badge filter
 export function FilterBadge({ selectedBadge, setSelectedBadge, value }) {
     return (
         <>
@@ -44,11 +47,47 @@ export function FilterBadge({ selectedBadge, setSelectedBadge, value }) {
                 onChange={(e) => setSelectedBadge(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Semua Label Produk</option>
+                <option value="">Label Produk</option>
                 <option value="Populer">Produk Populer</option>
                 <option value="Terlaris">Produk Terlaris</option>
                 <option value="Spesial">Produk Spesial</option>
                 <option value="Mewah">Produk Mewah</option>
+            </select>
+        </>
+    )
+}
+
+// Component for the filter status order
+export function FilterStatusOrder({ selectedStatus, setSelectedStatus, value }) {
+    return (
+        <>
+            <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
+            >
+                <option value="">Status Pesanan</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Diproses</option>
+                <option value="completed">Selesai</option>
+                <option value="cancelled">Dibatalkan</option>
+            </select>
+        </>
+    )
+}
+
+// Component for the filter payment order
+export function FilterPaymentOrder({ selectedPayment, setSelectedPayment, value }) {
+    return (
+        <>
+            <select
+                value={selectedPayment}
+                onChange={(e) => setSelectedPayment(e.target.value)}
+                className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
+            >
+                <option value="">Metode Bayar</option>
+                <option value="cash">Cash (Tunai)</option>
+                <option value="transfer">Transfer</option>
             </select>
         </>
     )
