@@ -9,66 +9,70 @@ export default function HeroSection({ type = 'home' }) {
     ];
 
     return (
-        <article className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-teal-400 flex flex-col justify-center">
-            <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 w-fit">
-                <Store className="size-4" />
+        // PERBAIKAN: Padding di HP dikurangi dari p-6 menjadi p-4
+        <article className="glass-panel fade-in-up p-4 sm:p-8 border-t-4 border-t-teal-400 flex flex-col justify-center">
+            <p className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-teal-800 w-fit">
+                <Store className="size-3.5 sm:size-4" />
                 Marketplace produk lokal
             </p>
 
             {/* --- KONTEN DINAMIS BERDASARKAN TYPE --- */}
             {type === 'home' || type === 'login' ? (
-                // Tampilan Home & Login
                 <>
-                    <h2 className="mt-3 text-3xl font-extrabold leading-tight text-slate-900 sm:text-5xl">
+                    {/* PERBAIKAN: Font judul di HP dikecilkan ke text-xl, margin disesuaikan */}
+                    <h2 className="mt-2 text-xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl">
                         Belanja UMKM dengan rasa pasar tradisional, pengalaman digital modern
                     </h2>
-                    <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+                    {/* PERBAIKAN: Deskripsi di HP dikecilkan ke text-xs agar hemat baris */}
+                    <p className="mt-2 max-w-2xl text-xs leading-relaxed text-slate-600 sm:text-base lg:text-lg">
                         Temukan makanan, fashion, kerajinan, dan produk unik langsung dari pelaku UMKM Indonesia.
                         Satu keranjang, banyak cerita lokal.
                     </p>
 
                     {type === 'home' && (
-                        <div className="mt-6 flex flex-wrap gap-3">
+                        // PERBAIKAN: Tombol dipaksa membagi dua kolom (50:50) sejajar di HP, kembali flex di PC
+                        <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
                             <Link
                                 href={route('product')}
-                                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                                className="justify-center inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-2.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 sm:text-sm sm:px-5 sm:py-3"
                             >
                                 Mulai Belanja
-                                <ArrowRight className="size-4" />
+                                <ArrowRight className="size-3.5" />
                             </Link>
                             <a
                                 href={route('populer')}
-                                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700"
+                                className="justify-center inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700 sm:text-sm sm:px-5 sm:py-3"
                             >
                                 Best Seller
-                                <Star className="size-4" />
+                                <Star className="size-3.5" />
                             </a>
                         </div>
                     )}
                 </>
             ) : (
-                // Tampilan untuk Registrasi
                 <>
-                    <h2 className="mt-4 text-3xl font-extrabold leading-tight text-slate-900 sm:text-5xl">
+                    {/* Tampilan untuk Registrasi */}
+                    <h2 className="mt-2 text-xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl">
                         Saatnya Produk Lokal Kamu Go Digital
                     </h2>
-                    <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-                        Buka toko online gratis, kelola pesanan dengan mudah, jangkau lebih banyak pelanggan di seluruh Indonesia, dan nikmati berbagai keuntungan.
+                    <p className="mt-2 max-w-xl text-xs leading-relaxed text-slate-600 sm:text-base lg:text-lg">
+                        Buka toko online gratis, kelola pesanan dengan mudah, jangkau lebih banyak pelanggan di seluruh Indonesia.
                     </p>
 
-                    <div className="mt-6 space-y-4">
+                    {/* PERBAIKAN: List fitur dibuat lebih rapat marginnya di HP */}
+                    <div className="mt-4 grid gap-2 sm:gap-4">
                         {[
                             { title: 'Pendaftaran Gratis', desc: 'Tanpa biaya admin bulanan.' },
                             { title: 'Kelola Stok Mudah', desc: 'Pantau produk hanya dari satu dashboard.' },
                             { title: 'Dukungan UMKM', desc: 'Promosi khusus untuk produk-produk unggulan.' },
                         ].map((feature, i) => (
-                            <div key={i} className="flex items-start gap-3 group">
-                                <div className="mt-1 grid size-5 place-content-center rounded-full bg-teal-600 text-white group-hover:scale-110 transition-transform">
-                                    <ArrowRight className="size-3" />
+                            <div key={i} className="flex items-start gap-2.5 group">
+                                <div className="mt-0.5 grid size-4 shrink-0 place-content-center rounded-full bg-teal-600 text-white group-hover:scale-110 transition-transform">
+                                    <ArrowRight className="size-2.5" />
                                 </div>
                                 <div>
-                                    <h4 className="text-sm font-bold text-slate-900">{feature.title}</h4>
-                                    <p className="text-xs text-slate-500">{feature.desc}</p>
+                                    <h4 className="text-xs font-bold text-slate-900 sm:text-sm">{feature.title}</h4>
+                                    <p className="text-[11px] text-slate-500 leading-tight">{feature.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -76,12 +80,20 @@ export default function HeroSection({ type = 'home' }) {
                 </>
             )}
 
-            {/* --- STATISTIK (SAMA DI KEDUA TIPE) --- */}
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            {/* --- STATISTIK (SEKARANG BERJEJER RAPI KE SAMPING DI HP) --- */}
+            {/* PERBAIKAN UTAMA: Tambahkan 'grid-cols-3' di awal agar tidak menumpuk ke bawah */}
+            <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-10 sm:gap-3">
                 {stats.map((stat) => (
-                    <div key={stat.label} className="rounded-xl border border-teal-100 bg-teal-50/60 p-3 hover:bg-teal-50 transition-colors">
-                        <p className="text-lg font-black text-slate-900">{stat.value}</p>
-                        <p className="text-[10px] uppercase font-bold text-slate-500 tracking-tighter">{stat.label}</p>
+                    <div 
+                        key={stat.label} 
+                        className="rounded-xl border border-teal-100 bg-teal-50/60 p-2 sm:p-3 text-center sm:text-left hover:bg-teal-50 transition-colors"
+                    >
+                        {/* Ukuran teks angka disesuaikan agar pas di grid HP */}
+                        <p className="text-sm sm:text-lg font-black text-slate-900">{stat.value}</p>
+                        {/* Ukuran teks label dikecilkan sedikit di HP */}
+                        <p className="text-[8px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-tighter leading-none mt-0.5">
+                            {stat.label}
+                        </p>
                     </div>
                 ))}
             </div>
