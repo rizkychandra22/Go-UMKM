@@ -11,8 +11,9 @@ import {
 import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
 import LayoutApp from '../../Layouts/App';
 import { products as myProducts } from '../../Constants/Data.Products';
-import { orders as incomingOrders } from '../../Constants/Data.Orders';
+import { paymentHistory } from '../../Constants/Data.Orders';
 import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/FilterData';
+import RecomendMarquee from '../../Components/Products/RecomendMarquee';
 
 export default function DashboardCustomer({ categories = [] }) {
 
@@ -30,14 +31,6 @@ export default function DashboardCustomer({ categories = [] }) {
     const [searchPayQuery, setSearchPayQuery] = useState('');
     const [selectedPayStatus, setSelectedPayStatus] = useState('');
 
-    // MOCK DATA PEMBAYARAN (Contoh data transaksi keuangan)
-    const paymentHistory = [
-        { id: 'PAY-9901', date: '2023-11-01', amount: 'Rp 450.000', method: 'Transfer', status: 'completed', product: 'Reed Difuser' },
-        { id: 'PAY-9902', date: '2023-11-02', amount: 'Rp 85.000', method: 'Cash', status: 'completed', product: 'Kopi Luwak' },
-        { id: 'PAY-9903', date: '2023-11-02', amount: 'Rp 120.000', method: 'Transfer', status: 'pending', product: 'Krupuk Ikan' },
-        { id: 'PAY-9904', date: '2023-11-03', amount: 'Rp 210.000', method: 'Transfer', status: 'cancelled', product: 'Anyaman Ba' },
-    ];
-
     // LOGIKA MULTI-FILTER REALTIME: PRODUK SAYA
     const filteredProducts = myProducts.filter(product => {
         const searchLower = searchProdQuery.toLowerCase();
@@ -54,7 +47,7 @@ export default function DashboardCustomer({ categories = [] }) {
     });
 
     // LOGIKA MULTI-FILTER REALTIME: PESANAN MASUK
-    const filteredOrders = incomingOrders.filter(order => {
+    const filteredOrders = paymentHistory.filter(order => {
         const matchesSearch = 
             order.id.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
             order.product.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
@@ -158,7 +151,7 @@ export default function DashboardCustomer({ categories = [] }) {
                                 <div className="p-2 bg-orange-50 rounded-xl text-orange-600"><Package className="size-5" /></div>
                                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Pesanan Aktif</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">{incomingOrders.length}</p>
+                            <p className="mt-2 text-2xl font-black text-slate-900">{paymentHistory.length}</p>
                         </div>
                         <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-3">
@@ -168,6 +161,11 @@ export default function DashboardCustomer({ categories = [] }) {
                             <p className="mt-2 text-2xl font-black text-slate-900">{paymentHistory.length}</p>
                         </div>
                     </div>
+                </section>
+
+                {/* SEKSI: REKOMENDASI PRODUK */}
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                    <RecomendMarquee />
                 </section>
 
                 {/* SEKSI 1: KERANJANG */}

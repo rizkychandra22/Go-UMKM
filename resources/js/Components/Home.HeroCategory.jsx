@@ -41,7 +41,7 @@ export default function CategoryProduct({ categories }) {
                 )}
             </div>
 
-            <div className="mt-5 flex flex-nowrap gap-3 overflow-x-auto pb-2 [scrollbar-width:none][&::-webkit-scrollbar]:hidden">
+            <div className="mt-4 flex flex-nowrap gap-3 overflow-x-auto pb-2 pt-2 [scrollbar-width:none][&::-webkit-scrollbar]:hidden">
                 {categories.map((item) => {
                     const style = getStyle(item.slug);
                     const Icon = style.icon;

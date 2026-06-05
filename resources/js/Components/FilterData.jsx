@@ -27,10 +27,10 @@ export function FilterCategory({ categories, selectedCategory, setSelectedCatego
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Kategori Produk</option>
+                <option value="">Semua Kategori</option>
                 {categories.map((cat) => (
                     <option key={cat.id} value={cat.slug}>
-                        Produk {cat.name}
+                        Kategori {cat.name}
                     </option>
                 ))}
             </select>
@@ -47,7 +47,7 @@ export function FilterBadge({ selectedBadge, setSelectedBadge, value }) {
                 onChange={(e) => setSelectedBadge(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Label Produk</option>
+                <option value="">Semua Label</option>
                 <option value="Populer">Produk Populer</option>
                 <option value="Terlaris">Produk Terlaris</option>
                 <option value="Spesial">Produk Spesial</option>
@@ -66,7 +66,7 @@ export function FilterStatusOrder({ selectedStatus, setSelectedStatus, value }) 
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Status Pesanan</option>
+                <option value="">Semua Status</option>
                 <option value="pending">Pending</option>
                 <option value="processing">Diproses</option>
                 <option value="completed">Selesai</option>
@@ -85,7 +85,7 @@ export function FilterPaymentOrder({ selectedPayment, setSelectedPayment, value 
                 onChange={(e) => setSelectedPayment(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 focus:outline-none focus:ring-1 text-slate-700"
             >
-                <option value="">Metode Bayar</option>
+                <option value="">Semua Metode</option>
                 <option value="cash">Cash (Tunai)</option>
                 <option value="transfer">Transfer</option>
             </select>

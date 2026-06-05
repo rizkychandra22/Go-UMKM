@@ -10,7 +10,7 @@ import {
 import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
 import LayoutApp from '../../Layouts/App';
 import { products as myProducts } from '../../Constants/Data.Products';
-import { orders as incomingOrders } from '../../Constants/Data.Orders';
+import { paymentHistory } from '../../Constants/Data.Orders';
 import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/FilterData';
 
 export default function DashboardSeller({ categories = [] }) {
@@ -28,14 +28,6 @@ export default function DashboardSeller({ categories = [] }) {
     const [searchPayQuery, setSearchPayQuery] = useState('');
     const [selectedPayStatus, setSelectedPayStatus] = useState('');
 
-    // MOCK DATA PEMBAYARAN (Contoh data transaksi keuangan)
-    const paymentHistory = [
-        { id: 'PAY-9901', date: '2023-11-01', amount: 'Rp 450.000', method: 'Transfer', status: 'completed', customer: 'Rian Perdana' },
-        { id: 'PAY-9902', date: '2023-11-02', amount: 'Rp 85.000', method: 'Cash', status: 'completed', customer: 'Siti Sarah' },
-        { id: 'PAY-9903', date: '2023-11-02', amount: 'Rp 120.000', method: 'Transfer', status: 'pending', customer: 'Budi Utomo' },
-        { id: 'PAY-9904', date: '2023-11-03', amount: 'Rp 210.000', method: 'Transfer', status: 'cancelled', customer: 'Andi Wijaya' },
-    ];
-
     // LOGIKA MULTI-FILTER REALTIME: PRODUK SAYA
     const filteredProducts = myProducts.filter(product => {
         const searchLower = searchProdQuery.toLowerCase();
@@ -52,7 +44,7 @@ export default function DashboardSeller({ categories = [] }) {
     });
 
     // LOGIKA MULTI-FILTER REALTIME: PESANAN MASUK
-    const filteredOrders = incomingOrders.filter(order => {
+    const filteredOrders = paymentHistory.filter(order => {
         const matchesSearch = 
             order.id.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
             order.product.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
@@ -134,7 +126,7 @@ export default function DashboardSeller({ categories = [] }) {
                                 <div className="p-2 bg-sky-50 rounded-xl text-sky-600"><ClipboardList className="size-5" /></div>
                                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Pesanan Baru</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">{incomingOrders.filter(o => o.status === 'pending').length}</p>
+                            <p className="mt-2 text-2xl font-black text-slate-900">{paymentHistory.filter(o => o.status === 'pending').length}</p>
                         </div>
                         <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-3">
@@ -153,9 +145,7 @@ export default function DashboardSeller({ categories = [] }) {
                     </div>
                 </section>
 
-                {/* =========================================================================
-                    SEKSI 1: PRODUK SAYA
-                   ========================================================================= */}
+                {/* PRODUK SAYA */}
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
                     <div className="flex items-center justify-between gap-4">
                         <div>
@@ -286,7 +276,7 @@ export default function DashboardSeller({ categories = [] }) {
                                             <div className="mt-2 flex items-center justify-between">
                                                 <p className="text-sm font-black text-slate-900">
                                                     {order.price}
-                                                    <span className="ml-2 text-xs font-medium text-slate-500">· {order.qty} pcs</span>
+                                                    <span className="ml-2 text-xs font-medium text-slate-500">{order.qty} · pcs</span>
                                                 </p>
                                                 <Link className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
                                                     Proses <ArrowRight className="size-3" />
