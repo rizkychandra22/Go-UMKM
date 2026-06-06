@@ -1,7 +1,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
-import HeroSection from '../../Components/Home.HeroSection';
+import HeroSection from '../../Components/UI/Landing/Auth.HeroSection';
 import { 
     House, Sparkles, Package, LogIn, 
     ShieldAlert, XCircle, Mail, Lock, 

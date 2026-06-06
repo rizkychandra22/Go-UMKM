@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -18,7 +18,7 @@ class MitraController extends Controller
             ->latest()
             ->get();
 
-        return inertia('Web/Mitra', [
+        return inertia('Landing/Mitra', [
             'userMitra' => $mitraData
         ]);
     }

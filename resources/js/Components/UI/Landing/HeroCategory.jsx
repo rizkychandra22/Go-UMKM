@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
-import BackRightLink from './BackRight';
+import BackRightLink from '@/Components/Shared/BackRight';
 
 export default function CategoryProduct({ categories }) {
     // Kategori Product

@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
-import HeroSection from '@/Components/Home.HeroSection';
-import CategoryProduct from '@/Components/Home.HeroCategory';
+import HeroSection from '@/Components/UI/Landing/Auth.HeroSection';
+import CategoryProduct from '@/Components/UI/Landing/HeroCategory';
 import RecomendMarquee from '@/Components/Products/RecomendMarquee';
 import { LogIn, Eye, Sparkles, Package, Star } from 'lucide-react';
 import { products } from '@/Constants/Data.Products';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return inertia('Web/Product', [
+        return inertia('Landing/Product', [
             'categories' => Category::all()
         ]);
     }

@@ -4,10 +4,10 @@ import LayoutApp from '@/Layouts/App';
 import { LogIn, Eye, Package, Star, ArrowLeft, ShoppingCart, Search, Sparkles } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
-import BackRightLink from '@/Components/BackRight';
-import { FilterBadge, FilterCategory, SearchBar } from '@/Components/FilterData';
+import BackRightLink from '@/Components/Shared/BackRight';
+import { FilterBadge, FilterCategory, SearchBar } from '@/Components/Shared/FilterData';
 import { products } from '@/Constants/Data.Products';
-import ResetButton from '../../Components/ResetFilter';
+import ResetButton from '@/Components/Shared/ResetFilter';
 
 export default function Product({ categories = [] }) { 
     const { auth } = usePage().props ?? {};

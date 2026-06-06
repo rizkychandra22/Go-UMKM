@@ -15,7 +15,7 @@ export default function RecomendMarquee() {
         if (!container) return;
 
         let animationFrameId;
-        const speed = 0.5; // Kecepatan jalan otomatis
+        const speed = 0.8; // Kecepatan jalan otomatis
         
         // SOLUSI UTAMA: Simpan posisi asli di variabel float agar tidak dibulatkan jadi 0 oleh PC
         let currentScroll = container.scrollLeft;

@@ -7,20 +7,21 @@ import {
     LayoutDashboard, Edit, TrendingUp, RotateCcw, FilterX,
     CreditCard, Banknote, Wallet, CheckCircle2, ReceiptText, Clock
 } from 'lucide-react';
-import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
+import CardHelloDashboard from '../../Components/UI/Dashboard/HeroSection';
 import LayoutApp from '../../Layouts/App';
-import { products as myProducts } from '../../Constants/Data.Products';
+import { products } from '../../Constants/Data.Products';
 import { paymentHistory } from '../../Constants/Data.Orders';
-import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/FilterData';
-import ResetButton from '../../Components/ResetFilter';
+import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/Shared/FilterData';
+import ResetButton from '../../Components/Shared/ResetFilter';
 
 export default function DashboardSeller({ categories = [] }) {
-    // STATE FILTER KHUSUS DATA PRODUK SAYA
+
+    // STATE FILTER KHUSUS DATA REKOMENDASI PRODUK 
     const [searchProdQuery, setSearchProdQuery] = useState('');
     const [selectedProdCategory, setSelectedProdCategory] = useState('');
     const [selectedProdBadge, setSelectedProdBadge] = useState('');
 
-    // STATE FILTER KHUSUS DATA PESANAN MASUK
+    // STATE FILTER KHUSUS DATA PESANAN MASUK / PESANAN AKTIF
     const [searchOrderQuery, setSearchOrderQuery] = useState('');
     const [selectedOrderStatus, setSelectedOrderStatus] = useState('');
     const [selectedOrderPayment, setSelectedOrderPayment] = useState('');
@@ -28,53 +29,79 @@ export default function DashboardSeller({ categories = [] }) {
     // STATE FILTER KHUSUS DATA PEMBAYARAN
     const [searchPayQuery, setSearchPayQuery] = useState('');
     const [selectedPayStatus, setSelectedPayStatus] = useState('');
+    const [selectedPayMethod, setSelectedPayMethod] = useState('');
 
-    // LOGIKA MULTI-FILTER REALTIME: PRODUK SAYA
-    const filteredProducts = myProducts.filter(product => {
+    // LOGIKA MULTI-FILTER REALTIME: PRODUK / KERANJANG
+    const filteredProducts = products.filter(product => {
         const searchLower = searchProdQuery.toLowerCase();
+        
+        const productName = product.name || product.product_name || '';
+        const productDesc = product.description || '';
+        const productBadge = product.badge || '';
+        const productCategory = product.category || '';
+
         const matchesSearch = 
-            product.name.toLowerCase().includes(searchLower) ||
-            (product.badge && product.badge.toLowerCase().includes(searchLower)) ||
-            (product.description && product.description.toLowerCase().includes(searchLower));
+            productName.toLowerCase().includes(searchLower) ||
+            productDesc.toLowerCase().includes(searchLower) ||
+            productBadge.toLowerCase().includes(searchLower) ||
+            productCategory.toLowerCase().includes(searchLower);
         
         const productSlug = typeof product.slug === 'object' ? product.slug?.slug : product.slug;
-        const matchesCategory = selectedProdCategory ? productSlug === selectedProdCategory : true;
-        const matchesBadge = selectedProdBadge ? product.badge === selectedProdBadge : true;
+        const matchesCategory = selectedProdCategory 
+            ? (productSlug === selectedProdCategory || productCategory.toLowerCase() === selectedProdCategory.toLowerCase())
+            : true;
+            
+        const matchesBadge = selectedProdBadge 
+            ? productBadge.toLowerCase() === selectedProdBadge.toLowerCase() 
+            : true;
         
         return matchesSearch && matchesCategory && matchesBadge;
     });
 
-    // LOGIKA MULTI-FILTER REALTIME: PESANAN MASUK
+    // LOGIKA MULTI-FILTER REALTIME: PESANAN AKTIF (Mengikuti paymentHistory sebagai data Pesanan Customer)
     const filteredOrders = paymentHistory.filter(order => {
+        const searchLower = searchOrderQuery.toLowerCase();
+        const orderId = order.id || '';
+        const orderProduct = order.product || '';
+        const orderCustomer = order.customer || '';
+
         const matchesSearch = 
-            order.id.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
-            order.product.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
-            order.customer.toLowerCase().includes(searchOrderQuery.toLowerCase());
+            orderId.toLowerCase().includes(searchLower) ||
+            orderProduct.toLowerCase().includes(searchLower) ||
+            orderCustomer.toLowerCase().includes(searchLower);
 
-        const orderStatus = order.status?.toLowerCase();
-        const filterStatus = selectedOrderStatus?.toLowerCase();
-        const matchesStatus = filterStatus 
-            ? (orderStatus === filterStatus || (filterStatus === 'completed' && orderStatus === 'success') || (filterStatus === 'success' && orderStatus === 'completed'))
-            : true;
+        const orderStatus = order.status?.toLowerCase() || '';
+        const filterStatus = selectedOrderStatus?.toLowerCase() || '';
+        const matchesStatus = filterStatus ? orderStatus === filterStatus : true;
 
-        const matchesPayment = selectedOrderPayment ? order.method?.toLowerCase() === selectedOrderPayment.toLowerCase() : true;
+        const orderMethod = order.method?.toLowerCase() || '';
+        const filterMethod = selectedOrderPayment?.toLowerCase() || '';
+        const matchesPayment = filterMethod ? orderMethod === filterMethod : true;
 
         return matchesSearch && matchesStatus && matchesPayment;
     });
 
-    // LOGIKA FILTER RIWAYAT PEMBAYARAN
+    // LOGIKA FILTER RIWAYAT PEMBAYARAN (Menggunakan paymentHistory)
     const filteredPayments = paymentHistory.filter(pay => {
+        const searchLower = searchPayQuery.toLowerCase();
+        const payId = pay.id || '';
+        const payCustomer = pay.customer || '';
+        const payProduct = pay.product || '';
+
         const matchesSearch = 
-            pay.id.toLowerCase().includes(searchPayQuery.toLowerCase()) ||
-            pay.customer.toLowerCase().includes(searchPayQuery.toLowerCase());
+            payId.toLowerCase().includes(searchLower) ||
+            payProduct.toLowerCase().includes(searchLower) ||
+            payCustomer.toLowerCase().includes(searchLower);
         
-        const payStatus = pay.status?.toLowerCase();
-        const filterStatus = selectedPayStatus?.toLowerCase();
-        const matchesStatus = filterStatus 
-            ? (payStatus === filterStatus || (filterStatus === 'completed' && payStatus === 'success') || (filterStatus === 'success' && payStatus === 'completed'))
-            : true;
+        const payStatus = pay.status?.toLowerCase() || '';
+        const filterStatus = selectedPayStatus?.toLowerCase() || '';
+        const matchesStatus = filterStatus ? payStatus === filterStatus : true;
         
-        return matchesSearch && matchesStatus;
+        const payMethod = pay.method?.toLowerCase() || '';
+        const filterMethod = selectedPayMethod?.toLowerCase() || '';
+        const matchesMethod = filterMethod ? payMethod === filterMethod : true;
+
+        return matchesSearch && matchesStatus && matchesMethod;
     });
 
     const resetProductFilters = () => {
@@ -92,12 +119,13 @@ export default function DashboardSeller({ categories = [] }) {
     const resetPaymentFilters = () => {
         setSearchPayQuery('');
         setSelectedPayStatus('');
+        setSelectedPayMethod('');
     };
 
     // Helper fungsional styling badge status
     const getStatusStyles = (status) => {
         switch (status?.toLowerCase()) {
-            case 'success': case 'completed': case 'selesai': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+            case 'completed': case 'success': case 'selesai': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
             case 'cancelled': case 'dibatalkan': return 'bg-rose-50 text-rose-700 border-rose-200';
             case 'pending': return 'bg-amber-50 text-amber-700 border-amber-200';
             default: return 'bg-slate-50 text-slate-700 border-slate-200';
@@ -125,31 +153,31 @@ export default function DashboardSeller({ categories = [] }) {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 sm:mt-8">
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="p-2 bg-teal-50 rounded-xl text-teal-600"><Package className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Produk</p>
+                                <div className="bg-teal-50 rounded-xl text-teal-600"><Package className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Total Produk</p>
                             </div>
-                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">{myProducts.length}</p>
+                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">{products.length}</p>
                         </div>
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="p-2 bg-sky-50 rounded-xl text-sky-600"><ClipboardList className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Pesanan Baru</p>
+                                <div className="bg-sky-50 rounded-xl text-sky-600"><ClipboardList className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Pesanan Baru</p>
                             </div>
-                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">{paymentHistory.filter(o => o.status === 'pending').length}</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">{paymentHistory.filter(o => o.status === 'pending').length}</p>
                         </div>
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="p-2 bg-orange-50 rounded-xl text-orange-600"><TrendingUp className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Penjualan</p>
+                                <div className="bg-orange-50 rounded-xl text-orange-600"><TrendingUp className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Penjualan</p>
                             </div>
-                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">12</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">12</p>
                         </div>
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="p-2 bg-indigo-50 rounded-xl text-indigo-600"><Wallet className="size-4 sm:size-5" /></div>
+                                <div className="bg-indigo-50 rounded-xl text-indigo-600"><Wallet className="size-4 sm:size-5" /></div>
                                 <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Dana</p>
                             </div>
-                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">Rp 2.8M</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">Rp 2.8M</p>
                         </div>
                     </div>
                 </section>
@@ -325,93 +353,99 @@ export default function DashboardSeller({ categories = [] }) {
 
                     {/* Filter Area - Responsive Flex */}
                     <div className="flex flex-col sm:flex-row gap-3 mt-5">
-                        <div className="flex-[2] min-w-0">
-                            <SearchBar searchQuery={searchPayQuery} setSearchQuery={setSearchPayQuery} placeholder="Cari berdasarkan ID transaksi atau pelanggan..." />
+                        <div className="flex-1 min-w-0">
+                            <SearchBar searchQuery={searchPayQuery} setSearchQuery={setSearchPayQuery} placeholder="Cari pesanan berdasarkan ID, produk, atau pelanggan..." />
                         </div>
-                        <div className="flex-1">
-                            <FilterStatusOrder selectedStatus={selectedPayStatus} setSelectedStatus={setSelectedPayStatus} />
+                        <div className="flex gap-3 flex-1">
+                            <div className="flex-1">
+                                <FilterStatusOrder selectedStatus={selectedPayStatus} setSelectedStatus={setSelectedPayStatus} />
+                            </div>
+                            <div className="flex-1">
+                                <FilterPaymentOrder selectedPayment={selectedPayMethod} setSelectedPayment={setSelectedPayMethod} />
+                            </div>
                         </div>
                     </div>
 
-                    {/* Table with mobile card view */}
-                    {/* Desktop Table */}
-                    <div className="mt-5 overflow-x-auto hidden sm:block">
-                        <table className="w-full text-left border-separate border-spacing-y-2 min-w-[600px]">
-                            <thead>
-                                <tr className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
-                                    <th className="px-4 py-2">ID Transaksi</th>
-                                    <th className="px-4 py-2">Tanggal</th>
-                                    <th className="px-4 py-2">Pelanggan</th>
-                                    <th className="px-4 py-2">Metode</th>
-                                    <th className="px-4 py-2">Nominal</th>
-                                    <th className="px-4 py-2">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredPayments.length > 0 ? (
-                                    filteredPayments.map((pay) => (
-                                        <tr key={pay.id} className="group bg-white border border-slate-200 hover:border-teal-300 transition-all">
-                                            <td className="px-4 py-4 rounded-l-2xl border-y border-l border-slate-200 group-hover:border-teal-300">
-                                                <span className="text-xs font-bold text-teal-600">{pay.id}</span>
-                                            </td>
-                                            <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500">{pay.date}</td>
-                                            <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs font-bold text-slate-900">{pay.customer}</td>
-                                            <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300">
-                                                <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
-                                                    {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
-                                                    <span className="capitalize">{pay.method}</span>
-                                                </span>
-                                            </td>
-                                            <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-sm font-black text-slate-900">{pay.amount}</td>
-                                            <td className="px-4 py-4 rounded-r-2xl border-y border-r border-slate-200 group-hover:border-teal-300">
-                                                <span className={`px-2 py-1 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
-                                                    {pay.status}
-                                                </span>
+                    <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+                        {/* Desktop Table */}
+                        <div className="overflow-x-auto hidden sm:block">
+                            <table className="w-full text-left border-separate border-spacing-y-2 min-w-[600px]">
+                                <thead>
+                                    <tr className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                                        <th className="px-4 py-2">ID Transaksi</th>
+                                        <th className="px-4 py-2">Tanggal</th>
+                                        <th className="px-4 py-2">Pelanggan</th>
+                                        <th className="px-4 py-2">Metode</th>
+                                        <th className="px-4 py-2">Nominal</th>
+                                        <th className="px-4 py-2">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredPayments.length > 0 ? (
+                                        filteredPayments.map((pay) => (
+                                            <tr key={pay.id} className="group bg-white border border-slate-200 hover:border-teal-300 transition-all">
+                                                <td className="px-4 py-4 rounded-l-2xl border-y border-l border-slate-200 group-hover:border-teal-300">
+                                                    <span className="text-xs font-bold text-teal-600">{pay.id}</span>
+                                                </td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500">{pay.date}</td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs font-bold text-slate-900">{pay.customer}</td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300">
+                                                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
+                                                        {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
+                                                        <span className="capitalize">{pay.method}</span>
+                                                    </span>
+                                                </td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-sm font-black text-slate-900">{pay.amount}</td>
+                                                <td className="px-4 py-4 rounded-r-2xl border-y border-r border-slate-200 group-hover:border-teal-300">
+                                                    <span className={`px-2 py-1 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
+                                                        {pay.status}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="6" className="py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                                                <ReceiptText className="size-8 text-slate-300 mx-auto mb-2" />
+                                                <p className="text-xs font-bold text-slate-500">Tidak ada riwayat pembayaran</p>
                                             </td>
                                         </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="6" className="py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                                            <ReceiptText className="size-8 text-slate-300 mx-auto mb-2" />
-                                            <p className="text-xs font-bold text-slate-500">Tidak ada riwayat pembayaran</p>
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
 
-                    {/* Mobile Card View */}
-                    <div className="mt-5 space-y-3 sm:hidden">
-                        {filteredPayments.length > 0 ? (
-                            filteredPayments.map((pay) => (
-                                <div key={`mobile-${pay.id}`} className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:border-teal-300 transition-all">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-xs font-bold text-teal-600">{pay.id}</span>
-                                        <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
-                                            {pay.status}
-                                        </span>
+                        {/* Mobile Card View */}
+                        <div className="space-y-3 sm:hidden">
+                            {filteredPayments.length > 0 ? (
+                                filteredPayments.map((pay) => (
+                                    <div key={`mobile-${pay.id}`} className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:border-teal-300 transition-all">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-bold text-teal-600">{pay.id}</span>
+                                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
+                                                {pay.status}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="text-slate-500">{pay.date}</span>
+                                            <span className="font-bold text-slate-900">{pay.customer}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
+                                                {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
+                                                <span className="capitalize">{pay.method}</span>
+                                            </span>
+                                            <span className="text-sm font-black text-slate-900">{pay.amount}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center justify-between text-xs">
-                                        <span className="text-slate-500">{pay.date}</span>
-                                        <span className="font-bold text-slate-900">{pay.customer}</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
-                                            {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
-                                            <span className="capitalize">{pay.method}</span>
-                                        </span>
-                                        <span className="text-sm font-black text-slate-900">{pay.amount}</span>
-                                    </div>
+                                ))
+                            ) : (
+                                <div className="py-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                                    <ReceiptText className="size-8 text-slate-300 mx-auto mb-2" />
+                                    <p className="text-xs font-bold text-slate-500">Tidak ada riwayat pembayaran</p>
                                 </div>
-                            ))
-                        ) : (
-                            <div className="py-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                                <ReceiptText className="size-8 text-slate-300 mx-auto mb-2" />
-                                <p className="text-xs font-bold text-slate-500">Tidak ada riwayat pembayaran</p>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </section>
             </LayoutApp>
