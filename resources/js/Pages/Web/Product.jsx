@@ -7,6 +7,7 @@ import { useState } from 'react';
 import BackRightLink from '@/Components/BackRight';
 import { FilterBadge, FilterCategory, SearchBar } from '@/Components/FilterData';
 import { products } from '@/Constants/Data.Products';
+import ResetButton from '../../Components/ResetFilter';
 
 export default function Product({ categories = [] }) { 
     const { auth } = usePage().props ?? {};
@@ -21,15 +22,20 @@ export default function Product({ categories = [] }) {
     const filteredProducts = products.filter(product => {
         const matchesSearch = 
             product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (product.slug && product.slug.toLowerCase().includes(searchQuery.toLowerCase())) ||
             (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
-            (product.category && product.category.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (product.slug && product.slug.toLowerCase().includes(searchQuery.toLowerCase())) ||
             (product.badge && product.badge.toLowerCase().includes(searchQuery.toLowerCase()));
-        const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+        const matchesCategory = selectedCategory ? product.slug === selectedCategory : true;
         const matchesBadge = selectedBadge ? product.badge === selectedBadge : true;
         
         return matchesSearch && matchesCategory && matchesBadge;
     });
+
+    const resetFilter = () => {
+        setSearchQuery('');
+        setSelectedCategory('');
+        setSelectedBadge('');
+    };
 
     return(
         <>
@@ -37,41 +43,49 @@ export default function Product({ categories = [] }) {
             
             <LayoutApp pageTitle="Marketplace Lokal">
 
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-sky-400">
+                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-sky-400 flex flex-col">
                     <div className="space-y-6">
-                        {/* Tombol Kembali & Header */}
-                        <BackRightLink 
-                            title="Produk Tersedia"
-                            subtitle="Temukan produk lokal yang kamu cari di sini."
-                            icon={Package}
-                        />
+                        <div className="flex items-center justify-between gap-3">
+
+                            {/* Tombol Kembali & Header */}
+                            <BackRightLink 
+                                title="Produk Tersedia"
+                                subtitle="Temukan produk lokal yang kamu cari di sini."
+                                icon={Package}
+                            />
+
+                            {/* Tombol Reset Filter */}
+                            <ResetButton resetFn={resetFilter} />
+                        </div>
 
                         {/* Search and Filter */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div className="flex flex-col sm:flex-row gap-3 mt-5">
                             
                             {/* Search Bar */}
-                            <div className="col-span-2 relative">
+                            <div className="flex-1 min-w-0">
                                 <SearchBar 
                                     searchQuery={searchQuery}
                                     setSearchQuery={setSearchQuery}
                                 />
                             </div>
 
-                            {/* Select Filter Category */}
-                            <div className="col-span-1 md:col-span-1 lg:col-span-1">
-                                <FilterCategory 
-                                    categories={categories}
-                                    selectedCategory={selectedCategory}
-                                    setSelectedCategory={setSelectedCategory}
-                                />
-                            </div>
+                            <div className="flex gap-3 flex-1">
+                                {/* Select Filter Category */}
+                                <div className="flex-1">
+                                    <FilterCategory 
+                                        categories={categories}
+                                        selectedCategory={selectedCategory}
+                                        setSelectedCategory={setSelectedCategory}
+                                    />
+                                </div>
 
-                            {/* Select Filter Badge */}
-                            <div className="col-span-1 md:col-span-1 lg:col-span-1">
-                                <FilterBadge 
-                                    selectedBadge={selectedBadge}
-                                    setSelectedBadge={setSelectedBadge}
-                                />
+                                {/* Select Filter Badge */}
+                                <div className="flex-1">
+                                    <FilterBadge 
+                                        selectedBadge={selectedBadge}
+                                        setSelectedBadge={setSelectedBadge}
+                                    />
+                                </div>
                             </div>
                         </div>      
 

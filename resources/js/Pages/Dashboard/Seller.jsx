@@ -12,6 +12,7 @@ import LayoutApp from '../../Layouts/App';
 import { products as myProducts } from '../../Constants/Data.Products';
 import { paymentHistory } from '../../Constants/Data.Orders';
 import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/FilterData';
+import ResetButton from '../../Components/ResetFilter';
 
 export default function DashboardSeller({ categories = [] }) {
     // STATE FILTER KHUSUS DATA PRODUK SAYA
@@ -36,8 +37,8 @@ export default function DashboardSeller({ categories = [] }) {
             (product.badge && product.badge.toLowerCase().includes(searchLower)) ||
             (product.description && product.description.toLowerCase().includes(searchLower));
         
-        const productCategoryStr = typeof product.category === 'object' ? product.category?.slug : product.category;
-        const matchesCategory = selectedProdCategory ? productCategoryStr === selectedProdCategory : true;
+        const productSlug = typeof product.slug === 'object' ? product.slug?.slug : product.slug;
+        const matchesCategory = selectedProdCategory ? productSlug === selectedProdCategory : true;
         const matchesBadge = selectedProdBadge ? product.badge === selectedProdBadge : true;
         
         return matchesSearch && matchesCategory && matchesBadge;
@@ -50,8 +51,13 @@ export default function DashboardSeller({ categories = [] }) {
             order.product.toLowerCase().includes(searchOrderQuery.toLowerCase()) ||
             order.customer.toLowerCase().includes(searchOrderQuery.toLowerCase());
 
-        const matchesStatus = selectedOrderStatus ? order.status?.toLowerCase() === selectedOrderStatus.toLowerCase() : true;
-        const matchesPayment = selectedOrderPayment ? order.payment?.toLowerCase() === selectedOrderPayment.toLowerCase() : true;
+        const orderStatus = order.status?.toLowerCase();
+        const filterStatus = selectedOrderStatus?.toLowerCase();
+        const matchesStatus = filterStatus 
+            ? (orderStatus === filterStatus || (filterStatus === 'completed' && orderStatus === 'success') || (filterStatus === 'success' && orderStatus === 'completed'))
+            : true;
+
+        const matchesPayment = selectedOrderPayment ? order.method?.toLowerCase() === selectedOrderPayment.toLowerCase() : true;
 
         return matchesSearch && matchesStatus && matchesPayment;
     });
@@ -62,7 +68,11 @@ export default function DashboardSeller({ categories = [] }) {
             pay.id.toLowerCase().includes(searchPayQuery.toLowerCase()) ||
             pay.customer.toLowerCase().includes(searchPayQuery.toLowerCase());
         
-        const matchesStatus = selectedPayStatus ? pay.status?.toLowerCase() === selectedPayStatus.toLowerCase() : true;
+        const payStatus = pay.status?.toLowerCase();
+        const filterStatus = selectedPayStatus?.toLowerCase();
+        const matchesStatus = filterStatus 
+            ? (payStatus === filterStatus || (filterStatus === 'completed' && payStatus === 'success') || (filterStatus === 'success' && payStatus === 'completed'))
+            : true;
         
         return matchesSearch && matchesStatus;
     });
@@ -87,8 +97,7 @@ export default function DashboardSeller({ categories = [] }) {
     // Helper fungsional styling badge status
     const getStatusStyles = (status) => {
         switch (status?.toLowerCase()) {
-            case 'completed': case 'selesai': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-            case 'processing': case 'diproses': return 'bg-sky-50 text-sky-700 border-sky-200';
+            case 'success': case 'completed': case 'selesai': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
             case 'cancelled': case 'dibatalkan': return 'bg-rose-50 text-rose-700 border-rose-200';
             case 'pending': return 'bg-amber-50 text-amber-700 border-amber-200';
             default: return 'bg-slate-50 text-slate-700 border-slate-200';
@@ -109,82 +118,83 @@ export default function DashboardSeller({ categories = [] }) {
             <Head title="Go-UMKM | Dashboard" />
             <LayoutApp pageTitle="Dashboard Seller">
                 {/* Hero Section */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400">
                     <CardHelloDashboard />
 
                     {/* Statistik Cepat */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                        <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-teal-50 rounded-xl text-teal-600"><Package className="size-5" /></div>
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Produk</p>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 sm:mt-8">
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <div className="p-2 bg-teal-50 rounded-xl text-teal-600"><Package className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Produk</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">{myProducts.length}</p>
+                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">{myProducts.length}</p>
                         </div>
-                        <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-sky-50 rounded-xl text-sky-600"><ClipboardList className="size-5" /></div>
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Pesanan Baru</p>
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <div className="p-2 bg-sky-50 rounded-xl text-sky-600"><ClipboardList className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Pesanan Baru</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">{paymentHistory.filter(o => o.status === 'pending').length}</p>
+                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">{paymentHistory.filter(o => o.status === 'pending').length}</p>
                         </div>
-                        <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-orange-50 rounded-xl text-orange-600"><TrendingUp className="size-5" /></div>
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Penjualan Hari Ini</p>
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <div className="p-2 bg-orange-50 rounded-xl text-orange-600"><TrendingUp className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Penjualan</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">12</p>
+                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">12</p>
                         </div>
-                        <div className="bg-white/50 p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-indigo-50 rounded-xl text-indigo-600"><Wallet className="size-5" /></div>
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Dana Tersedia</p>
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <div className="p-2 bg-indigo-50 rounded-xl text-indigo-600"><Wallet className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">Dana</p>
                             </div>
-                            <p className="mt-2 text-2xl font-black text-slate-900">Rp 2.8M</p>
+                            <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900">Rp 2.8M</p>
                         </div>
                     </div>
                 </section>
 
                 {/* PRODUK SAYA */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
-                    <div className="flex items-center justify-between gap-4">
-                        <div>
-                            <h3 className="text-2xl font-extrabold text-slate-900">Produk Saya</h3>
-                            <p className="mt-1 text-sm text-slate-600">Pantau ketersediaan stok produk Anda.</p>
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                    <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Produk Saya</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Pantau ketersediaan stok produk Anda.</p>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <button onClick={resetProductFilters} className="shrink-0 inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-all shadow-sm" title="Reset Filter">
-                                <RotateCcw className="size-5" />
-                            </button>
-                            <button className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 text-sm font-bold text-white shadow-md hover:bg-teal-500 transition-colors shrink-0">
-                                <PlusCircle className="size-5" />
-                                <span>Produk</span>
+                        <div className="flex items-center gap-2 shrink-0">
+                            <ResetButton resetFn={resetProductFilters} />
+                            <button className="inline-flex h-9 sm:h-10 items-center justify-center gap-2 rounded-xl bg-teal-600 px-3 sm:px-4 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-teal-500 transition-colors shrink-0">
+                                <PlusCircle className="size-4 sm:size-5" />
+                                <span className="hidden sm:inline">Produk</span>
                             </button>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-                        <div className="col-span-2 relative">
-                            <SearchBar searchQuery={searchProdQuery} setSearchQuery={setSearchProdQuery} />
+                    {/* Filter Area - Responsive Flex */}
+                    <div className="flex flex-col sm:flex-row gap-3 mt-5">
+                        <div className="flex-[1] min-w-0">
+                            <SearchBar searchQuery={searchProdQuery} setSearchQuery={setSearchProdQuery} placeholder="Cari produk berdasarkan nama atau deskripsi..." />
                         </div>
-                        <div className="col-span-1">
-                            <FilterCategory categories={categories} selectedCategory={selectedProdCategory} setSelectedCategory={setSelectedProdCategory} />
+                        <div className="flex gap-3 flex-1">
+                            <div className="flex-1">
+                                <FilterCategory categories={categories} selectedCategory={selectedProdCategory} setSelectedCategory={setSelectedProdCategory} />
+                            </div>
+                            <div className="flex-1">
+                                <FilterBadge selectedBadge={selectedProdBadge} setSelectedBadge={setSelectedProdBadge} />
+                            </div>
                         </div>
-                        <div className="col-span-1">
-                            <FilterBadge selectedBadge={selectedProdBadge} setSelectedBadge={setSelectedProdBadge} />
-                        </div>
-                    </div> 
+                    </div>
                     
-                    <div className="mt-6 pr-2 max-h-[380px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
-                        <div className="grid gap-4 lg:grid-cols-2">
+                    <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+                        <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
                             {filteredProducts.length > 0 ? (
                                 filteredProducts.map((product, index) => (
-                                    <div key={`product-${product.id}-${index}`} className="flex items-center gap-4 rounded-2xl border border-slate-300 bg-white p-4 transition-all hover:border-teal-300 hover:shadow-md">
-                                        <div className="size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
+                                    <div key={`product-${product.id || index}`} className="flex items-center gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md">
+                                        <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
                                             <img src={product.image} className="h-full w-full object-cover" alt={product.name} />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex items-center justify-between gap-2">
+                                            <div className="flex items-center justify-between gap-2 flex-wrap">
                                                 <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                                                     product.badge === 'Populer' 
                                                         ? 'bg-amber-100 text-amber-700' 
@@ -194,16 +204,21 @@ export default function DashboardSeller({ categories = [] }) {
                                                 }`}>
                                                     {product.badge || 'PROD-UMKM'}
                                                 </span>
-                                                <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded-md ${product.stock <= 5 ? 'bg-rose-50 text-rose-600' : 'bg-slate-50 text-slate-600'}`}>
-                                                    Stok: {product.stock}
-                                                </span>
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="hidden sm:inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold bg-slate-100 text-slate-700">
+                                                        {product.category}
+                                                    </span>
+                                                    <Link href="#" className="inline-flex items-center gap-1.5 rounded-xl bg-teal-50 px-2.5 py-1.5 text-xs font-bold text-teal-700 hover:bg-teal-600 border border-teal-200 hover:text-white hover:border-teal-600 transition-all">
+                                                        <Edit className="size-3.5" />
+                                                    </Link>
+                                                </div>
                                             </div>
                                             <h4 className="text-sm font-bold text-slate-900 truncate mt-1">{product.name}</h4>
                                             <div className="mt-2 flex items-center justify-between gap-2">
                                                 <p className="text-sm font-black text-slate-900">{product.price}</p>
-                                                <Link href="#" className="inline-flex items-center gap-1.5 rounded-xl bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-700 hover:bg-teal-600 border border-teal-200 hover:text-white hover:border-teal-600 transition-all">
-                                                    <Edit className="size-3.5" /> Edit
-                                                </Link>
+                                                <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded-md ${product.stock <= 5 ? 'bg-rose-50 text-rose-600' : 'bg-slate-50 text-slate-600'}`}>
+                                                    Stok: {product.stock}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -219,67 +234,68 @@ export default function DashboardSeller({ categories = [] }) {
                 </section>
 
                 {/* PESANAN MASUK */}
-                <section className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
-                    <div className="flex items-center justify-between gap-4">
-                        <div>
-                            <h3 className="text-2xl font-extrabold text-slate-900">Pesanan Masuk</h3>
-                            <p className="mt-1 text-sm text-slate-600">Daftar pesanan yang perlu diproses.</p>
+                <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                    <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Pesanan Masuk</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Daftar pesanan yang perlu diproses.</p>
                         </div>
-                        <button onClick={resetOrderFilters} className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-all shadow-sm" title="Reset Filter">
-                            <RotateCcw className="size-5" />
-                        </button>
+                        <ResetButton resetFn={resetOrderFilters} />
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-                        <div className="col-span-2 relative">
-                            <SearchBar searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
+                    {/* Filter Area - Responsive Flex */}
+                    <div className="flex flex-col sm:flex-row gap-3 mt-5">
+                        <div className="flex-1 min-w-0">
+                            <SearchBar searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} placeholder="Cari pesanan berdasarkan ID, produk, atau pelanggan..." />
                         </div>
-                        <div className="col-span-1">
-                            <FilterStatusOrder selectedStatus={selectedOrderStatus} setSelectedStatus={setSelectedOrderStatus} />
+                        <div className="flex gap-3 flex-1">
+                            <div className="flex-1">
+                                <FilterStatusOrder selectedStatus={selectedOrderStatus} setSelectedStatus={setSelectedOrderStatus} />
+                            </div>
+                            <div className="flex-1">
+                                <FilterPaymentOrder selectedPayment={selectedOrderPayment} setSelectedPayment={setSelectedOrderPayment} />
+                            </div>
                         </div>
-                        <div className="col-span-1">
-                            <FilterPaymentOrder selectedPayment={selectedOrderPayment} setSelectedPayment={setSelectedOrderPayment} />
-                        </div>
-                    </div> 
+                    </div>
 
                     {/* AREA SCROLLBOX PESANAN MASUK */}
-                    <div className="mt-6 pr-2 max-h-[380px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
-                        <div className="grid gap-4 lg:grid-cols-2">
+                    <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+                        <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
                             {filteredOrders.length > 0 ? (
                                 filteredOrders.map((order, index) => (
-                                    <div key={`order-${order.id}-${index}`} className="flex items-center gap-4 rounded-2xl border border-slate-300 bg-white p-4 transition-all hover:border-teal-300 hover:shadow-md">
-                                        <div className="size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
+                                    <div key={`order-${order.id}-${index}`} className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md">
+                                        <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
                                             <img src={order.image} className="h-full w-full object-cover" alt={order.product} />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex items-start justify-between gap-2">
+                                            <div className="flex items-start justify-between gap-2 flex-wrap">
                                                 {/* SISI KIRI: Status Order & Invoice */}
-                                                <div className="flex items-center shrink-0 gap-1.5">
+                                                <div className="flex items-center gap-1.5 flex-wrap">
                                                     <span className={`rounded-full px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter border ${getStatusStyles(order.status)}`}>
                                                         {order.status || 'Pending'}
                                                     </span>
                                                     <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider">{order.id}</span>
                                                 </div>
                                                 
-                                                {/* SISI KANAN: Tanggal & Badge Metode Bayar */}
-                                                <div className="flex items-center shrink-0 gap-1.5">
-                                                    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.payment)}`}>
-                                                        {order.payment?.toLowerCase() === 'transfer' ? <CreditCard className="size-2.5" /> : <Banknote className="size-2.5" />}
-                                                        <span className="capitalize">{order.payment || 'Cash'}</span>
-                                                    </span>
-                                                    <span className="text-[10px] text-slate-500">{order.date}</span>
-                                                </div>
+                                                {/* SISI KANAN: Tanggal */}
+                                                <span className="text-[10px] text-slate-500 shrink-0">{order.date}</span>
                                             </div>
                                             
                                             <h4 className="text-sm font-bold text-slate-900 truncate mt-1">{order.product}</h4>
                                             <p className="text-xs text-slate-500">Pembeli: <span className="text-slate-800 font-medium">{order.customer}</span></p>
-                                            <div className="mt-2 flex items-center justify-between">
-                                                <p className="text-sm font-black text-slate-900">
-                                                    {order.price}
-                                                    <span className="ml-2 text-xs font-medium text-slate-500">{order.qty} · pcs</span>
-                                                </p>
-                                                <Link className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
-                                                    Proses <ArrowRight className="size-3" />
+                                            <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
+                                                <div className="flex items-start justify-between gap-2 flex-wrap">
+                                                    <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.method)}`}>
+                                                        {order.method === 'transfer' ? <CreditCard className="size-2.5" /> : <Banknote className="size-2.5" />}
+                                                        <span className="capitalize">{order.method}</span>
+                                                    </span>
+                                                    <p className="text-xs sm:text-sm font-black text-slate-900">
+                                                        {order.amount}
+                                                        <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">{order.qty} · pcs</span>
+                                                    </p>
+                                                </div>
+                                                <Link href="#" className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
+                                                    Lihat <ArrowRight className="size-3" />
                                                 </Link>
                                             </div>
                                         </div>
@@ -296,28 +312,31 @@ export default function DashboardSeller({ categories = [] }) {
                 </section>
 
                 {/* RIWAYAT PEMBAYARAN */}
-                <section className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
-                    <div className="flex items-center justify-between gap-4">
-                        <div>
-                            <h3 className="text-2xl font-extrabold text-slate-900">Riwayat Pembayaran</h3>
-                            <p className="mt-1 text-sm text-slate-600">Pantau arus kas dan status pembayaran pesanan.</p>
+                <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                    <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Riwayat Pembayaran</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Pantau arus kas dan status pembayaran pesanan.</p>
                         </div>
-                        <button onClick={resetPaymentFilters} className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-all shadow-sm" title="Reset Filter">
-                            <RotateCcw className="size-5" />
+                        <button onClick={resetPaymentFilters} className="inline-flex size-9 sm:size-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-all shadow-sm shrink-0" title="Reset Filter">
+                            <RotateCcw className="size-4 sm:size-5" />
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-                        <div className="col-span-2 relative">
-                            <SearchBar searchQuery={searchPayQuery} setSearchQuery={setSearchPayQuery} />
+                    {/* Filter Area - Responsive Flex */}
+                    <div className="flex flex-col sm:flex-row gap-3 mt-5">
+                        <div className="flex-[2] min-w-0">
+                            <SearchBar searchQuery={searchPayQuery} setSearchQuery={setSearchPayQuery} placeholder="Cari berdasarkan ID transaksi atau pelanggan..." />
                         </div>
-                        <div className="col-span-2 md:col-span-1 lg:col-span-1">
+                        <div className="flex-1">
                             <FilterStatusOrder selectedStatus={selectedPayStatus} setSelectedStatus={setSelectedPayStatus} />
                         </div>
                     </div>
 
-                    <div className="mt-6 overflow-x-auto">
-                        <table className="w-full text-left border-separate border-spacing-y-2">
+                    {/* Table with mobile card view */}
+                    {/* Desktop Table */}
+                    <div className="mt-5 overflow-x-auto hidden sm:block">
+                        <table className="w-full text-left border-separate border-spacing-y-2 min-w-[600px]">
                             <thead>
                                 <tr className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
                                     <th className="px-4 py-2">ID Transaksi</th>
@@ -338,9 +357,9 @@ export default function DashboardSeller({ categories = [] }) {
                                             <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500">{pay.date}</td>
                                             <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs font-bold text-slate-900">{pay.customer}</td>
                                             <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300">
-                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
-                                                    {pay.method === 'Transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
-                                                    {pay.method}
+                                                <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
+                                                    {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
+                                                    <span className="capitalize">{pay.method}</span>
                                                 </span>
                                             </td>
                                             <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-sm font-black text-slate-900">{pay.amount}</td>
@@ -361,6 +380,38 @@ export default function DashboardSeller({ categories = [] }) {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="mt-5 space-y-3 sm:hidden">
+                        {filteredPayments.length > 0 ? (
+                            filteredPayments.map((pay) => (
+                                <div key={`mobile-${pay.id}`} className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:border-teal-300 transition-all">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xs font-bold text-teal-600">{pay.id}</span>
+                                        <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
+                                            {pay.status}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-xs">
+                                        <span className="text-slate-500">{pay.date}</span>
+                                        <span className="font-bold text-slate-900">{pay.customer}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
+                                            {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
+                                            <span className="capitalize">{pay.method}</span>
+                                        </span>
+                                        <span className="text-sm font-black text-slate-900">{pay.amount}</span>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="py-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                                <ReceiptText className="size-8 text-slate-300 mx-auto mb-2" />
+                                <p className="text-xs font-bold text-slate-500">Tidak ada riwayat pembayaran</p>
+                            </div>
+                        )}
                     </div>
                 </section>
             </LayoutApp>
