@@ -1,10 +1,10 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
-import HeroSection from '@/Components/UI/Landing/Auth.HeroSection';
-import CategoryProduct from '@/Components/UI/Landing/HeroCategory';
+import HeroSection from '@/Components/Landing/Auth.HeroSection';
+import CategoryProduct from '@/Components/Landing/HeroCategory';
 import RecomendMarquee from '@/Components/Products/RecomendMarquee';
-import { LogIn, Eye, Sparkles, Package, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { products } from '@/Constants/Data.Products';
 
 export default function Home({categories}) {
