@@ -80,32 +80,19 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
 
         const sections = [...new Set(dashboardMenus.map((item) => item.section))];
 
-<<<<<<< HEAD
         if (loading) {
             return <DashboardLayoutSkeleton>{children}</DashboardLayoutSkeleton>;
         }
-
-=======
->>>>>>> 5ab1eb2b6ad31d262570cf0344927bc54a0eb715
         return (
             <div className="min-h-screen bg-white text-slate-950">
                 <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] border-r border-slate-200 bg-white lg:block">
                     <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-7">
-<<<<<<< HEAD
                         <div className="grid size-10 shrink-0 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg transition-transform hover:rotate-6">
                             <Store className="size-5" />
                         </div>
                         <div>
                             <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-slate-400">Go-Umkm</p>
                             <h1 className="truncate text-base font-extrabold leading-none text-slate-900">{pageTitle}</h1>
-=======
-                        <div className="grid size-10 place-content-center rounded-2xl bg-emerald-900 text-white shadow-sm">
-                            <Store className="size-5" />
-                        </div>
-                        <div>
-                            <p className="text-base font-bold leading-none text-slate-950">Go-UMKM</p>
-                            <p className="mt-1 text-sm text-slate-500">Mitra UMKM</p>
->>>>>>> 5ab1eb2b6ad31d262570cf0344927bc54a0eb715
                         </div>
                     </div>
 
@@ -164,7 +151,6 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                     </div>
                 </aside>
 
-<<<<<<< HEAD
                 {isMenuOpen && (
                     <div className="fixed inset-0 z-50 lg:hidden">
                         <button type="button" className="absolute inset-0 bg-slate-950/40" onClick={() => setIsMenuOpen(false)} aria-label="Tutup menu" />
@@ -254,9 +240,6 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                         </aside>
                     </div>
                 )}
-
-=======
->>>>>>> 5ab1eb2b6ad31d262570cf0344927bc54a0eb715
                 <main className="lg:pl-[260px]">
                     <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-100 bg-white/95 px-5 backdrop-blur lg:px-8">
                         <div className="flex items-center gap-4">
@@ -274,12 +257,8 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                         </div>
 
                         <div className="flex items-center gap-2">
-<<<<<<< HEAD
                             <Link href={route('home')} className="hidden items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 sm:inline-flex">
                                 <House className="size-4" />
-=======
-                            <Link href={route('home')} className="hidden rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 sm:inline-flex">
->>>>>>> 5ab1eb2b6ad31d262570cf0344927bc54a0eb715
                                 Beranda
                             </Link>
                             <button type="button" className="rounded-xl p-2 text-slate-700 transition hover:bg-slate-100" aria-label="Notifikasi">
@@ -291,48 +270,6 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                         </div>
                     </header>
 
-<<<<<<< HEAD
-=======
-                    {isMenuOpen && (
-                        <div className="fixed inset-0 z-50 lg:hidden">
-                            <button type="button" className="absolute inset-0 bg-slate-950/40" onClick={() => setIsMenuOpen(false)} aria-label="Tutup menu" />
-                            <aside className="relative h-full w-[290px] bg-white shadow-2xl">
-                                <div className="flex h-20 items-center justify-between border-b border-slate-100 px-5">
-                                    <div className="flex items-center gap-3">
-                                        <div className="grid size-10 place-content-center rounded-2xl bg-emerald-900 text-white">
-                                            <Store className="size-5" />
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-slate-950">Go-UMKM</p>
-                                            <p className="text-sm text-slate-500">Dashboard</p>
-                                        </div>
-                                    </div>
-                                    <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-xl p-2 hover:bg-slate-100" aria-label="Tutup menu">
-                                        <X className="size-5" />
-                                    </button>
-                                </div>
-                                <nav className="space-y-1 px-5 py-5">
-                                    {dashboardMenus.map((item) => {
-                                        const Icon = item.icon;
-                                        const Tag = item.href === '#' ? 'a' : Link;
-                                        return (
-                                            <Tag
-                                                key={item.label}
-                                                href={item.href}
-                                                onClick={() => setIsMenuOpen(false)}
-                                                className="flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700"
-                                            >
-                                                <Icon className="size-5" />
-                                                {item.label}
-                                            </Tag>
-                                        );
-                                    })}
-                                </nav>
-                            </aside>
-                        </div>
-                    )}
-
->>>>>>> 5ab1eb2b6ad31d262570cf0344927bc54a0eb715
                     <section className="min-h-[calc(100vh-80px)] bg-white px-5 py-8 lg:px-10">
                         {children}
                     </section>
