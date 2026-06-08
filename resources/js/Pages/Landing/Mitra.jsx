@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
-import { Users, Store, ArrowRight, User } from 'lucide-react'; // Ditambahkan ikon User untuk fallback profil
-import BackRightLink from '@/Components/BackRight';
+import { Users, Store, ArrowRight, User } from 'lucide-react';
+import BackRightLink from '@/Components/Shared/BackRight';
 
 export default function Mitra({ userMitra = [] }) {
     return(

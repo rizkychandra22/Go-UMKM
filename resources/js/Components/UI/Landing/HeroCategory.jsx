@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
-import BackRightLink from './BackRight';
+import BackRightLink from '@/Components/Shared/BackRight';
 
 export default function CategoryProduct({ categories }) {
     // Kategori Product
@@ -41,7 +41,7 @@ export default function CategoryProduct({ categories }) {
                 )}
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-4 flex flex-nowrap gap-3 overflow-x-auto pb-2 pt-2 [scrollbar-width:none][&::-webkit-scrollbar]:hidden">
                 {categories.map((item) => {
                     const style = getStyle(item.slug);
                     const Icon = style.icon;
@@ -54,15 +54,15 @@ export default function CategoryProduct({ categories }) {
                         <Link
                             href={href}
                             key={item.id}
-                            className={`rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg`}
+                            className={`shrink-0 w-[140px] sm:w-[240px] lg:w-auto lg:flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-3 sm:p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg`}
                         >
-                            <div className="flex items-center gap-4">
-                                <div className="inline-flex rounded-xl bg-slate-900 p-2 text-white">
+                            <div className="flex-col sm:flex-row flex items-start sm:items-center gap-2 sm:gap-4">
+                                <div className="inline-flex rounded-xl bg-slate-900 p-1.5 sm: p-2 text-white">
                                     <Icon className="size-4" />
                                 </div>
-                                <h4 className="text-base font-extrabold text-slate-900">{item.name}</h4>
+                                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">{item.name}</h4>
                             </div>
-                            <p className="mt-3 text-sm leading-6 text-slate-600">{item.description}</p>
+                            <p className="mt-2 sm:mt-3 text-[10px] sm:text-sm leading-relaxed sm:leading-6 text-slate-600 line-clamp-2 sm:line-clamp-none">{item.description}</p>
                         </Link>
                     );
                 })}

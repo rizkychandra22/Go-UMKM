@@ -6,11 +6,11 @@ use App\Http\Controllers\Auth\ProfileBusinessController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SellerController;
-use App\Http\Controllers\Web\CategoryController;
-use App\Http\Controllers\Web\HomeController;
-use App\Http\Controllers\Web\MitraController;
-use App\Http\Controllers\Web\PopulerController;
-use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Landing\CategoryController;
+use App\Http\Controllers\Landing\HomeController;
+use App\Http\Controllers\Landing\MitraController;
+use App\Http\Controllers\Landing\PopulerController;
+use App\Http\Controllers\Landing\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

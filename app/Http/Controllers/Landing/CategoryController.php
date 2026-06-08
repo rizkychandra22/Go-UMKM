@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -10,9 +10,7 @@ class CategoryController extends Controller
 {
     public function index($slug = null)
     {
-        // $slug = key(request()->query());
-
-        return inertia('Web/Category', [
+        return inertia('Landing/Category', [
             'categories' => Category::all(),
             'slug' => $slug,
         ]);
