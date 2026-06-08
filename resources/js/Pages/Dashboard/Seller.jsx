@@ -1,20 +1,27 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     ArrowRight, BellRing, House, LogOut,
     Sparkles, PlusCircle, Package, ClipboardList,
     LayoutDashboard, Edit, TrendingUp, RotateCcw, FilterX,
     CreditCard, Banknote, Wallet, CheckCircle2, ReceiptText, Clock
 } from 'lucide-react';
-import CardHelloDashboard from '../../Components/UI/Dashboard/HeroSection';
+import CardHelloDashboard from '../../Components/Dashboard/HeroSection';
 import LayoutApp from '../../Layouts/App';
 import { products } from '../../Constants/Data.Products';
 import { paymentHistory } from '../../Constants/Data.Orders';
 import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/Shared/FilterData';
 import ResetButton from '../../Components/Shared/ResetFilter';
+import SellerDashboardSkeleton from '@/Components/Dashboard/SellerDashboardSkeleton';
 
 export default function DashboardSeller({ categories = [] }) {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = window.setTimeout(() => setIsLoading(false), 700);
+        return () => window.clearTimeout(timer);
+    }, []);
 
     // STATE FILTER KHUSUS DATA REKOMENDASI PRODUK 
     const [searchProdQuery, setSearchProdQuery] = useState('');
@@ -141,10 +148,21 @@ export default function DashboardSeller({ categories = [] }) {
         }
     };
 
+    if (isLoading) {
+        return (
+            <>
+                <Head title="Go-UMKM | Dashboard" />
+                <LayoutApp pageTitle="Dashboard" loading={true}>
+                    <SellerDashboardSkeleton />
+                </LayoutApp>
+            </>
+        );
+    }
+
     return (
         <>
             <Head title="Go-UMKM | Dashboard" />
-            <LayoutApp pageTitle="Dashboard Seller">
+            <LayoutApp pageTitle="Dashboard">
                 {/* Hero Section */}
                 <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400">
                     <CardHelloDashboard />

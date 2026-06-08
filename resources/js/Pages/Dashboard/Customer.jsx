@@ -1,6 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     ArrowRight, BellRing, House, LogOut,
     Sparkles, PlusCircle, Package, ClipboardList,
@@ -8,7 +8,7 @@ import {
     CreditCard, Banknote, Wallet, CheckCircle2, ReceiptText, Clock,
     ShoppingCart, ClipboardCheck, Minus, Plus
 } from 'lucide-react';
-import CardHelloDashboard from '../../Components/UI/Dashboard/HeroSection';
+import CardHelloDashboard from '../../Components/Dashboard/HeroSection';
 import LayoutApp from '../../Layouts/App';
 import { products } from '../../Constants/Data.Products';
 import { paymentHistory } from '../../Constants/Data.Orders';
@@ -18,8 +18,15 @@ import {
 } from '@/Components/Shared/FilterData';
 import RecomendMarquee from '../../Components/Products/RecomendMarquee';
 import ResetButton from '../../Components/Shared/ResetFilter';
+import CustomerDashboardSkeleton from '@/Components/Dashboard/CustomerDashboardSkeleton';
 
 export default function DashboardCustomer({ categories = [] }) {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = window.setTimeout(() => setIsLoading(false), 700);
+        return () => window.clearTimeout(timer);
+    }, []);
 
     // STATE FILTER KHUSUS DATA REKOMENDASI PRODUK 
     const [searchProdQuery, setSearchProdQuery] = useState('');
@@ -166,10 +173,21 @@ export default function DashboardCustomer({ categories = [] }) {
         });
     };
 
+    if (isLoading) {
+        return (
+            <>
+                <Head title="Go-UMKM | Dashboard" />
+                <LayoutApp pageTitle="Dashboard" loading={true}>
+                    <CustomerDashboardSkeleton />
+                </LayoutApp>
+            </>
+        );
+    }
+
     return (
         <>
             <Head title="Go-UMKM | Dashboard" />
-            <LayoutApp pageTitle="Dashboard Customer">
+            <LayoutApp pageTitle="Dashboard">
                 {/* Hero Section */}
                 <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400">
                     <CardHelloDashboard />
