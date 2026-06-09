@@ -5,14 +5,14 @@ export function SearchBar({ searchQuery, setSearchQuery, placeholder = 'Cari ber
     return (
         <div className="relative w-full">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="size-4 text-slate-400" />
+                <Search className="size-4 text-slate-400 dark:text-black-500" />
             </div>
             <input 
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={placeholder}
-                className="block w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 transition-colors"
+                className="block w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 transition-colors dark:bg-slate-300 dark:border-slate-700 dark:text-slate-900 dark:focus:border-teal-400 dark:focus:ring-teal-400"
             />
         </div>
     )
@@ -24,7 +24,7 @@ export function FilterCategory({ categories = [], selectedCategory, setSelectedC
         <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors"
+            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors dark:bg-slate-300 dark:border-slate-700 dark:text-slate-900 dark:focus:border-teal-400 dark:focus:ring-teal-400"
         >
             <option value="">Semua Kategori</option>
             {categories.map((cat) => (
@@ -42,7 +42,7 @@ export function FilterBadge({ selectedBadge, setSelectedBadge }) {
         <select
             value={selectedBadge}
             onChange={(e) => setSelectedBadge(e.target.value)}
-            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors"
+            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors dark:bg-slate-300 dark:border-slate-700 dark:text-slate-900 dark:focus:border-teal-400 dark:focus:ring-teal-400 dark:focus:ring-teal-400"
         >
             <option value="">Semua Label</option>
             <option value="Populer">Produk Populer</option>
@@ -59,7 +59,7 @@ export function FilterStatusOrder({ selectedStatus, setSelectedStatus }) {
         <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors"
+            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors dark:bg-slate-300 dark:border-slate-700 dark:text-slate-900 dark:focus:border-teal-400 dark:focus:ring-teal-400"
         >
             <option value="">Semua Status</option>
             <option value="pending">Pending</option>
@@ -75,7 +75,7 @@ export function FilterPaymentOrder({ selectedPayment, setSelectedPayment }) {
         <select
             value={selectedPayment}
             onChange={(e) => setSelectedPayment(e.target.value)}
-            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors"
+            className="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-teal-400 focus:ring-teal-400 focus:outline-none focus:ring-1 text-slate-700 transition-colors dark:bg-slate-300 dark:border-slate-700 dark:text-slate-900 dark:focus:border-teal-400 dark:focus:ring-teal-400"
         >
             <option value="">Semua Metode</option>
             <option value="cash">Cash (Tunai)</option>
