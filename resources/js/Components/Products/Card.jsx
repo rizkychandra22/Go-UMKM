@@ -10,7 +10,7 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
 
     return (
         <article
-            className={`flex w-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:shadow-lg ${className}`}
+            className={`flex w-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:shadow-lg dark:bg-slate-800 dark:border-slate-600 dark:hover:border-teal-300 ${className}`}
             style={{ minHeight }}
         >
             <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-100 shadow-inner">
@@ -24,13 +24,13 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
             </div>
 
             <div className="flex flex-1 flex-col">
-                <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1">{product.name}</h4>
-                <p className="mt-2 mb-3 text-sm leading-relaxed text-slate-600 line-clamp-2">{product.description}</p>
+                <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1 dark:text-slate-100">{product.name}</h4>
+                <p className="mt-2 mb-3 text-sm leading-relaxed text-slate-600 line-clamp-2 dark:text-slate-400">{product.description}</p>
 
                 {isCustomer && (
                     <div className="flex items-center mt-auto pt-3 border-t border-t-slate-300">
-                        <p className="text-lg font-bold text-slate-900">{product.price}</p>
-                        <p className="ml-auto text-sm font-bold text-slate-600">Stok: {product.stock ?? 0} PCS</p>
+                        <p className="text-lg font-bold text-slate-900 dark:text-slate-100">{product.price}</p>
+                        <p className="ml-auto text-sm font-bold text-slate-600 dark:text-slate-400">Stok: {product.stock ?? 0} PCS</p>
                     </div>
                 )}
             </div>

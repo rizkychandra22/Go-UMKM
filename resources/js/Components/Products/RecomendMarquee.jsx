@@ -71,10 +71,10 @@ export default function RecomendMarquee() {
 
     return (
         <>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">
                 Rekomendasi Produk Terbaik.
             </h3>
-            <p className="mt-1 sm:mt-2 text-xs sm:text-base text-slate-600">
+            <p className="mt-1 sm:mt-2 text-xs sm:text-base text-slate-600 dark:text-slate-400">
                 Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.
             </p>
 

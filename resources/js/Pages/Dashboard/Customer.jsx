@@ -147,8 +147,8 @@ export default function DashboardCustomer({ categories = [] }) {
     // Helper fungsional styling badge cara pembayaran
     const getPaymentMethodStyles = (method) => {
         switch (method?.toLowerCase()) {
-            case 'transfer': return 'bg-indigo-50 text-indigo-700 border-indigo-100';
-            case 'cash': case 'tunai': return 'bg-slate-100 text-slate-800 border-slate-200';
+            case 'transfer': return 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:text-indigo-400';
+            case 'cash': case 'tunai': return 'bg-slate-100 text-slate-800 border-slate-200 dark:text-slate-300';
             default: return 'bg-slate-50 text-slate-600 border-slate-200';
         }
     };
@@ -189,46 +189,46 @@ export default function DashboardCustomer({ categories = [] }) {
             <Head title="Go-UMKM | Dashboard" />
             <LayoutApp pageTitle="Dashboard">
                 {/* Hero Section */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <CardHelloDashboard />
 
                     {/* Statistik Cepat */}
                     <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
-                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-teal-50 rounded-xl text-teal-600"><ShoppingCart className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Keranjang</p>
+                                <div className="bg-teal-50 rounded-xl text-teal-600 dark:text-teal-400 dark:bg-teal-950/50 p-1"><ShoppingCart className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Keranjang</p>
                             </div>
-                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">{products.length}</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{products.length}</p>
                         </div>
-                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                    <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-orange-50 rounded-xl text-orange-600"><Package className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Pesanan</p>
+                                <div className="bg-orange-50 rounded-xl text-orange-600 dark:text-teal-400 dark:bg-teal-950/50 p-1"><Package className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Pesanan</p>
                             </div>
-                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">{paymentHistory.length}</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{paymentHistory.length}</p>
                         </div>
-                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all">
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-sky-50 rounded-xl text-sky-600"><ClipboardCheck className="size-4 sm:size-5" /></div>
-                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-widest">Riwayat</p>
+                                <div className="bg-sky-50 rounded-xl text-sky-600 dark:text-sky-400 dark:bg-sky-950/50 p-1"><ClipboardCheck className="size-4 sm:size-5" /></div>
+                                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Riwayat</p>
                             </div>
-                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900">{paymentHistory.length}</p>
+                            <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{paymentHistory.length}</p>
                         </div>
                     </div>
                 </section>
 
                 {/* REKOMENDASI PRODUK */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <RecomendMarquee />
                 </section>
 
                 {/* KERANJANG */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Keranjang</h3>
-                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Daftar produk yang ada dikeranjang Anda.</p>
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Keranjang</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Daftar produk yang ada dikeranjang Anda.</p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                             <ResetButton resetFn={resetProductFilters} />
@@ -259,7 +259,7 @@ export default function DashboardCustomer({ categories = [] }) {
                                     const currentQty = quantities[itemKey] || 1;
 
                                     return (
-                                        <div key={`product-${itemKey}`} className="flex items-center gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md">
+                                        <div key={`product-${itemKey}`} className="flex items-center gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md dark:bg-slate-800 dark:border-slate-600 dark:hover:border-teal-300">
                                             <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
                                                 <img src={product.image} className="h-full w-full object-cover" alt={product.name} />
                                             </div>
@@ -278,11 +278,11 @@ export default function DashboardCustomer({ categories = [] }) {
                                                         Stok: {product.stock}
                                                     </span>
                                                 </div>
-                                                <h4 className="text-sm font-bold text-slate-900 truncate mt-1">{product.name}</h4>
+                                                <h4 className="text-sm font-bold text-slate-900 truncate mt-1 dark:text-slate-100">{product.name}</h4>
                                                 
                                                 <div className="mt-3 flex items-center justify-between gap-2 flex-wrap">
                                                     <div>
-                                                        <p className="text-sm font-black text-slate-900">
+                                                        <p className="text-sm font-black text-slate-900 dark:text-slate-100">
                                                             {(() => {
                                                                 const cleanPrice = typeof product.price === 'string' 
                                                                     ? parseInt(product.price.replace(/[^0-9]/g, ''), 10) 
@@ -340,11 +340,11 @@ export default function DashboardCustomer({ categories = [] }) {
                 </section>
 
                 {/* PESANAN AKTIF */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Pesanan Aktif</h3>
-                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Daftar pesanan yang sedang diproses.</p>
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Pesanan Aktif</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Daftar pesanan yang sedang diproses.</p>
                         </div>
                         <ResetButton resetFn={resetOrderFilters} />
                     </div>
@@ -368,7 +368,7 @@ export default function DashboardCustomer({ categories = [] }) {
                         <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
                             {filteredOrders.length > 0 ? (
                                 filteredOrders.map((order, index) => (
-                                    <div key={`order-${order.id}-${index}`} className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md">
+                                    <div key={`order-${order.id}-${index}`} className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 transition-all hover:border-teal-300 hover:shadow-md dark:bg-slate-800 dark:border-slate-600 dark:hover:border-teal-300">
                                         <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 border border-slate-100">
                                             <img src={order.image} className="h-full w-full object-cover" alt={order.product} />
                                         </div>
@@ -383,14 +383,14 @@ export default function DashboardCustomer({ categories = [] }) {
                                                 
                                                 <span className="text-[10px] text-slate-400 shrink-0">{order.date}</span>
                                             </div>
-                                            <h4 className="text-sm font-bold text-slate-900 truncate mt-1">{order.product}</h4>
+                                            <h4 className="text-sm font-bold text-slate-900 truncate mt-1 dark:text-slate-100">{order.product}</h4>
                                             <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
                                                 <div className="flex items-start justify-between gap-2 flex-wrap">
                                                     <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.method)}`}>
                                                         {order.method?.toLowerCase() === 'transfer' ? <CreditCard className="size-2.5" /> : <Banknote className="size-2.5" />}
                                                         <span className="capitalize">{order.method || 'Cash'}</span>
                                                     </span>
-                                                    <p className="text-xs sm:text-sm font-black text-slate-900">
+                                                    <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-slate-100">
                                                         {order.amount}
                                                         <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">· {order.qty} pcs</span>
                                                     </p>
@@ -413,11 +413,11 @@ export default function DashboardCustomer({ categories = [] }) {
                 </section>
 
                 {/* RIWAYAT PEMBAYARAN */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col">
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900">Riwayat Pembayaran</h3>
-                            <p className="mt-1 text-xs sm:text-sm text-slate-600">Riwayat pembayaran pesanan Anda</p>
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Riwayat Pembayaran</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Riwayat pembayaran pesanan Anda</p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                             <ResetButton resetFn={resetPaymentFilters} />
@@ -439,12 +439,12 @@ export default function DashboardCustomer({ categories = [] }) {
                         </div>
                     </div>
 
-                    <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+                    <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent] ">
                         {/* Desktop Table */}
                         <div className="overflow-x-auto hidden sm:block">
                             <table className="w-full text-left border-separate border-spacing-y-2 min-w-[600px]">
                                 <thead>
-                                    <tr className="text-[11px] font-black text-slate-600 uppercase tracking-widest">
+                                    <tr className="text-[11px] font-black text-slate-600 uppercase tracking-widest dark:text-slate-400">
                                         <th className="px-4 py-2">ID Transaksi</th>
                                         <th className="px-4 py-2">Tanggal</th>
                                         <th className="px-4 py-2">Produk</th>
@@ -456,19 +456,19 @@ export default function DashboardCustomer({ categories = [] }) {
                                 <tbody>
                                     {filteredPayments.length > 0 ? (
                                         filteredPayments.map((pay) => (
-                                            <tr key={pay.id} className="group bg-white border border-slate-200 hover:border-teal-300 transition-all">
+                                            <tr key={pay.id} className="group bg-white border border-slate-200 hover:border-teal-300 transition-all dark:bg-slate-800 dark:border-slate-600 dark:hover:border-teal-300">
                                                 <td className="px-4 py-4 rounded-l-2xl border-y border-l border-slate-200 group-hover:border-teal-300">
                                                     <span className="text-xs font-bold text-teal-600">{pay.id}</span>
                                                 </td>
-                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500">{pay.date}</td>
-                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs font-bold text-slate-900">{pay.product}</td>
-                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300">
-                                                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500 dark:text-slate-400">{pay.date}</td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs font-bold text-slate-900 dark:text-slate-100">{pay.product}</td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">
+                                                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md${getPaymentMethodStyles(pay.method)}`}>
                                                         {pay.method === 'transfer' ? <CreditCard className="size-3" /> : <Banknote className="size-3" />}
                                                         <span className="capitalize">{pay.method}</span>
                                                     </span>
                                                 </td>
-                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-sm font-black text-slate-900">{pay.amount}</td>
+                                                <td className="px-4 py-4 border-y border-slate-200 group-hover:border-teal-300 text-sm font-black text-slate-900 dark:text-slate-100 dark:bg-slate-800">{pay.amount}</td>
                                                 <td className="px-4 py-4 rounded-r-2xl border-y border-r border-slate-200 group-hover:border-teal-300">
                                                     <span className={`px-2 py-1 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}>
                                                         {pay.status}
