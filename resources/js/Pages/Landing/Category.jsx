@@ -2,7 +2,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import CategoryProduct from '@/Components/Landing/HeroCategory';
-import { Eye, Sparkles, Package, ShoppingCart, Store } from 'lucide-react';
+import { Sparkles, Package } from 'lucide-react';
 import { products } from '@/Constants/Data.Products';
 import ProductCard from '@/Components/Products/Card';
 

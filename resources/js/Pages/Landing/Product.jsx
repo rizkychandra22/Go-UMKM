@@ -1,7 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
-import { LogIn, Eye, Package, Star, ArrowLeft, ShoppingCart, Search, Sparkles } from 'lucide-react';
+import { Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
 import BackRightLink from '@/Components/Shared/BackRight';

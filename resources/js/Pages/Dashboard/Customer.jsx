@@ -2,10 +2,8 @@ import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { useEffect, useState } from 'react';
 import {
-    ArrowRight, BellRing, House, LogOut,
-    Sparkles, PlusCircle, Package, ClipboardList,
-    LayoutDashboard, Edit, TrendingUp, RotateCcw, FilterX,
-    CreditCard, Banknote, Wallet, CheckCircle2, ReceiptText, Clock,
+    ArrowRight, Package, ClipboardList,
+    CreditCard, Banknote, ReceiptText,
     ShoppingCart, ClipboardCheck, Minus, Plus
 } from 'lucide-react';
 import CardHelloDashboard from '../../Components/Dashboard/HeroSection';
@@ -18,7 +16,8 @@ import {
 } from '@/Components/Shared/FilterData';
 import RecomendMarquee from '../../Components/Products/RecomendMarquee';
 import ResetButton from '../../Components/Shared/ResetFilter';
-import CustomerDashboardSkeleton from '@/Components/Dashboard/CustomerDashboardSkeleton';
+import { Card, CardContent, CardHeader } from '@/Components/UI/card';
+import { Skeleton } from '@/Components/UI/skeleton';
 
 export default function DashboardCustomer({ categories = [] }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -147,8 +146,8 @@ export default function DashboardCustomer({ categories = [] }) {
     // Helper fungsional styling badge cara pembayaran
     const getPaymentMethodStyles = (method) => {
         switch (method?.toLowerCase()) {
-            case 'transfer': return 'bg-indigo-50 text-indigo-700 border-indigo-100 dark:text-indigo-400';
-            case 'cash': case 'tunai': return 'bg-slate-100 text-slate-800 border-slate-200 dark:text-slate-300';
+            case 'transfer': return 'bg-indigo-50 text-indigo-700 border-indigo-100';
+            case 'cash': case 'tunai': return 'bg-slate-100 text-slate-800 border-slate-200';
             default: return 'bg-slate-50 text-slate-600 border-slate-200';
         }
     };
@@ -178,7 +177,59 @@ export default function DashboardCustomer({ categories = [] }) {
             <>
                 <Head title="Go-UMKM | Dashboard" />
                 <LayoutApp pageTitle="Dashboard" loading={true}>
-                    <CustomerDashboardSkeleton />
+                    <div className="space-y-6">
+                        <Card className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
+                            <CardContent className="space-y-6 p-5 sm:p-8">
+                                <div className="space-y-3">
+                                    <Skeleton className="h-8 w-64 rounded-xl" />
+                                    <Skeleton className="h-5 w-80 rounded-xl" />
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                                    {Array.from({ length: 3 }).map((_, index) => (
+                                        <div key={index} className="rounded-2xl border border-slate-200 bg-white/50 p-3 sm:p-4 dark:border-slate-800 dark:bg-slate-900/50">
+                                            <Skeleton className="h-5 w-24 rounded-xl" />
+                                            <Skeleton className="mt-4 h-8 w-16 rounded-xl" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        <Card className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
+                            <CardContent className="p-5 sm:p-8">
+                                <Skeleton className="h-24 w-full rounded-3xl" />
+                            </CardContent>
+                        </Card>
+
+                        {Array.from({ length: 3 }).map((_, sectionIndex) => (
+                            <Card key={sectionIndex} className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
+                                <CardHeader className="space-y-4">
+                                    <div className="flex items-center justify-between gap-3">
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-7 w-48 rounded-xl" />
+                                            <Skeleton className="h-4 w-72 rounded-xl" />
+                                        </div>
+                                        <Skeleton className="h-10 w-24 rounded-2xl" />
+                                    </div>
+
+                                    <div className="grid gap-3 sm:grid-cols-3">
+                                        <Skeleton className="h-12 w-full rounded-2xl sm:col-span-1" />
+                                        <Skeleton className="h-12 w-full rounded-2xl" />
+                                        <Skeleton className="h-12 w-full rounded-2xl" />
+                                    </div>
+                                </CardHeader>
+
+                                <CardContent>
+                                    <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
+                                        {Array.from({ length: 4 }).map((__, itemIndex) => (
+                                            <Skeleton key={itemIndex} className="h-32 w-full rounded-3xl" />
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </LayoutApp>
             </>
         );
@@ -196,21 +247,21 @@ export default function DashboardCustomer({ categories = [] }) {
                     <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-teal-50 rounded-xl text-teal-600 dark:text-teal-400 dark:bg-teal-950/50 p-1"><ShoppingCart className="size-4 sm:size-5" /></div>
+                                <div className="bg-teal-50 rounded-xl text-teal-600 dark:text-teal-400 dark:bg-teal-950/50"><ShoppingCart className="size-4 sm:size-5" /></div>
                                 <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Keranjang</p>
                             </div>
                             <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{products.length}</p>
                         </div>
-                    <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
+                        <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-orange-50 rounded-xl text-orange-600 dark:text-teal-400 dark:bg-teal-950/50 p-1"><Package className="size-4 sm:size-5" /></div>
+                                <div className="bg-orange-50 rounded-xl text-orange-600 dark:text-teal-400 dark:bg-teal-950/50"><Package className="size-4 sm:size-5" /></div>
                                 <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Pesanan</p>
                             </div>
                             <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{paymentHistory.length}</p>
                         </div>
                         <div className="bg-white/50 p-3 sm:p-4 rounded-2xl border border-slate-200 hover:shadow-sm transition-all dark:bg-white/10 dark:bg-slate-900/50">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <div className="bg-sky-50 rounded-xl text-sky-600 dark:text-sky-400 dark:bg-sky-950/50 p-1"><ClipboardCheck className="size-4 sm:size-5" /></div>
+                                <div className="bg-sky-50 rounded-xl text-sky-600 dark:text-sky-400 dark:bg-sky-950/50"><ClipboardCheck className="size-4 sm:size-5" /></div>
                                 <p className="text-[9px] sm:text-[10px] font-black text-slate-600 uppercase dark:text-slate-400 tracking-widest">Riwayat</p>
                             </div>
                             <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{paymentHistory.length}</p>
@@ -264,23 +315,29 @@ export default function DashboardCustomer({ categories = [] }) {
                                                 <img src={product.image} className="h-full w-full object-cover" alt={product.name} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="flex items-center justify-between gap-2 flex-wrap">
-                                                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                                                        product.badge === 'Populer' 
-                                                            ? 'bg-amber-100 text-amber-700' 
-                                                            : product.badge === 'Terlaris' 
-                                                                ? 'bg-teal-100 text-teal-700' 
-                                                                : 'bg-slate-100 text-slate-700'
-                                                    }`}>
-                                                        {product.badge || 'PROD-UMKM'}
-                                                    </span>
-                                                    <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded-md ${product.stock <= 5 ? 'bg-rose-50 text-rose-600' : 'bg-slate-50 text-slate-600'}`}>
-                                                        Stok: {product.stock}
-                                                    </span>
+                                                <div className="flex items-center justify-between flex-wrap">
+                                                    <div className="flex items-center gap-1">
+                                                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                                                            product.badge === 'Populer' 
+                                                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400' 
+                                                                : product.badge === 'Terlaris' 
+                                                                    ? 'bg-teal-100 text-teal-700 dark:bg-teal-950/60 dark:text-teal-400' 
+                                                                    : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                                                        }`}>
+                                                            {product.badge || 'PROD-UMKM'}
+                                                        </span>
+                                                        <span className="sm:inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                            {product.category}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-end">
+                                                        <Link href="#" className="inline-flex justify-between items-end rounded-xl bg-teal-50 dark:bg-teal-950/40 px-2 py-1.5 text-xs font-bold text-teal-700 dark:text-teal-400 hover:bg-teal-600 border border-teal-200 dark:border-teal-900 hover:text-white dark:hover:text-white hover:border-teal-600 transition-all">
+                                                            <ShoppingCart className="size-3" />
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                                 <h4 className="text-sm font-bold text-slate-900 truncate mt-1 dark:text-slate-100">{product.name}</h4>
-                                                
-                                                <div className="mt-3 flex items-center justify-between gap-2 flex-wrap">
+                                                <div className="mt-1 flex items-center justify-between gap-2 flex-wrap">
                                                     <div>
                                                         <p className="text-sm font-black text-slate-900 dark:text-slate-100">
                                                             {(() => {
@@ -299,7 +356,10 @@ export default function DashboardCustomer({ categories = [] }) {
                                                     </div>
 
                                                     <div className="flex items-center gap-2">
-                                                        <div className="flex items-center border border-slate-200 rounded-xl bg-slate-50 p-0.5">
+                                                        <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded-md ${product.stock <= 5 ? 'bg-rose-50 text-rose-600' : 'bg-slate-50 text-slate-600'}`}>
+                                                            Stok: {product.stock}
+                                                        </span>
+                                                        <div className="flex items-center border border-slate-200 rounded-xl bg-slate-50">
                                                             <button 
                                                                 type="button"
                                                                 onClick={() => handleQuantityChange(itemKey, 'minus', product.stock)}
@@ -320,9 +380,6 @@ export default function DashboardCustomer({ categories = [] }) {
                                                                 <Plus className="size-3.5" />
                                                             </button>
                                                         </div>
-                                                        <Link href="#" className="inline-flex items-center gap-1.5 rounded-xl bg-teal-50 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-teal-700 hover:bg-teal-600 border border-teal-200 hover:text-white hover:border-teal-600 transition-all">
-                                                             <ShoppingCart className="size-3" /> <span className="hidden sm:inline">Checkout</span>
-                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -378,24 +435,24 @@ export default function DashboardCustomer({ categories = [] }) {
                                                     <span className={`rounded-full px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter border ${getStatusStyles(order.status)}`}>
                                                         {order.status || 'Pending'}
                                                     </span>
-                                                    <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider">{order.id}</span>
+                                                    <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.method)}`}>
+                                                        {order.method === 'transfer' ? <CreditCard className="size-2.5" /> : <Banknote className="size-2.5" />}
+                                                        <span className="capitalize">{order.method}</span>
+                                                    </span>
                                                 </div>
                                                 
                                                 <span className="text-[10px] text-slate-400 shrink-0">{order.date}</span>
                                             </div>
                                             <h4 className="text-sm font-bold text-slate-900 truncate mt-1 dark:text-slate-100">{order.product}</h4>
-                                            <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
-                                                <div className="flex items-start justify-between gap-2 flex-wrap">
-                                                    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.method)}`}>
-                                                        {order.method?.toLowerCase() === 'transfer' ? <CreditCard className="size-2.5" /> : <Banknote className="size-2.5" />}
-                                                        <span className="capitalize">{order.method || 'Cash'}</span>
-                                                    </span>
-                                                    <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-slate-100">
-                                                        {order.amount}
-                                                        <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">· {order.qty} pcs</span>
-                                                    </p>
-                                                </div>
-                                                <Link href="#" className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
+                                            <div className="flex items-start justify-between gap-2 flex-wrap">
+                                                <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-slate-100">
+                                                    {order.amount}
+                                                    <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">· {order.qty} pcs</span>
+                                                </p>
+                                            </div>
+                                            <div className="mt-1 flex items-center justify-between gap-2 flex-wrap">
+                                                <span className="font-bold text-[10px] text-teal-600 dark:text-teal-400">{order.id}</span>
+                                                <Link href="#" className="inline-flex items-center text-xs font-bold text-teal-700 dark:text-teal-400 hover:gap-2 transition-all">
                                                     Lihat <ArrowRight className="size-3" />
                                                 </Link>
                                             </div>

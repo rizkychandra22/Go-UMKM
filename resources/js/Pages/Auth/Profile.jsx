@@ -1,6 +1,8 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import LayoutApp from '../../Layouts/App';
-import { User, Mail, Phone, MapPin, Camera, Save, CheckCircle, Lock } from 'lucide-react';
+import { 
+    User, Mail, Phone, MapPin, Camera, Save, CheckCircle, Lock 
+} from 'lucide-react';
 
 export default function Profile() {
     const { auth, status } = usePage().props ?? {};

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     Bell,
@@ -17,12 +17,13 @@ import {
     Store,
     Sun,
     UserCircle,
-    User as UserIcon,
+    UserIcon,
     Users,
     X,
 } from 'lucide-react';
 import { route } from 'ziggy-js';
 import DashboardLayoutSkeleton from '@/Components/Layout/DashboardLayoutSkeleton';
+import { Button } from '@/Components/UI/button';
 
 export default function LayoutApp({ pageTitle, children, loading = false }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,15 +58,10 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Efek untuk menerapkan class dark mode pada elemen HTML root
-    useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
+    useLayoutEffect(() => {
+        document.documentElement.classList.toggle('dark', isDarkMode);
+        document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     }, [isDarkMode]);
 
     const dashboardHref = auth?.user
@@ -106,25 +102,25 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
             return <DashboardLayoutSkeleton>{children}</DashboardLayoutSkeleton>;
         }
         return (
-            <div className="min-h-screen bg-white text-slate-950 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
+            <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
                 {/* Desktop Sidebar */}
-                <aside className={`fixed left-0 top-0 z-40 hidden h-screen w-[260px] border-r border-slate-200 bg-white transition-all duration-300 dark:border-slate-800 dark:bg-slate-900 lg:block ${
+                <aside className={`fixed left-0 top-0 z-40 hidden h-screen w-[260px] border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:block ${
                     isSidebarCollapsed ? 'lg:-translate-x-full' : 'lg:translate-x-0'
                 }`}>
-                    <div className="flex h-20 items-center gap-3 border-b border-slate-100 dark:border-slate-800 px-7">
+                    <div className="flex h-20 items-center gap-3 border-b border-border px-7">
                         <div className="grid size-10 shrink-0 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg transition-transform hover:rotate-6">
                             <Store className="size-5" />
                         </div>
                         <div>
-                            <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-slate-400 dark:text-slate-500">Go-Umkm</p>
-                            <h1 className="truncate text-base font-extrabold leading-none text-slate-900 dark:text-white">{pageTitle}</h1>
+                            <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Go-Umkm</p>
+                            <h1 className="truncate text-base font-extrabold leading-none text-sidebar-foreground">{pageTitle}</h1>
                         </div>
                     </div>
 
                     <nav className="h-[calc(100vh-160px)] overflow-y-auto px-5 py-6">
                         {sections.map((section) => (
                             <div key={section} className="mb-7 last:mb-0">
-                                <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-slate-300">{section}</p>
+                                <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">{section}</p>
                                 <div className="space-y-1">
                                     {dashboardMenus
                                         .filter((item) => item.section === section)
@@ -139,8 +135,8 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                                     href={item.href}
                                                     className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition ${
                                                         active
-                                                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400'
-                                                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-950 dark:hover:text-slate-100'
+                                                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                                                            : 'text-muted-foreground hover:bg-accent hover:text-sidebar-foreground'
                                                     }`}
                                                 >
                                                     <Icon className="size-5" />
@@ -153,21 +149,21 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                         ))}
                     </nav>
 
-                    <div className="absolute bottom-0 left-0 right-0 border-t border-slate-100 dark:border-slate-800 p-5 bg-white dark:bg-slate-900">
+                    <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-sidebar p-5">
                         <div className="flex items-center gap-3">
-                            <div className="grid size-10 place-content-center overflow-hidden rounded-full bg-emerald-50 dark:bg-emerald-950 text-sm font-bold text-emerald-700 dark:text-emerald-400">
+                            <div className="grid size-10 place-content-center overflow-hidden rounded-full bg-emerald-50 text-sm font-bold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                                 {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : auth?.user?.name?.charAt(0) ?? 'U'}
                             </div>
                             <div className="min-w-0 flex-1">
-                                <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">{auth?.user?.name ?? 'User'}</p>
-                                <p className="mt-0.5 inline-flex rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:text-emerald-400">
+                                <p className="truncate text-sm font-semibold text-sidebar-foreground">{auth?.user?.name ?? 'User'}</p>
+                                <p className="mt-0.5 inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
                                     {auth?.user?.role ?? 'member'}
                                 </p>
                             </div>
                             <button
                                 type="button"
                                 onClick={() => router.post(route('logout'))}
-                                className="rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition hover:text-red-600 dark:hover:text-red-400"
+                                className="rounded-xl p-2 text-muted-foreground transition hover:bg-accent hover:text-red-600 dark:hover:text-red-400"
                                 aria-label="Keluar"
                             >
                                 <LogOut className="size-4" />
@@ -180,18 +176,18 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                 {isMenuOpen && (
                     <div className="fixed inset-0 z-50 lg:hidden">
                         <button type="button" className="absolute inset-0 bg-slate-950/40 backdrop-blur-xs" onClick={() => setIsMenuOpen(false)} aria-label="Tutup menu" />
-                        <aside className="relative flex h-full w-[290px] flex-col bg-white dark:bg-slate-900 shadow-2xl transition-colors duration-300">
-                            <div className="flex h-20 items-center justify-between border-b border-slate-100 dark:border-slate-800 px-5">
+                        <aside className="relative flex h-full w-[290px] flex-col bg-sidebar text-sidebar-foreground shadow-2xl transition-colors duration-300">
+                            <div className="flex h-20 items-center justify-between border-b border-border px-5">
                                 <div className="flex items-center gap-3">
                                     <div className="grid size-10 shrink-0 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg">
                                         <Store className="size-5" />
                                     </div>
                                     <div>
-                                        <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-slate-400 dark:text-slate-500">Go-Umkm</p>
-                                        <h1 className="truncate text-base font-extrabold leading-none text-slate-900 dark:text-white">{pageTitle}</h1>
+                                        <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Go-Umkm</p>
+                                        <h1 className="truncate text-base font-extrabold leading-none text-sidebar-foreground">{pageTitle}</h1>
                                     </div>
                                 </div>
-                                <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-xl p-2 hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-400" aria-label="Tutup menu">
+                                <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-xl p-2 text-muted-foreground hover:bg-accent" aria-label="Tutup menu">
                                     <X className="size-5" />
                                 </button>
                             </div>
@@ -199,7 +195,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                 <nav className="flex-1 overflow-y-auto px-5 py-5">
                                     {sections.map((section) => (
                                         <div key={section} className="mb-7 last:mb-0">
-                                            <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-slate-300">{section}</p>
+                                            <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">{section}</p>
                                             <div className="space-y-1">
                                                 {dashboardMenus
                                                     .filter((item) => item.section === section)
@@ -215,8 +211,8 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                                                 onClick={() => setIsMenuOpen(false)}
                                                                 className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-medium transition ${
                                                                     active
-                                                                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400'
-                                                                        : 'text-slate-700 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-slate-800 hover:text-emerald-700 dark:hover:text-emerald-400'
+                                                                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                                                                        : 'text-muted-foreground hover:bg-accent hover:text-sidebar-foreground'
                                                                 }`}
                                                             >
                                                                 <Icon className="size-5" />
@@ -229,23 +225,23 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                     ))}
                                 </nav>
 
-                                <div className="border-t border-slate-100 dark:border-slate-800 p-5 bg-white dark:bg-slate-900">
+                                <div className="border-t border-border bg-sidebar p-5">
                                     <Link
                                         href={route('home')}
                                         onClick={() => setIsMenuOpen(false)}
-                                        className="mb-4 flex items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 px-3 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-emerald-700 dark:hover:text-emerald-400"
+                                        className="mb-4 flex items-center gap-3 rounded-2xl border border-border px-3 py-3 text-sm font-semibold text-muted-foreground transition hover:bg-accent hover:text-emerald-700 dark:hover:text-emerald-300"
                                     >
                                         <House className="size-5" />
                                         Beranda
                                     </Link>
 
                                     <div className="flex items-center gap-3">
-                                        <div className="grid size-10 place-content-center overflow-hidden rounded-full bg-emerald-50 dark:bg-emerald-950 text-sm font-bold text-emerald-700 dark:text-emerald-400">
+                                        <div className="grid size-10 place-content-center overflow-hidden rounded-full bg-emerald-50 text-sm font-bold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                                             {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : auth?.user?.name?.charAt(0) ?? 'U'}
                                         </div>
                                         <div className="min-w-0 flex-1">
-                                            <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">{auth?.user?.name ?? 'User'}</p>
-                                            <p className="mt-0.5 inline-flex rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:text-emerald-400">
+                                            <p className="truncate text-sm font-semibold text-sidebar-foreground">{auth?.user?.name ?? 'User'}</p>
+                                            <p className="mt-0.5 inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
                                                 {auth?.user?.role ?? 'member'}
                                             </p>
                                         </div>
@@ -255,7 +251,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                                 setIsMenuOpen(false);
                                                 router.post(route('logout'));
                                             }}
-                                            className="rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition hover:text-red-600 dark:hover:text-red-400"
+                                            className="rounded-xl p-2 text-muted-foreground transition hover:bg-accent hover:text-red-600 dark:hover:text-red-400"
                                             aria-label="Keluar"
                                         >
                                             <LogOut className="size-4" />
@@ -269,54 +265,52 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
 
                 {/* Dashboard Main Area */}
                 <main className={`transition-all duration-300 ${isSidebarCollapsed ? 'lg:pl-0' : 'lg:pl-[260px]'}`}>
-                    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-100 bg-white/95 px-5 backdrop-blur-sm lg:px-8 dark:border-slate-800 dark:bg-slate-950/95 transition-colors duration-300">
+                    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-border bg-background/95 px-5 backdrop-blur-sm lg:px-8 transition-colors duration-300">
                         <div className="flex items-center gap-4">
                             {/* Mobile Menu Trigger */}
-                            <button
-                                type="button"
-                                onClick={() => setIsMenuOpen(true)}
-                                className="rounded-xl p-2 text-slate-700 dark:text-slate-300 transition hover:bg-slate-100 dark:hover:bg-slate-800 lg:hidden"
-                                aria-label="Buka menu"
-                            >
+                            <Button type="button" variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)} className="lg:hidden" aria-label="Buka menu">
                                 <Menu className="size-5" />
-                            </button>
+                            </Button>
                             
                             {/* Desktop Sidebar Collapse Trigger */}
-                            <button
+                            <Button
                                 type="button"
                                 onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                                className="hidden rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 lg:block transition-colors"
+                                variant="ghost"
+                                size="icon"
+                                className="hidden lg:inline-flex"
                                 aria-label="Buka/Tutup Sidebar"
                             >
                                 <PanelLeft className={`size-5 transition-transform duration-300 ${isSidebarCollapsed ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Button>
 
-                            <div className="h-6 w-px bg-slate-100 dark:bg-slate-800" />
-                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{pageTitle}</p>
+                            <div className="h-6 w-px bg-border" />
+                            <p className="text-sm font-semibold text-foreground">{pageTitle}</p>
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <Link href={route('home')} className="hidden items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 sm:inline-flex">
+                            <Link href={route('home')} className="hidden items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-accent hover:text-foreground sm:inline-flex">
                                 <House className="size-4" />
                                 Beranda
                             </Link>
-                            <button type="button" className="rounded-xl p-2 text-slate-700 dark:text-slate-300 transition hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Notifikasi">
+                            <Button type="button" variant="ghost" size="icon" aria-label="Notifikasi">
                                 <Bell className="size-5" />
-                            </button>
+                            </Button>
                             
                             {/* Dashboard Theme Toggle Switch */}
-                            <button 
+                            <Button 
                                 type="button" 
                                 onClick={() => setIsDarkMode(!isDarkMode)}
-                                className="rounded-xl p-2 text-slate-700 dark:text-slate-300 transition hover:bg-slate-100 dark:hover:bg-slate-800" 
+                                variant="ghost"
+                                size="icon"
                                 aria-label="Ubah Tema"
                             >
-                                {isDarkMode ? <Sun className="size-5 text-orange-400" /> : <Moon className="size-5 text-slate-700" />}
-                            </button>
+                                {isDarkMode ? <Sun className="size-5 text-orange-400" /> : <Moon className="size-5" />}
+                            </Button>
                         </div>
                     </header>
 
-                    <section className="min-h-[calc(100vh-80px)] bg-white px-5 py-8 lg:px-10 dark:bg-slate-950 transition-colors duration-300">
+                    <section className="min-h-[calc(100vh-80px)] bg-background px-5 py-8 lg:px-10 transition-colors duration-300">
                         {children}
                     </section>
                 </main>

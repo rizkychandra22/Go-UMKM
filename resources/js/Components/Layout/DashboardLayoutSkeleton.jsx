@@ -2,9 +2,9 @@ import { Skeleton } from '@/Components/UI/skeleton';
 
 export default function DashboardLayoutSkeleton({ children }) {
     return (
-        <div className="min-h-screen bg-white text-slate-950">
-            <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] border-r border-slate-200 bg-white lg:block">
-                <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-7">
+        <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+            <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] border-r border-border bg-sidebar text-sidebar-foreground lg:block">
+                <div className="flex h-20 items-center gap-3 border-b border-border px-7">
                     <Skeleton className="size-10 rounded-2xl" />
                     <div className="space-y-2">
                         <Skeleton className="h-3 w-20 rounded-xl" />
@@ -25,7 +25,7 @@ export default function DashboardLayoutSkeleton({ children }) {
                     ))}
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 border-t border-slate-100 p-5">
+                <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-sidebar p-5">
                     <div className="flex items-center gap-3">
                         <Skeleton className="size-10 rounded-full" />
                         <div className="min-w-0 flex-1 space-y-2">
@@ -38,11 +38,11 @@ export default function DashboardLayoutSkeleton({ children }) {
             </aside>
 
             <main className="lg:pl-[260px]">
-                <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-100 bg-white/95 px-5 backdrop-blur lg:px-8">
+                <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-border bg-background/95 px-5 backdrop-blur lg:px-8">
                     <div className="flex items-center gap-4">
                         <Skeleton className="size-9 rounded-xl lg:hidden" />
                         <Skeleton className="hidden size-5 rounded lg:block" />
-                        <div className="h-6 w-px bg-slate-100" />
+                        <div className="h-6 w-px bg-border" />
                         <Skeleton className="h-4 w-28 rounded-xl" />
                     </div>
 
@@ -53,7 +53,7 @@ export default function DashboardLayoutSkeleton({ children }) {
                     </div>
                 </header>
 
-                <section className="min-h-[calc(100vh-80px)] bg-white px-5 py-8 lg:px-10">
+                <section className="min-h-[calc(100vh-80px)] bg-background px-5 py-8 lg:px-10 transition-colors duration-300">
                     {children}
                 </section>
             </main>

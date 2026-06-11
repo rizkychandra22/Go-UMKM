@@ -1,10 +1,11 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
-import { LogIn, Eye, Sparkles, Package, Star, ArrowLeft, ShoppingCart } from 'lucide-react';
+import { Sparkles, Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
 import { products } from '@/Constants/Data.Products';
+import BackRightLink from '@/Components/Shared/BackRight';
 
 export default function Populer() {
     const { auth } = usePage().props ?? {};
@@ -22,16 +23,11 @@ export default function Populer() {
                         
                         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                             <div className="flex items-center gap-4">
-                                <Link href={route('home')} className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50">
-                                    <ArrowLeft className="size-5" />
-                                </Link>
-                                <div>
-                                    <h2 className="flex items-center gap-2 text-xl font-extrabold text-slate-900 dark:text-slate-100">
-                                        <Sparkles className="size-5 animate-pulse text-amber-500" />
-                                        Produk Terlaris & Populer
-                                    </h2>
-                                    <p className="mt-0.5 text-xs font-medium text-slate-500">Produk unggulan yang paling banyak diminati.</p>
-                                </div>
+                                <BackRightLink 
+                                    title="Produk Terlaris & Populer"
+                                    subtitle="Produk unggulan yang paling banyak diminati."
+                                    icon={Sparkles}
+                                />
                             </div>
 
                             {/* --- Switch Button Tanpa Icon & Warna Amber --- */}

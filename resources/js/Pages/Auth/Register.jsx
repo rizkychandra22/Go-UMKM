@@ -3,8 +3,7 @@ import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
 import HeroSection from '../../Components/Landing/Auth.HeroSection';
 import { 
-    House, Sparkles, Package, Store, LogIn, 
-    User, Mail, Phone, Lock, UserCircle,
+    Store, LogIn, User, Mail, Phone, Lock, UserCircle,
 } from 'lucide-react';
 
 export default function Register() {
