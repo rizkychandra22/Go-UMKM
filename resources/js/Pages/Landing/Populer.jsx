@@ -26,7 +26,7 @@ export default function Populer() {
                                     <ArrowLeft className="size-5" />
                                 </Link>
                                 <div>
-                                    <h2 className="flex items-center gap-2 text-xl font-extrabold text-slate-900">
+                                    <h2 className="flex items-center gap-2 text-xl font-extrabold text-slate-900 dark:text-slate-100">
                                         <Sparkles className="size-5 animate-pulse text-amber-500" />
                                         Produk Terlaris & Populer
                                     </h2>

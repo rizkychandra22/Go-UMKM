@@ -19,8 +19,8 @@ export default function Login() {
                     {/* Sisi Kiri: Form Login */}
                     <article className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-amber-400">
                         <div className="mb-6">
-                            <h2 className="text-2xl font-extrabold text-slate-900">Login Akun</h2>
-                            <p className="mt-2 text-sm text-slate-600">Masuk untuk melanjutkan belanja dan kelola produk.</p>
+                            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">Login Akun</h2>
+                            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Masuk untuk melanjutkan belanja dan kelola produk.</p>
                         </div>
 
                         <LoginForm />
@@ -70,7 +70,7 @@ function LoginForm() {
 
             <div className="space-y-4">
                 <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1">Email</label>
+                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1 dark:text-slate-300">Email</label>
                     <div className="relative">
                         <Mail className="absolute left-3 top-3.5 size-4 text-slate-400" />
                         <input
@@ -88,7 +88,7 @@ function LoginForm() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1">Password</label>
+                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1 dark:text-slate-300">Password</label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-3.5 size-4 text-slate-400" />
                         <input
@@ -107,16 +107,16 @@ function LoginForm() {
             </div>
 
             <div className="flex items-center justify-between px-1">
-                <label className="flex items-center text-xs font-bold text-slate-600 cursor-pointer">
+                <label className="flex items-center text-xs font-bold text-slate-600 cursor-pointer dark:text-slate-400">
                     <input 
                         type="checkbox" 
                         checked={data.remember} 
                         onChange={(e) => setData('remember', e.target.checked)} 
-                        className="mr-2 size-4 rounded-lg border-slate-300 text-teal-600 focus:ring-teal-500" 
+                        className="mr-2 size-4 rounded-lg border-slate-300 text-teal-600 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-950 dark:focus:ring-teal-500/10" 
                     /> 
                     Ingat saya
                 </label>
-                <a href="#" className="text-xs font-bold text-teal-700 hover:text-teal-800 transition-colors">Lupa sandi?</a>
+                <a href="#" className="text-xs font-bold text-teal-700 hover:text-teal-800 transition-colors dark:text-teal-300 dark:hover:text-teal-200">Lupa sandi?</a>
             </div>
 
             <button 
@@ -128,7 +128,7 @@ function LoginForm() {
             </button>
 
             <div className="mt-6 text-center border-t border-slate-100 pt-6">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Belum punya akun?</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 dark:text-slate-400">Belum punya akun?</p>
                 <Link href={route('register')} className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 bg-white py-3 text-sm font-bold text-teal-700 transition hover:bg-teal-50 hover:border-teal-300">
                     Daftar Akun
                 </Link>

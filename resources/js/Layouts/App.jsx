@@ -343,7 +343,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
     ];
 
     return (
-        <div className="relative min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_10%_10%,rgba(253,186,116,0.15),transparent_26%),radial-gradient(circle_at_90%_0%,rgba(45,212,191,0.12),transparent_28%),linear-gradient(160deg,#fff8ee_0%,#f4fff8_54%,#edf8ff_100%)] dark:bg-linear-gradient(160deg,#0f172a_0%,#020617_100%) dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+        <div className="relative min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_10%_10%,rgba(253,186,116,0.15),transparent_26%),radial-gradient(circle_at_90%_0%,rgba(45,212,191,0.12),transparent_28%),linear-gradient(160deg,#fff8ee_0%,#f4fff8_54%,#edf8ff_100%)] text-slate-900 transition-colors duration-300 dark:bg-[radial-gradient(circle_at_10%_10%,rgba(20,184,166,0.12),transparent_28%),radial-gradient(circle_at_90%_0%,rgba(251,146,60,0.10),transparent_30%),linear-gradient(160deg,#0f172a_0%,#020617_62%,#07111f_100%)] dark:text-slate-50">
             <div className="pointer-events-none absolute -left-24 top-20 size-64 rounded-full bg-orange-200/30 dark:bg-orange-900/10 blur-3xl"></div>
             <div className="pointer-events-none absolute -right-24 top-0 size-72 rounded-full bg-teal-200/30 dark:bg-teal-900/10 blur-3xl"></div>
 

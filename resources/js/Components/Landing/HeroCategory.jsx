@@ -7,13 +7,13 @@ export default function CategoryProduct({ categories }) {
     // Kategori Product
     const getStyle = (slug) => {
         const styles = {
-            'kuliner-lokal': { icon: HandPlatter, tone: 'from-amber-50 to-amber-100' },
-            'trending-fashion': { icon: Shirt, tone: 'from-pink-50 to-rose-100' },
-            'rumah-dekor': { icon: House, tone: 'from-sky-50 to-sky-100' },
-            'kebutuhan-harian': { icon: ShoppingBasket, tone: 'from-emerald-50 to-emerald-100' },
+            'kuliner-lokal': { icon: HandPlatter, tone: 'from-amber-50 to-amber-100 dark:from-amber-950/40 dark:to-slate-900' },
+            'trending-fashion': { icon: Shirt, tone: 'from-pink-50 to-rose-100 dark:from-rose-950/40 dark:to-slate-900' },
+            'rumah-dekor': { icon: House, tone: 'from-sky-50 to-sky-100 dark:from-sky-950/40 dark:to-slate-900' },
+            'kebutuhan-harian': { icon: ShoppingBasket, tone: 'from-emerald-50 to-emerald-100 dark:from-emerald-950/40 dark:to-slate-900' },
         };
         // Pengaman: Jika slug tidak terdaftar di hardcode ini, beri style default
-        return styles[slug] ?? { icon: LayoutDashboard, tone: 'from-slate-50 to-slate-200' };
+        return styles[slug] ?? { icon: LayoutDashboard, tone: 'from-slate-50 to-slate-200 dark:from-slate-800 dark:to-slate-900' };
     };
 
     const { url } = usePage();
@@ -26,8 +26,8 @@ export default function CategoryProduct({ categories }) {
             <div className="flex items-end justify-between gap-3">
                 {isHome && (
                     <div>
-                        <h3 className="text-2xl font-extrabold text-slate-900">Kategori Produk</h3>
-                        <p className="mt-2 text-slate-600">Pilih sesuai kebutuhan: kuliner harian sampai hampers premium.</p>
+                        <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">Kategori Produk</h3>
+                        <p className="mt-2 text-slate-600 dark:text-slate-400">Pilih sesuai kebutuhan: kuliner harian sampai hampers premium.</p>
                     </div>
                 )}
 
@@ -54,15 +54,15 @@ export default function CategoryProduct({ categories }) {
                         <Link
                             href={href}
                             key={item.id}
-                            className={`shrink-0 w-[140px] sm:w-[240px] lg:w-auto lg:flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-3 sm:p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg`}
+                            className={`shrink-0 w-[140px] sm:w-[240px] lg:w-auto lg:flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-3 sm:p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg dark:border-slate-800 dark:hover:border-teal-500 dark:hover:shadow-slate-950/40`}
                         >
                             <div className="flex-col sm:flex-row flex items-start sm:items-center gap-2 sm:gap-4">
-                                <div className="inline-flex rounded-xl bg-slate-900 p-1.5 sm: p-2 text-white">
+                                <div className="inline-flex rounded-xl bg-slate-900 p-1.5 sm: p-2 text-white dark:bg-teal-600">
                                     <Icon className="size-4" />
                                 </div>
-                                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">{item.name}</h4>
+                                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 leading-tight">{item.name}</h4>
                             </div>
-                            <p className="mt-2 sm:mt-3 text-[10px] sm:text-sm leading-relaxed sm:leading-6 text-slate-600 line-clamp-2 sm:line-clamp-none">{item.description}</p>
+                            <p className="mt-2 sm:mt-3 text-[10px] sm:text-sm leading-relaxed sm:leading-6 text-slate-600 dark:text-slate-400 line-clamp-2 sm:line-clamp-none">{item.description}</p>
                         </Link>
                     );
                 })}

@@ -96,10 +96,10 @@ export default function Product({ categories = [] }) {
                                     <ProductCard key={`${p.name}-${i}`} product={p} isCustomer={isCustomer} />
                                 ))
                             ) : (
-                                <div className="col-span-full py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                                    <Package className="size-10 text-slate-300 mx-auto mb-3" />
-                                    <p className="text-sm font-bold text-slate-500">Produk yang kamu cari tidak ditemukan</p>
-                                    <p className="text-xs text-slate-400 mt-1">Coba sesuaikan kata kunci atau filter pencarianmu.</p>
+                                <div className="col-span-full py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 dark:bg-slate-950/60">
+                                    <Package className="size-10 text-slate-300 mx-auto mb-3 dark:text-slate-700" />
+                                    <p className="text-sm font-bold text-slate-500 dark:text-slate-400">Produk yang kamu cari tidak ditemukan</p>
+                                    <p className="text-xs text-slate-400 mt-1 dark:text-slate-500">Coba sesuaikan kata kunci atau filter pencarianmu.</p>
                                 </div>
                             )}
                         </div>

@@ -10,13 +10,13 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
 
     return (
         <article
-            className={`flex w-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:shadow-lg dark:bg-slate-800 dark:border-slate-600 dark:hover:border-teal-300 ${className}`}
+            className={`flex w-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:hover:border-teal-500 dark:hover:shadow-slate-950/40 ${className}`}
             style={{ minHeight }}
         >
-            <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-100 shadow-inner">
+            <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-100 shadow-inner dark:bg-slate-950">
                 <img src={product.image ?? 'https://placehold.co/400'} alt={product.name} className="h-full w-full object-cover" />
                 <div className="absolute left-3 top-3">
-                    <p className="inline-flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm px-2 py-1 text-[10px] font-bold uppercase text-slate-700 shadow-sm">
+                    <p className="inline-flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm px-2 py-1 text-[10px] font-bold uppercase text-slate-700 shadow-sm dark:bg-slate-950/85 dark:text-slate-200">
                         <Sparkles className="size-3 text-orange-500" />
                         {product.badge} | {product.category}
                     </p>
@@ -28,7 +28,7 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                 <p className="mt-2 mb-3 text-sm leading-relaxed text-slate-600 line-clamp-2 dark:text-slate-400">{product.description}</p>
 
                 {isCustomer && (
-                    <div className="flex items-center mt-auto pt-3 border-t border-t-slate-300">
+                    <div className="flex items-center mt-auto pt-3 border-t border-t-slate-300 dark:border-t-slate-800">
                         <p className="text-lg font-bold text-slate-900 dark:text-slate-100">{product.price}</p>
                         <p className="ml-auto text-sm font-bold text-slate-600 dark:text-slate-400">Stok: {product.stock ?? 0} PCS</p>
                     </div>
@@ -37,14 +37,14 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
 
             {isCustomer ? (
                 <div className="mt-4">
-                    <button type="button" onClick={handleAdd} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
+                    <button type="button" onClick={handleAdd} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-600 dark:hover:text-white">
                         <ShoppingCart className="size-4" />
                         Tambah ke Keranjang
                     </button>
                 </div>
             ) : (
                 <div className="mt-4">
-                    <Link href={route('login')} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
+                    <Link href={route('login')} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-600 dark:hover:text-white">
                         <Eye className="size-4" />
                         Lihat Produk
                     </Link>
