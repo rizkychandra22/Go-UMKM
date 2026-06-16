@@ -70,32 +70,41 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
             : route('dashboardCustomer')
         : '#';
 
+    const dashboardMenus = [
+        { label: 'Dashboard', href: dashboardHref, icon: LayoutDashboard, section: 'OVERVIEW' },
+        { label: 'Produk', href: isSeller ? route('dashboardSeller', { tab: 'produk' }) : route('dashboardCustomer', { tab: 'produk' }), icon: Package, section: 'MANAGEMENT' },
+        isSeller
+            ? { label: 'Penjualan', href: route('dashboardSeller', { tab: 'penjualan' }), icon: ClipboardList, section: 'MANAGEMENT' }
+            : { label: 'Keranjang', href: route('dashboardCustomer', { tab: 'keranjang' }), icon: ShoppingCart, section: 'MANAGEMENT' },
+        { label: 'Pesanan', href: isSeller ? route('dashboardSeller', { tab: 'pesanan' }) : route('dashboardCustomer', { tab: 'pesanan' }), icon: ClipboardList, section: 'MANAGEMENT' },
+        { label: 'Mitra UMKM', href: route('mitra'), icon: Users, section: 'MARKETPLACE' },
+        { label: 'Katalog Produk', href: route('product'), icon: Store, section: 'MARKETPLACE' },
+        { label: 'Profile User', href: route('profile'), icon: Settings, section: 'ACCOUNT' },
+        ...(isSeller
+            ? [{ label: 'Profile Business', href: route('profile.business'), icon: Store, section: 'ACCOUNT' }]
+            : []),
+    ];
+
     const isActivePath = (href) => {
         if (!href || href === '#') return false;
 
         try {
-            return url.startsWith(new URL(href, window.location.origin).pathname);
+            const current = new URL(url, window.location.origin);
+            const target = new URL(href, window.location.origin);
+
+            if (current.pathname !== target.pathname) return false;
+
+            const currentTab = current.searchParams.get('tab');
+            const targetTab = target.searchParams.get('tab');
+
+            if (!targetTab) return !currentTab;
+            return currentTab === targetTab;
         } catch {
             return false;
         }
     };
 
     if (isDashboard) {
-        const dashboardMenus = [
-            { label: 'Dashboard', href: dashboardHref, icon: LayoutDashboard, active: true, section: 'OVERVIEW' },
-            { label: 'Produk', href: '#', icon: Package, section: 'MANAGEMENT' },
-            isSeller
-                ? { label: 'Penjualan', href: '#', icon: ClipboardList, section: 'MANAGEMENT' }
-                : { label: 'Keranjang', href: '#', icon: ShoppingCart, section: 'MANAGEMENT' },
-            { label: 'Pesanan', href: '#', icon: ClipboardList, section: 'MANAGEMENT' },
-            { label: 'Mitra UMKM', href: route('mitra'), icon: Users, section: 'MARKETPLACE' },
-            { label: 'Katalog Produk', href: route('product'), icon: Store, section: 'MARKETPLACE' },
-            { label: 'Profile User', href: route('profile'), icon: Settings, section: 'ACCOUNT' },
-            ...(isSeller
-                ? [{ label: 'Profile Business', href: route('profile.business'), icon: Store, section: 'ACCOUNT' }]
-                : []),
-        ];
-
         const sections = [...new Set(dashboardMenus.map((item) => item.section))];
 
         if (loading) {

@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { useEffect, useState } from 'react';
 import {
@@ -68,6 +68,20 @@ export default function DashboardCustomer({ categories = [] }) {
         
         return matchesSearch && matchesCategory && matchesBadge;
     });
+
+    const { url } = usePage();
+    const currentTab = (() => {
+        try {
+            const activeTab = new URL(url, window.location.origin).searchParams.get('tab');
+            return ['produk', 'keranjang', 'pesanan'].includes(activeTab) ? activeTab : 'all';
+        } catch {
+            return 'all';
+        }
+    })();
+
+    const showProdukSection = currentTab === 'all' || currentTab === 'produk';
+    const showKeranjangSection = currentTab === 'all' || currentTab === 'keranjang';
+    const showPesananSection = currentTab === 'all' || currentTab === 'pesanan';
 
     // LOGIKA MULTI-FILTER REALTIME: PESANAN AKTIF (Mengikuti paymentHistory sebagai data Pesanan Customer)
     const filteredOrders = paymentHistory.filter(order => {
@@ -269,13 +283,14 @@ export default function DashboardCustomer({ categories = [] }) {
                     </div>
                 </section>
 
-                {/* REKOMENDASI PRODUK */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
-                    <RecomendMarquee />
-                </section>
+                {showProdukSection && (
+                    <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+                        <RecomendMarquee />
+                    </section>
+                )}
 
-                {/* KERANJANG */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+                {showKeranjangSection && (
+                    <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                     <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
                             <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Keranjang</h3>
@@ -332,7 +347,7 @@ export default function DashboardCustomer({ categories = [] }) {
                                                     </div>
                                                     <div className="flex items-end">
                                                         <Link href="#" className="inline-flex justify-between items-end rounded-xl bg-teal-50 dark:bg-teal-950/40 px-2 py-1.5 text-xs font-bold text-teal-700 dark:text-teal-400 hover:bg-teal-600 border border-teal-200 dark:border-teal-900 hover:text-white dark:hover:text-white hover:border-teal-600 transition-all">
-                                                            <ShoppingCart className="size-3" />
+                                                            Checkout
                                                         </Link>
                                                     </div>
                                                 </div>
@@ -395,16 +410,19 @@ export default function DashboardCustomer({ categories = [] }) {
                         </div>
                     </div>
                 </section>
+                )}
 
-                {/* PESANAN AKTIF */}
-                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
-                    <div className="flex items-center justify-between gap-3">
-                        <div className="min-w-0">
-                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Pesanan Aktif</h3>
-                            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Daftar pesanan yang sedang diproses.</p>
-                        </div>
-                        <ResetButton resetFn={resetOrderFilters} />
-                    </div>
+                {showPesananSection && (
+                    <>
+                        {/* PESANAN AKTIF */}
+                        <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+                            <div className="flex items-center justify-between gap-3">
+                                <div className="min-w-0">
+                                    <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Pesanan Aktif</h3>
+                                    <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Daftar pesanan yang sedang diproses.</p>
+                                </div>
+                                <ResetButton resetFn={resetOrderFilters} />
+                            </div>
 
                     {/* Filter Area - Responsive Flex */}
                     <div className="flex flex-col sm:flex-row gap-3 mt-5">
@@ -578,6 +596,8 @@ export default function DashboardCustomer({ categories = [] }) {
                         </div>
                     </div>
                 </section>
+                    </>
+                )}
             </LayoutApp>
         </>
     );

@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
 import BackRightLink from '@/Components/Shared/BackRight';
+import { Badge } from '@/Components/UI/badge';
 
 export default function CategoryProduct({ categories }) {
     // Kategori Product
@@ -54,15 +55,18 @@ export default function CategoryProduct({ categories }) {
                         <Link
                             href={href}
                             key={item.id}
-                            className={`shrink-0 w-[140px] sm:w-[240px] lg:w-auto lg:flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${tone} p-3 sm:p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg dark:border-slate-800 dark:hover:border-teal-500 dark:hover:shadow-slate-950/40`}
+                            className={`shrink-0 w-[140px] sm:w-[240px] lg:w-auto lg:flex-1 rounded-3xl border border-slate-200 bg-gradient-to-br ${tone} p-4 transition duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg dark:border-slate-800 dark:hover:border-teal-500 dark:hover:shadow-slate-950/40`}
                         >
-                            <div className="flex-col sm:flex-row flex items-start sm:items-center gap-2 sm:gap-4">
-                                <div className="inline-flex rounded-xl bg-slate-900 p-1.5 sm: p-2 text-white dark:bg-teal-600">
-                                    <Icon className="size-4" />
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="grid size-11 place-content-center rounded-2xl bg-slate-900 text-white dark:bg-teal-600">
+                                        <Icon className="size-4" />
+                                    </div>
+                                    <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 leading-tight">{item.name}</h4>
                                 </div>
-                                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 leading-tight">{item.name}</h4>
+                                <p className="text-[11px] sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 sm:line-clamp-none">{item.description}</p>
+                                <Badge variant="secondary" className="w-fit">Lihat Kategori</Badge>
                             </div>
-                            <p className="mt-2 sm:mt-3 text-[10px] sm:text-sm leading-relaxed sm:leading-6 text-slate-600 dark:text-slate-400 line-clamp-2 sm:line-clamp-none">{item.description}</p>
                         </Link>
                     );
                 })}

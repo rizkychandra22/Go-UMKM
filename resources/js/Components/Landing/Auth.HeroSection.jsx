@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 import { ArrowRight, Star, Store } from 'lucide-react';
+import { Button } from '@/Components/UI/button';
 
 export default function HeroSection({ type = 'home' }) {
     const stats = [
@@ -30,22 +32,20 @@ export default function HeroSection({ type = 'home' }) {
                     </p>
 
                     {type === 'home' && (
-                        // PERBAIKAN: Tombol dipaksa membagi dua kolom (50:50) sejajar di HP, kembali flex di PC
-                        <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
-                            <Link
-                                href={route('product')}
-                                className="justify-center inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-2.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-teal-600 dark:hover:bg-teal-500 sm:text-sm sm:px-5 sm:py-3"
-                            >
-                                Mulai Belanja
-                                <ArrowRight className="size-3.5" />
-                            </Link>
-                            <a
-                                href={route('populer')}
-                                className="justify-center inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-teal-500 dark:hover:text-teal-300 sm:text-sm sm:px-5 sm:py-3"
-                            >
-                                Best Seller
-                                <Star className="size-3.5" />
-                            </a>
+                        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+                            <Button asChild variant="default" size="lg" className="w-full sm:w-auto">
+                                <Link href={route('product')}>
+                                    Mulai Belanja
+                                    <ArrowRight className="size-4" />
+                                </Link>
+                            </Button>
+
+                            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                                <Link href={route('populer')}>
+                                    Best Seller
+                                    <Star className="size-4" />
+                                </Link>
+                            </Button>
                         </div>
                     )}
                 </>

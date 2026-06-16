@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { Eye, Sparkles, ShoppingCart } from 'lucide-react';
+import { Button } from '@/Components/UI/button';
+import { Badge } from '@/Components/UI/badge';
 
 export default function ProductCard({ product, isCustomer, className = '', minHeight = '420px', onAdd }) {
     const handleAdd = () => {

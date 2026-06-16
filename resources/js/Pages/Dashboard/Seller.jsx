@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { useEffect, useState } from 'react';
 import {
@@ -23,6 +23,19 @@ export default function DashboardSeller({ categories = [] }) {
         const timer = window.setTimeout(() => setIsLoading(false), 700);
         return () => window.clearTimeout(timer);
     }, []);
+
+    const { url } = usePage();
+    const currentTab = (() => {
+        try {
+            const activeTab = new URL(url, window.location.origin).searchParams.get('tab');
+            return ['produk', 'penjualan', 'pesanan'].includes(activeTab) ? activeTab : 'all';
+        } catch {
+            return 'all';
+        }
+    })();
+    const showProdukSection = currentTab === 'all' || currentTab === 'produk';
+    const showPesananSection = currentTab === 'all' || currentTab === 'pesanan';
+    const showPenjualanSection = currentTab === 'all' || currentTab === 'penjualan';
 
     // STATE FILTER KHUSUS DATA REKOMENDASI PRODUK 
     const [searchProdQuery, setSearchProdQuery] = useState('');
@@ -250,21 +263,21 @@ return (
                 </div>
             </section>
 
-            {/* PRODUK SAYA */}
-            <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
-                <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                        <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">Produk Saya</h3>
-                        <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pantau ketersediaan stok produk Anda.</p>
+            {showProdukSection && (
+                <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+                    <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">Produk Saya</h3>
+                            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pantau ketersediaan stok produk Anda.</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                            <ResetButton resetFn={resetProductFilters} />
+                            <button className="inline-flex h-9 sm:h-10 items-center justify-center gap-2 rounded-xl bg-teal-600 px-3 sm:px-4 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-teal-500 transition-colors shrink-0">
+                                <PlusCircle className="size-4 sm:size-5" />
+                                <span className="hidden sm:inline">Produk</span>
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                        <ResetButton resetFn={resetProductFilters} />
-                        <button className="inline-flex h-9 sm:h-10 items-center justify-center gap-2 rounded-xl bg-teal-600 px-3 sm:px-4 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-teal-500 transition-colors shrink-0">
-                            <PlusCircle className="size-4 sm:size-5" />
-                            <span className="hidden sm:inline">Produk</span>
-                        </button>
-                    </div>
-                </div>
 
                 {/* Filter Area - Responsive Flex */}
                 <div className="flex flex-col sm:flex-row gap-3 mt-5">
@@ -330,9 +343,10 @@ return (
                     </div>
                 </div>
             </section>
+            )}
 
-            {/* PESANAN MASUK */}
-            <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+            {showPesananSection && (
+                <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                 <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
                         <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">Pesanan Masuk</h3>
@@ -410,9 +424,10 @@ return (
                     </div>
                 </div>
             </section>
+            )}
 
-            {/* RIWAYAT PEMBAYARAN */}
-            <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+            {showPenjualanSection && (
+                <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
                 <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
                         <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">Riwayat Pembayaran</h3>
@@ -518,6 +533,7 @@ return (
                     </div>
                 </div>
             </section>
+            )}
         </LayoutApp>
     </>
 );
