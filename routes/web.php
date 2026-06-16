@@ -10,9 +10,10 @@ use App\Http\Controllers\Landing\CategoryController;
 use App\Http\Controllers\Landing\HomeController;
 use App\Http\Controllers\Landing\MitraController;
 use App\Http\Controllers\Landing\PopulerController;
-use App\Http\Controllers\Landing\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
+Route::get('/product/{id}', [\App\Http\Controllers\Landing\ProductController::class, 'show'])->name('product.show');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('category');
 Route::get('/populer', [PopulerController::class, 'index'])->name('populer');

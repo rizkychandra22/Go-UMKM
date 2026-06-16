@@ -65,7 +65,6 @@ export default function CategoryProduct({ categories }) {
                                     <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 leading-tight">{item.name}</h4>
                                 </div>
                                 <p className="text-[11px] sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 sm:line-clamp-none">{item.description}</p>
-                                <Badge variant="secondary" className="w-fit">Lihat Kategori</Badge>
                             </div>
                         </Link>
                     );

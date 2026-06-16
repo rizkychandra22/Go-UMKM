@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function show($id)
     {
-        return inertia('Landing/Product', [
-            'categories' => Category::all()
+        // Cukup kirim ID produk saja ke front-end
+        return Inertia::render('Landing/ProductDetail', [
+            'productId' => (int) $id
         ]);
     }
 }

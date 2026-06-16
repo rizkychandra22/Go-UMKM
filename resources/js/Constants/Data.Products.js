@@ -1,5 +1,6 @@
 export const products = [
     {
+        id : 1,     
         name: 'Sambal Cumi Asin Premium',
         description: 'Dimasak perlahan dengan rempah pilihan, tanpa MSG tambahan.',
         badge: 'Terlaris',
@@ -10,6 +11,7 @@ export const products = [
         stock: 10
     },
     {
+        id : 2,
         name: 'Outer Batik Cap Abstrak',
         description: 'Bahan katun dingin dengan motif eksklusif buatan tangan.',
         badge: 'Populer',
@@ -20,6 +22,7 @@ export const products = [
         stock: 5
     },
     {
+        id : 3,
         name: 'Reed Diffuser Serai Wangi',
         description: 'Aroma menenangkan khas spa Bali untuk ruangan Anda.',
         badge: 'Populer',
@@ -30,6 +33,7 @@ export const products = [
         stock: 8
     },
     {
+        id : 4,
         name: 'Kopi Luwak Single Origin',
         description: 'Kopi premium dengan cita rasa kompleks dan aftertaste panjang.',
         badge: 'Terlaris',
@@ -39,7 +43,8 @@ export const products = [
         slug: 'kebutuhan-harian',
         stock: 15
     },
-    {
+    {   
+        id : 5,
         name: 'Kerupuk Ikan Khas Daerah',
         description: 'Camilan gurih dengan bahan lokal ikan segar.',
         badge: 'Spesial',
@@ -49,7 +54,8 @@ export const products = [
         slug: 'kuliner-lokal',
         stock: 20
     },
-    {
+    {   
+        id : 6,
         name: 'Kerajinan Anyaman Bambu',
         description: 'Wadah serbaguna estetik hasil anyaman tangan pengrajin desa.',
         badge: 'Mewah',
@@ -60,6 +66,7 @@ export const products = [
         stock: 12
     },
     {
+        id : 7,             
         name: 'Sabun Kopi Organik',
         description: 'Eksfoliasi alami dengan aroma kopi asli yang menyegarkan kulit.',
         badge: 'Spesial',
