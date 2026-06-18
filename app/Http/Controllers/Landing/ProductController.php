@@ -7,11 +7,15 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function show($id)
+    public function index()
     {
-        // Cukup kirim ID produk saja ke front-end
+        return Inertia::render('Landing/Product');
+    }
+
+    public function show($slug)
+    {
         return Inertia::render('Landing/ProductDetail', [
-            'productId' => (int) $id
+            'productSlug' => $slug
         ]);
     }
 }

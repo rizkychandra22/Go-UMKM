@@ -1,12 +1,15 @@
 import { Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { Eye, Sparkles, ShoppingCart } from 'lucide-react';
+import { getProductDetailSlug } from '@/lib/product';
 
 export default function ProductCard({ product, isCustomer, className = '', minHeight = '420px', onAdd }) {
     const handleAdd = () => {
         if (typeof onAdd === 'function') return onAdd(product);
         alert(`Ditambahkan ke keranjang: ${product.name}`);
     };
+
+    const productSlug = getProductDetailSlug(product);
 
     return (
         <article
@@ -15,7 +18,7 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
         >
             {/* Foto Produk dengan Link ke Detail */}
             <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-100 shadow-inner dark:bg-slate-950">
-                <Link href={route('product.show', { id: product.id })} className="block h-full w-full">
+                <Link href={route('product.show', { slug: productSlug })} className="block h-full w-full">
                     <img 
                         src={product.image ?? 'https://placehold.co/400'} 
                         alt={product.name} 
@@ -34,7 +37,7 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                 {/* Judul Produk Sekarang Bisa Diklik Menuju Detail */}
                 <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1 dark:text-slate-100">
                     <Link 
-                        href={route('product.show', { id: product.id })} 
+                        href={route('product.show', { slug: productSlug })} 
                         className="transition-colors hover:text-teal-600 dark:hover:text-teal-400"
                     >
                         {product.name}
@@ -69,7 +72,7 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                 /* Jika Belum Login -> Tombol Mengarah ke Detail Produk (Bukan ke Page Login Lagi) */
                 <div className="mt-4">
                     <Link 
-                        href={route('product.show', { id: product.id })} 
+                        href={route('product.show', { slug: productSlug })} 
                         className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-600 dark:hover:text-white"
                     >
                         <Eye className="size-4" />

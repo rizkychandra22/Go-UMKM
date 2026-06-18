@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 import { ArrowLeft } from 'lucide-react';
 
 export default function BackRightLink({ title, subtitle, icon: Icon, backRoute = 'home' }) {

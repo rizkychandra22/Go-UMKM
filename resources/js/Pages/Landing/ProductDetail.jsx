@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
-import { ShoppingCart, ArrowLeft, Star, Store, ShieldCheck, Truck } from 'lucide-react';
+import { ShoppingCart, Package, Star, Store, ShieldCheck, Truck } from 'lucide-react';
 
-// 1. IMPORT DATA PRODUK KAMU DI SINI
 import { products } from '@/Constants/Data.Products'; 
+import BackRightLink from '@/Components/Shared/BackRight';
+import { findProductBySlug } from '@/lib/product';
 
-export default function ProductDetail({ productId }) {
+export default function ProductDetail({ productSlug }) {
     const [quantity, setQuantity] = useState(1);
 
-    // 2. CARI PRODUKNYA BERDASARKAN ID YANG DIKIRIM LARAVEL
-    const product = products.find((p) => p.id === productId);
+    const product = findProductBySlug(products, productSlug);
 
-    // Jika ID ngawur / tidak ketemu di data konstanta
     if (!product) {
         return (
             <LayoutApp pageTitle="Produk Tidak Ditemukan">
@@ -35,19 +33,18 @@ export default function ProductDetail({ productId }) {
             <Head title={`Go-UMKM | ${product.name}`} />
 
             <LayoutApp pageTitle="Detail Produk">
-                <div className="mb-6">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-teal-600 transition"
-                    >
-                        <ArrowLeft className="size-4" />
-                        Kembali ke Home
-                    </Link>
-                </div>
 
                 <div className="grid gap-8 lg:grid-cols-2">
                     {/* SISI KIRI: Gambar Produk */}
                     <section className="glass-panel p-4 flex flex-col justify-center items-center rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950/70">
+                        <div className="mb-4 w-full self-start">
+                            <BackRightLink
+                                title="Kembali ke Produk"
+                                subtitle="Lihat katalog produk UMKM lainnya."
+                                icon={Package}
+                                backRoute="product"
+                            />
+                        </div>
                         <div className="aspect-square w-full max-w-[450px] overflow-hidden rounded-xl bg-slate-50">
                             <img
                                 src={product.image} 
