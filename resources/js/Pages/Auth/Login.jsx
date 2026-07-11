@@ -68,33 +68,31 @@ function LoginForm() {
             )}
 
             <div className="space-y-4">
-                <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1 dark:text-slate-300">Email</label>
+                <div className="group">
+                    <label className="block text-sm font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Email</label>
                     <div className="relative">
-                        <Mail className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                        <Mail className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                         <input
                             type="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all focus:ring-4 ${
-                                errors.email || errors.authGagal 
-                                ? 'border-red-300 focus:ring-red-100 bg-red-50/30' 
-                                : 'border-slate-200 focus:border-teal-500 focus:ring-teal-500/10 bg-white/50'
+                            className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all ${
+                                errors.email ? 'border-red-300 bg-red-50/30' : 'border-slate-200 focus:border-teal-500 bg-white/50'
                             }`}
-                            placeholder="nama@email.com"
+                            placeholder="email@gmail.com"
                         />
                     </div>
                 </div>
 
-                <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 ml-1 dark:text-slate-300">Password</label>
+                <div className="group">
+                    <label className="block text-sm font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Password</label>
                     <div className="relative">
-                        <Lock className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                        <Lock className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                         <input
                             type="password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all focus:ring-4 ${
+                            className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all ${
                                 errors.password || errors.authGagal 
                                 ? 'border-red-300 focus:ring-red-100 bg-red-50/30' 
                                 : 'border-slate-200 focus:border-teal-500 focus:ring-teal-500/10 bg-white/50'

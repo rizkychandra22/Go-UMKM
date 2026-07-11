@@ -53,7 +53,7 @@ function RegisterForm() {
             
             {/* Pilihan Role */}
             <div>
-                <label className="block text-xs font-black uppercase tracking-widest text-slate-700 mb-2 ml-1">Daftar Sebagai:</label>
+                <label className="block text-xs font-black uppercase tracking-widest text-white-600 mb-2 ml-1">Daftar Sebagai:</label>
                 <div className="grid grid-cols-2 gap-3">
                     <button
                         type="button"
@@ -63,11 +63,11 @@ function RegisterForm() {
                             ? 'border-teal-500 bg-teal-50 text-teal-700 ring-4 ring-teal-500/10 shadow-sm' 
                             : errors.role 
                                 ? 'border-red-300 bg-red-50 text-red-500' 
-                                : 'border-slate-200 bg-white/50 text-slate-500 hover:border-teal-200'
+                                : 'border-slate-200 bg-white/50 text-white-300 hover:border-teal-300'
                         }`}
                     >
                         <UserCircle className={`size-4 ${data.role === 'customer' ? 'animate-pulse' : ''}`} />
-                        <span className="text-sm font-bold">Pembeli</span>
+                        <span className="text-sm font-bold text-white-300">Pembeli</span>
                     </button>
                     <button
                         type="button"
@@ -77,11 +77,11 @@ function RegisterForm() {
                             ? 'border-orange-500 bg-orange-50 text-orange-700 ring-4 ring-orange-500/10 shadow-sm' 
                             : errors.role 
                                 ? 'border-red-300 bg-red-50 text-red-500' 
-                                : 'border-slate-200 bg-white/50 text-slate-500 hover:border-orange-200'
+                                : 'border-slate-200 bg-white/50 text-white-300 hover:border-orange-300'
                         }`}
                     >
                         <Store className={`size-4 ${data.role === 'seller' ? 'animate-pulse' : ''}`} />
-                        <span className="text-sm font-bold">Mitra</span>
+                        <span className="text-sm font-bold text-white-300">Mitra</span>
                     </button>
                 </div>
                 {errors.role && <p className="text-red-600 text-[11px] mt-2 ml-1 font-bold animate-shake italic">* Pilih salah satu role</p>}
@@ -90,9 +90,9 @@ function RegisterForm() {
             <div className="space-y-3.5">
                 {/* Nama */}
                 <div className="group">
-                    <label className="block text-xs font-bold text-slate-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Nama Lengkap</label>
+                    <label className="block text-xs font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Nama Lengkap</label>
                     <div className="relative">
-                        <User className="absolute left-3 top-3.5 size-4 text-slate-400 group-focus-within:text-teal-500 transition-colors" />
+                        <User className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                         <input
                             type="text"
                             value={data.name}
@@ -107,10 +107,10 @@ function RegisterForm() {
                 </div>
 
                 {/* Email Row*/}
-                <div>
-                    <label className="block text-xs font-bold text-slate-600 mb-1 ml-1">Email</label>
+                <div className="group">
+                    <label className="block text-xs font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Email</label>
                     <div className="relative">
-                        <Mail className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                        <Mail className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                         <input
                             type="email"
                             value={data.email}
@@ -124,10 +124,10 @@ function RegisterForm() {
                 </div>
 
                 {/* Telepon Row */}
-                <div>
-                    <label className="block text-xs font-bold text-slate-600 mb-1 ml-1">Telepon</label>
+                <div className="group">
+                    <label className="block text-xs font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Telepon</label>
                     <div className="relative">
-                        <Phone className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                        <Phone className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                         <input
                             type="text"
                             value={data.phone}
@@ -142,10 +142,10 @@ function RegisterForm() {
 
                 {/* Password Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                        <label className="block text-xs font-bold text-slate-600 mb-1 ml-1">Sandi</label>
+                    <div className="group">
+                        <label className="block text-xs font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Sandi</label>
                         <div className="relative">
-                            <Lock className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                            <Lock className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                             <input
                                 type="password"
                                 value={data.password}
@@ -157,10 +157,10 @@ function RegisterForm() {
                             />
                         </div>
                     </div>
-                    <div>
-                        <label className="block text-xs font-bold text-slate-600 mb-1 ml-1">Konfirmasi</label>
+                    <div className="group">
+                        <label className="block text-xs font-bold text-white-600 mb-1 ml-1 group-focus-within:text-teal-600 transition-colors">Konfirmasi</label>
                         <div className="relative">
-                            <Lock className="absolute left-3 top-3.5 size-4 text-slate-400" />
+                            <Lock className="absolute left-3 top-3.5 size-4 text-white-400 group-focus-within:text-teal-500 transition-colors" />
                             <input
                                 type="password"
                                 value={data.password_confirmation}
@@ -176,7 +176,7 @@ function RegisterForm() {
 
             <button 
                 disabled={processing} 
-                className="group mt-2 w-full rounded-2xl bg-slate-900 py-3.5 text-sm font-black text-white hover:bg-slate-800 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="group w-full rounded-2xl bg-teal-600 py-3 text-sm font-black text-white hover:bg-teal-700 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
             >
                 {processing ? 'Menghubungkan...' : 'Daftar Akun'}
                 <LogIn className="size-4 transition-transform group-hover:translate-x-1" />
