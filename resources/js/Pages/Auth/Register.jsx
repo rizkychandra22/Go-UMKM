@@ -153,7 +153,7 @@ function RegisterForm() {
                                 className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all ${
                                     errors.password ? 'border-red-300 bg-red-50/30' : 'border-slate-200 focus:border-teal-500 bg-white/50'
                                 }`}
-                                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                                placeholder="••••••••"
                             />
                         </div>
                     </div>
@@ -166,7 +166,7 @@ function RegisterForm() {
                                 value={data.password_confirmation}
                                 onChange={(e) => setData('password_confirmation', e.target.value)}
                                 className="w-full rounded-2xl border border-slate-200 bg-white/50 p-3 pl-10 text-sm transition-all focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10"
-                                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                                placeholder="••••••••"
                             />
                         </div>
                     </div>

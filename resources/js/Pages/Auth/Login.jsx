@@ -99,7 +99,7 @@ function LoginForm() {
                                 ? 'border-red-300 focus:ring-red-100 bg-red-50/30' 
                                 : 'border-slate-200 focus:border-teal-500 focus:ring-teal-500/10 bg-white/50'
                             }`}
-                            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                            placeholder="••••••••"
                         />
                     </div>
                 </div>

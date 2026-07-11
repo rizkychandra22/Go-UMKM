@@ -31,22 +31,20 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                 />
                 
                 {/* Badges */}
-                {product.badge && (
-                    <div className="absolute top-2 left-2">
-                        <span className={`inline-flex items-center rounded-sm px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm ${product.badge === 'Populer' ? 'bg-orange-500' : product.badge === 'Terlaris' ? 'bg-teal-600' : 'bg-rose-500'}`}>
+                <div className="absolute top-2 left-2 right-2 flex flex-wrap justify-between gap-1 pointer-events-none">
+                    {product.badge && (
+                        <span className={`inline-flex shrink-0 items-center rounded-sm px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm ${product.badge === 'Populer' ? 'bg-orange-500' : product.badge === 'Terlaris' ? 'bg-teal-600' : 'bg-rose-500'}`}>
                             {product.badge}
                         </span>
-                    </div>
-                )}
+                    )}
 
-                {/* Category Badge */}
-                {product.category && (
-                    <div className="absolute top-2 right-2">
-                        <span className="inline-flex items-center rounded-sm bg-white/90 px-1.5 py-0.5 text-[10px] font-bold text-slate-800 shadow-sm backdrop-blur-md dark:bg-slate-900/90 dark:text-slate-200">
+                    {/* Category Badge */}
+                    {product.category && (
+                        <span className="inline-flex shrink-0 items-center rounded-sm bg-white/90 px-1.5 py-0.5 text-[10px] font-bold text-slate-800 shadow-sm backdrop-blur-md dark:bg-slate-900/90 dark:text-slate-200">
                             {product.category}
                         </span>
-                    </div>
-                )}
+                    )}
+                </div>
             </Link>
 
             {/* Product Details */}
