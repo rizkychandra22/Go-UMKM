@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+﻿import { Head, useForm, usePage } from '@inertiajs/react';
 import LayoutApp from '../../Layouts/App';
 import { Store, FileText, Camera, Save, CheckCircle } from 'lucide-react';
 
@@ -21,7 +21,7 @@ export default function Profile() {
 
     return (
         <LayoutApp pageTitle="Pengaturan Bisnis">
-            <Head title="Pengaturan Profil Bisnis | Go-UMKM" />
+            <Head title="Pengaturan Profil Bisnis | Tokoku" />
 
             <div className="w-full">
                 <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">

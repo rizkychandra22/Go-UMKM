@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+﻿import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import { Package } from 'lucide-react';
@@ -39,18 +39,18 @@ export default function Product({ categories = [] }) {
 
     return(
         <>
-            <Head title="Go-UMKM | All Produk" />
+            <Head title="Tokoku | All Produk" />
             
             <LayoutApp pageTitle="Marketplace Lokal">
 
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-sky-400 flex flex-col">
+                <section className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
                     <div className="space-y-6">
-                        <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-4 dark:border-slate-800">
 
                             {/* Tombol Kembali & Header */}
                             <BackRightLink 
-                                title="Produk Tersedia"
-                                subtitle="Temukan produk lokal yang kamu cari di sini."
+                                title="Semua Produk"
+                                subtitle="Temukan produk lokal pilihan dari berbagai UMKM"
                                 icon={Package}
                             />
 
@@ -59,7 +59,7 @@ export default function Product({ categories = [] }) {
                         </div>
 
                         {/* Search and Filter */}
-                        <div className="flex flex-col sm:flex-row gap-3 mt-5">
+                        <div className="flex flex-col md:flex-row gap-4 mt-2">
                             
                             {/* Search Bar */}
                             <div className="flex-1 min-w-0">
@@ -69,7 +69,7 @@ export default function Product({ categories = [] }) {
                                 />
                             </div>
 
-                            <div className="flex gap-3 flex-1">
+                            <div className="flex gap-4 flex-1">
                                 {/* Select Filter Category */}
                                 <div className="flex-1">
                                     <FilterCategory 
@@ -90,16 +90,21 @@ export default function Product({ categories = [] }) {
                         </div>      
 
                         {/* Grid Card Produk */}
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-6">
                             {filteredProducts.length > 0 ? (
                                 filteredProducts.map((p, i) => (
                                     <ProductCard key={`${p.name}-${i}`} product={p} isCustomer={isCustomer} />
                                 ))
                             ) : (
-                                <div className="col-span-full py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 dark:bg-slate-950/60">
-                                    <Package className="size-10 text-slate-300 mx-auto mb-3 dark:text-slate-700" />
-                                    <p className="text-sm font-bold text-slate-500 dark:text-slate-400">Produk yang kamu cari tidak ditemukan</p>
-                                    <p className="text-xs text-slate-400 mt-1 dark:text-slate-500">Coba sesuaikan kata kunci atau filter pencarianmu.</p>
+                                <div className="col-span-full py-16 flex flex-col items-center justify-center text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 dark:bg-slate-900/30">
+                                    <div className="size-16 rounded-full bg-slate-200/50 flex items-center justify-center mb-4 dark:bg-slate-800/50">
+                                        <Package className="size-8 text-slate-400 dark:text-slate-500" />
+                                    </div>
+                                    <p className="text-base font-bold text-slate-700 dark:text-slate-300">Produk tidak ditemukan</p>
+                                    <p className="text-sm text-slate-500 mt-1 max-w-sm dark:text-slate-400">Coba gunakan kata kunci pencarian lain atau sesuaikan filter untuk menemukan apa yang kamu cari.</p>
+                                    <button onClick={resetFilter} className="mt-6 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400">
+                                        Hapus Semua Filter
+                                    </button>
                                 </div>
                             )}
                         </div>

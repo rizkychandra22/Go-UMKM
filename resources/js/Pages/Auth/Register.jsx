@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+﻿import { Head, Link, useForm } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
 import HeroSection from '../../Components/Landing/Auth.HeroSection';
@@ -9,7 +9,7 @@ import {
 export default function Register() {
     return (
         <>
-            <Head title="Daftar Akun | Go-UMKM" />
+            <Head title="Daftar Akun | Tokoku" />
 
             <LayoutApp pageTitle="Daftar Akun">
                 <section className="grid gap-4 lg:grid-cols-[1fr_0.95fr]">
@@ -153,7 +153,7 @@ function RegisterForm() {
                                 className={`w-full rounded-2xl border p-3 pl-10 text-sm transition-all ${
                                     errors.password ? 'border-red-300 bg-red-50/30' : 'border-slate-200 focus:border-teal-500 bg-white/50'
                                 }`}
-                                placeholder="••••••••"
+                                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                             />
                         </div>
                     </div>
@@ -166,7 +166,7 @@ function RegisterForm() {
                                 value={data.password_confirmation}
                                 onChange={(e) => setData('password_confirmation', e.target.value)}
                                 className="w-full rounded-2xl border border-slate-200 bg-white/50 p-3 pl-10 text-sm transition-all focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10"
-                                placeholder="••••••••"
+                                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                             />
                         </div>
                     </div>

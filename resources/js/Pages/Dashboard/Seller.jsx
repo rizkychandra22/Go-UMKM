@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+﻿import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { useEffect, useState } from 'react';
 import {
@@ -165,7 +165,7 @@ export default function DashboardSeller({ categories = [] }) {
     if (isLoading) {
         return (
             <>
-                <Head title="Go-UMKM | Dashboard" />
+                <Head title="Tokoku | Dashboard" />
                 <LayoutApp pageTitle="Dashboard" loading={true}>
                     <div className="space-y-6">
                         <Card className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
@@ -224,7 +224,7 @@ export default function DashboardSeller({ categories = [] }) {
 
 return (
     <>
-        <Head title="Go-UMKM | Dashboard" />
+        <Head title="Tokoku | Dashboard" />
         <LayoutApp pageTitle="Dashboard">
             {/* Hero Section */}
             <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
@@ -397,7 +397,7 @@ return (
                                         <div className="flex items-center justify-between gap-2 flex-wrap">
                                             <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
                                                 {order.amount}
-                                                <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400">{order.qty} · pcs</span>
+                                                <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400">{order.qty} Â· pcs</span>
                                             </p>
                                         </div>
                                         <div className="mt-1 flex items-center justify-between flex-wrap">

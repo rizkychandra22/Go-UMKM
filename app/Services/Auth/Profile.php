@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Services\Auth;
 
@@ -50,7 +50,7 @@ class Profile
 
             // PROSES UPLOAD UMUM: Otomatis membuat folder / masuk ke folder yang ditentukan
             $result = Cloudinary::uploadApi()->upload($data['image']->getRealPath(), [
-                'folder' => 'go-umkm/profile-account',
+                'folder' => 'Tokoku/profile-account',
             ]);
 
             // Ambil secure URL HTTPS jika tersedia
@@ -74,7 +74,7 @@ class Profile
         if (!$path) return null;
 
         $segments = explode('/', $path);
-        $startIndex = array_search('go-umkm', $segments);
+        $startIndex = array_search('Tokoku', $segments);
 
         if ($startIndex === false) return null;
         $pathWithExtension = implode('/', array_slice($segments, $startIndex));

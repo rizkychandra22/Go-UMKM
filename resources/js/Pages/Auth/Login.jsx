@@ -1,4 +1,4 @@
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+﻿import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
 import HeroSection from '../../Components/Landing/Auth.HeroSection';
@@ -9,7 +9,7 @@ import {
 export default function Login() {
     return (
         <>
-            <Head title="Masuk Akun | Go-UMKM" />
+            <Head title="Masuk Akun | Tokoku" />
 
             <LayoutApp pageTitle="Login Akun">
                 {/* Main Hero Login */}
@@ -99,7 +99,7 @@ function LoginForm() {
                                 ? 'border-red-300 focus:ring-red-100 bg-red-50/30' 
                                 : 'border-slate-200 focus:border-teal-500 focus:ring-teal-500/10 bg-white/50'
                             }`}
-                            placeholder="••••••••"
+                            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                         />
                     </div>
                 </div>

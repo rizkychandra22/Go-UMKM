@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+﻿import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { useEffect, useState } from 'react';
 import {
@@ -189,7 +189,7 @@ export default function DashboardCustomer({ categories = [] }) {
     if (isLoading) {
         return (
             <>
-                <Head title="Go-UMKM | Dashboard" />
+                <Head title="Tokoku | Dashboard" />
                 <LayoutApp pageTitle="Dashboard" loading={true}>
                     <div className="space-y-6">
                         <Card className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
@@ -251,7 +251,7 @@ export default function DashboardCustomer({ categories = [] }) {
 
     return (
         <>
-            <Head title="Go-UMKM | Dashboard" />
+            <Head title="Tokoku | Dashboard" />
             <LayoutApp pageTitle="Dashboard">
                 {/* Hero Section */}
                 <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
@@ -465,7 +465,7 @@ export default function DashboardCustomer({ categories = [] }) {
                                             <div className="flex items-start justify-between gap-2 flex-wrap">
                                                 <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-slate-100">
                                                     {order.amount}
-                                                    <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">· {order.qty} pcs</span>
+                                                    <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500">Â· {order.qty} pcs</span>
                                                 </p>
                                             </div>
                                             <div className="mt-1 flex items-center justify-between gap-2 flex-wrap">

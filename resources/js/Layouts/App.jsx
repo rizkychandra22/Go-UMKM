@@ -11,6 +11,7 @@ import {
     Moon,
     Package,
     PanelLeft,
+    Search,
     Settings,
     ShoppingCart,
     Sparkles,
@@ -20,10 +21,12 @@ import {
     UserIcon,
     Users,
     X,
+    MapPin,
 } from 'lucide-react';
 import { route } from 'ziggy-js';
 import DashboardLayoutSkeleton from '@/Components/Layout/DashboardLayoutSkeleton';
 import { Button } from '@/Components/UI/button';
+import { Input } from '@/Components/UI/input';
 
 export default function LayoutApp({ pageTitle, children, loading = false }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -121,7 +124,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                             <Store className="size-5" />
                         </div>
                         <div>
-                            <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Go-Umkm</p>
+                            <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Tokoku</p>
                             <h1 className="truncate text-base font-extrabold leading-none text-sidebar-foreground">{pageTitle}</h1>
                         </div>
                     </div>
@@ -192,7 +195,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                         <Store className="size-5" />
                                     </div>
                                     <div>
-                                        <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Go-Umkm</p>
+                                        <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-muted-foreground">Tokoku</p>
                                         <h1 className="truncate text-base font-extrabold leading-none text-sidebar-foreground">{pageTitle}</h1>
                                     </div>
                                 </div>
@@ -330,155 +333,215 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
     // --- NON-DASHBOARD VIEW (MARKETPLACE / LANDING PAGE) ---
     const navItems = [
         { label: 'Beranda', href: route('home'), type: 'link', variant: 'home', icon: House },
-        ...(auth?.user
-            ? [
-                  {
-                      label: 'Dashboard',
-                      href: dashboardHref,
-                      type: 'link',
-                      icon: LayoutDashboard,
-                  },
-              ]
-            : []),
         { label: 'Populer', href: route('populer'), type: 'link', icon: Sparkles },
         { label: 'Produk', href: route('product'), type: 'link', icon: Package },
         { label: 'Mitra', href: route('mitra'), type: 'link', icon: Users },
     ];
 
     return (
-        <div className="relative min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_10%_10%,rgba(253,186,116,0.15),transparent_26%),radial-gradient(circle_at_90%_0%,rgba(45,212,191,0.12),transparent_28%),linear-gradient(160deg,#fff8ee_0%,#f4fff8_54%,#edf8ff_100%)] text-slate-900 transition-colors duration-300 dark:bg-[radial-gradient(circle_at_10%_10%,rgba(20,184,166,0.12),transparent_28%),radial-gradient(circle_at_90%_0%,rgba(251,146,60,0.10),transparent_30%),linear-gradient(160deg,#0f172a_0%,#020617_62%,#07111f_100%)] dark:text-slate-50">
-            <div className="pointer-events-none absolute -left-24 top-20 size-64 rounded-full bg-orange-200/30 dark:bg-orange-900/10 blur-3xl"></div>
-            <div className="pointer-events-none absolute -right-24 top-0 size-72 rounded-full bg-teal-200/30 dark:bg-teal-900/10 blur-3xl"></div>
+        <div className="relative min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
 
-            <div className="relative mx-auto w-[min(1160px,92vw)] py-6 sm:py-8">
-                <header className="glass-panel sticky top-0 z-50 px-4 py-3 sm:top-4 bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800 backdrop-blur-md rounded-2xl shadow-xs">
-                    <div className="flex items-center justify-between gap-3">
-                        <div className="flex min-w-20 items-center gap-3">
-                            <div className="grid size-10 shrink-0 place-content-center rounded-2xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-lg transition-transform hover:rotate-6">
-                                <Store className="size-5" />
-                            </div>
-                            <div>
-                                <p className="mb-1 text-[10px] font-black uppercase leading-none tracking-widest text-slate-400 dark:text-slate-500">Go-Umkm</p>
-                                <h1 className="truncate text-base font-extrabold leading-none text-slate-900 dark:text-white sm:text-lg">{pageTitle}</h1>
-                            </div>
+
+            {/* Main Header */}
+            <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm shadow-sm transition-colors">
+                <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 sm:gap-6 px-4 py-3">
+                    {/* Logo */}
+                    <Link href={route('home')} className="flex items-center gap-2 shrink-0">
+                        <div className="grid size-10 place-content-center rounded-xl bg-linear-to-br from-teal-600 to-orange-500 text-white shadow-md">
+                            <Store className="size-5" />
                         </div>
+                        <div className="block">
+                            <h1 className="text-xl font-extrabold tracking-tight text-teal-600 dark:text-teal-400">Tokoku</h1>
+                        </div>
+                    </Link>
 
-                        <div className="hidden items-center gap-2 md:flex">
-                            <nav className="flex items-center gap-1">
-                                {navItems.map((item, idx) => {
-                                    const Icon = item.icon;
-                                    const isActive = item.variant === 'home' ? url === '/' : isActivePath(item.href);
-                                    const variantClass = isActive
-                                        ? 'bg-linear-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-200 dark:shadow-none -translate-y-0.5'
-                                        : item.variant === 'home'
-                                            ? 'bg-linear-to-br from-teal-500/10 to-orange-500/10 border border-teal-200/50 text-teal-700 dark:text-teal-400 hover:border-teal-300'
-                                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-200';
+                    {/* Desktop Navigation */}
+                    <nav className="hidden md:flex flex-1 items-center gap-6 px-6 text-sm font-medium">
+                        {navItems.map((item, idx) => {
+                            const active = isActivePath(item.href);
+                            return (
+                                <Link key={idx} href={item.href} className={`transition-colors ${active ? 'text-teal-600 font-bold dark:text-teal-400' : 'text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400'}`}>
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                    </nav>
 
-                                    return (
-                                        <Link key={idx} href={item.href} className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2 text-sm font-bold transition-all duration-300 ${variantClass}`}>
-                                            {Icon && <Icon className={`size-4 shrink-0 ${isActive ? 'animate-pulse' : 'group-hover:scale-110'}`} />}
-                                            {item.label}
-                                        </Link>
-                                    );
-                                })}
-                            </nav>
+                    {/* Header Actions */}
+                    <div className="flex shrink-0 items-center gap-2 sm:gap-4 ml-auto" ref={profileRef}>
+                        
+                        {/* Cart */}
+                        <Link href={auth?.user ? (isSeller ? route('dashboardSeller', { tab: 'pesanan' }) : route('dashboardCustomer', { tab: 'keranjang' })) : route('login')} className="relative rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition">
+                            <ShoppingCart className="size-6" />
+                            <span className="absolute right-0 top-0 flex size-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white border-2 border-white dark:border-slate-950">3</span>
+                        </Link>
+                        
+                        <div className="h-6 w-px bg-slate-200 dark:bg-slate-700" />
 
-                            {/* Marketplace Light/Dark Switch Toggle */}
-                            <button 
-                                type="button" 
-                                onClick={() => setIsDarkMode(!isDarkMode)}
-                                className="ml-2 rounded-xl p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-                                aria-label="Ubah Tema"
-                            >
-                                {isDarkMode ? <Sun className="size-5 text-orange-400" /> : <Moon className="size-5" />}
-                            </button>
+                        {/* Theme Toggle */}
+                        <button 
+                            type="button" 
+                            onClick={() => setIsDarkMode(!isDarkMode)}
+                            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition"
+                            aria-label="Ubah Tema"
+                        >
+                            {isDarkMode ? <Sun className="size-5 text-orange-400" /> : <Moon className="size-5" />}
+                        </button>
 
-                            <div className="relative ml-2 border-l border-slate-200 dark:border-slate-700 pl-3" ref={profileRef}>
-                                {auth?.user ? (
-                                    <div className="relative">
-                                        <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex size-10 items-center justify-center overflow-hidden rounded-2xl border-2 border-white dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md transition-all hover:scale-105 active:scale-95">
-                                            {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : <UserCircle className="size-7 text-slate-400" />}
-                                        </button>
-                                        {isProfileOpen && (
-                                            <div className="fade-in-up absolute right-0 mt-3 w-52 origin-top-right rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 shadow-xl">
-                                                <div className="mb-1 border-b border-slate-50 dark:border-slate-800 px-3 py-2">
-                                                    <p className="text-[10px] font-black uppercase leading-none tracking-tighter text-slate-400">Halo, {auth?.user?.role}</p>
-                                                    <p className="mt-1 truncate text-sm font-bold text-slate-900 dark:text-white">{auth?.user?.name}</p>
-                                                </div>
-                                                <Link href={route('profile')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 dark:text-slate-400 transition-colors hover:bg-teal-50 dark:hover:bg-slate-800 hover:text-teal-700 dark:hover:text-teal-400">
-                                                    <Settings className="size-4" /> Profile User
-                                                </Link>
-                                                {isSeller && (
-                                                    <Link href={route('profile.business')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 dark:text-slate-400 transition-colors hover:bg-teal-50 dark:hover:bg-slate-800 hover:text-teal-700 dark:hover:text-teal-400">
-                                                        <Store className="size-4" /> Profile Business
-                                                    </Link>
-                                                )}
-                                                <button onClick={() => router.post(route('logout'))} className="flex w-full items-center gap-3 rounded-xl bg-red-600 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-500">
-                                                    <LogOut className="size-4" /> Keluar
-                                                </button>
-                                            </div>
-                                        )}
+                        {/* User Profile / Login */}
+                        {auth?.user ? (
+                            <div className="relative">
+                                <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex items-center gap-2 rounded-xl p-1 pr-3 border border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                                    <div className="size-8 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700 shrink-0">
+                                        {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : <UserCircle className="size-8 text-slate-400" />}
                                     </div>
-                                ) : (
-                                    <button onClick={() => router.get(route('login'))} className="inline-flex items-center gap-2 rounded-xl bg-slate-900 dark:bg-teal-600 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-slate-200 dark:shadow-none transition-all hover:bg-slate-800 dark:hover:bg-teal-500 active:scale-95">
-                                        <LogIn className="size-4" /> Masuk
-                                    </button>
+                                    <span className="hidden md:block text-sm font-semibold truncate max-w-[100px] text-slate-700 dark:text-slate-200">{auth?.user?.name}</span>
+                                </button>
+                                {isProfileOpen && (
+                                    <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-900 fade-in-up">
+                                        <div className="mb-2 border-b border-slate-100 dark:border-slate-800 px-3 py-2">
+                                            <p className="truncate text-sm font-bold text-slate-900 dark:text-white">{auth?.user?.name}</p>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 capitalize">{auth?.user?.role}</p>
+                                        </div>
+                                        <Link href={dashboardHref} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                                            <LayoutDashboard className="size-4 text-slate-500" /> Dashboard
+                                        </Link>
+                                        <Link href={route('profile')} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                                            <Settings className="size-4 text-slate-500" /> Pengaturan
+                                        </Link>
+                                        <button onClick={() => router.post(route('logout'))} className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30">
+                                            <LogOut className="size-4" /> Keluar
+                                        </button>
+                                    </div>
                                 )}
                             </div>
-                        </div>
+                        ) : (
+                            <div className="hidden sm:flex items-center gap-2">
+                                <Link href={route('login')} className="inline-flex items-center justify-center rounded-xl border border-teal-600 px-4 py-2 text-sm font-semibold text-teal-600 transition hover:bg-teal-50 dark:border-teal-500 dark:text-teal-400 dark:hover:bg-teal-950/30">
+                                    Masuk
+                                </Link>
+                                <Link href={route('register')} className="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 focus-visible:outline-teal-600">
+                                    Daftar
+                                </Link>
+                            </div>
+                        )}
 
-                        {/* Mobile Hamburger Toggle Header Button */}
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-xl p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 md:hidden">
+                        {/* Mobile Menu Toggle */}
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
                             {isMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
                         </button>
                     </div>
+                </div>
 
-                    {/* Mobile Dropdown Navigation Menu */}
-                    {isMenuOpen && (
-                        <nav className="fade-in-up mt-4 flex flex-col gap-2 border-t border-slate-100 dark:border-slate-800 pt-4 md:hidden">
-                            {auth?.user && (
-                                <div className="mb-2 flex items-center gap-3 rounded-2xl bg-slate-50 dark:bg-slate-800 px-4 py-3">
-                                    <div className="flex size-10 items-center justify-center overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
-                                        {auth?.user?.image ? <img src={auth.user.image} className="h-full w-full object-cover" /> : <UserIcon className="size-6 text-slate-300" />}
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-bold leading-none text-slate-900 dark:text-white">{auth?.user?.name}</p>
-                                        <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">{auth?.user?.role}</p>
-                                    </div>
-                                </div>
-                            )}
-
+                {/* Mobile Dropdown Navigation Menu */}
+                {isMenuOpen && (
+                    <nav className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-4 fade-in-up">
+                        <div className="flex flex-col gap-1">
                             {navItems.map((item, idx) => {
-                                const Icon = item.icon;
+                                const active = isActivePath(item.href);
                                 return (
-                                    <Link key={idx} href={item.href} className="flex items-center gap-4 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-600 dark:text-slate-400 transition-all hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => setIsMenuOpen(false)}>
-                                        {Icon && <Icon className="size-5" />} {item.label}
+                                    <Link key={idx} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition-colors ${active ? 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400' : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900'}`} onClick={() => setIsMenuOpen(false)}>
+                                        {item.icon && <item.icon className={`size-5 ${active ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400'}`} />} {item.label}
                                     </Link>
                                 );
                             })}
+                            <div className="my-2 h-px bg-slate-200 dark:bg-slate-800" />
+
+
+                            {/* Mobile Login / Register */}
+                            {!auth?.user && (
+                                <div className="mt-2 flex gap-3 px-1">
+                                    <Link href={route('login')} className="flex-1 inline-flex items-center justify-center rounded-xl border border-teal-600 px-4 py-2.5 text-sm font-semibold text-teal-600 transition hover:bg-teal-50 dark:border-teal-500 dark:text-teal-400 dark:hover:bg-teal-950/30">
+                                        Masuk
+                                    </Link>
+                                    <Link href={route('register')} className="flex-1 inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 focus-visible:outline-teal-600">
+                                        Daftar
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    </nav>
+                )}
+            </header>
+
+            {/* Page Content */}
+            <main className="mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 lg:px-8 min-h-[calc(100vh-300px)]">
+                {children}
+            </main>
+
+            {/* Comprehensive Footer */}
+            <footer className="mt-16 border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+                <div className="mx-auto w-full max-w-[1280px] px-4 py-12 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                        <div className="lg:col-span-1">
+                            <Link href={route('home')} className="flex items-center gap-2 shrink-0 mb-4">
+                                <div className="grid size-10 place-content-center rounded-xl bg-linear-to-br from-teal-600 to-orange-500 text-white">
+                                    <Store className="size-5" />
+                                </div>
+                                <h2 className="text-xl font-extrabold tracking-tight text-teal-600 dark:text-teal-400">Tokoku</h2>
+                            </Link>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-xs leading-relaxed">
+                                Marketplace lokal yang mendukung UMKM di seluruh Indonesia. Belanja bijak, dukung usaha mikro, kecil, dan menengah untuk ekonomi yang lebih baik.
+                            </p>
+                        </div>
+                        
+                        <div className="lg:col-span-2 grid grid-cols-2 gap-8 sm:grid-cols-4">
+                            {/* Kiri Atas: Tokoku */}
+                            <div>
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Tokoku</h3>
+                                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Tentang Kami</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Karir</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Blog</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Mitra UMKM</a></li>
+                                </ul>
+                            </div>
                             
-                            {/* Mobile Theme Switch Button */}
-                            <button 
-                                type="button" 
-                                onClick={() => setIsDarkMode(!isDarkMode)}
-                                className="flex items-center gap-4 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-600 dark:text-slate-400 transition-all hover:bg-slate-50 dark:hover:bg-slate-800 text-left"
-                            >
-                                {isDarkMode ? <Sun className="size-5 text-orange-400" /> : <Moon className="size-5" />} 
-                                {isDarkMode ? 'Mode Terang' : 'Mode Gelap'}
-                            </button>
-                        </nav>
-                    )}
-                </header>
+                            {/* Kanan Atas: Bantuan */}
+                            <div>
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Bantuan</h3>
+                                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Syarat & Ketentuan</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Kebijakan Privasi</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Pusat Bantuan</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Hubungi Kami</a></li>
+                                </ul>
+                            </div>
 
-                <main className="mt-6 space-y-6 sm:mt-8 sm:space-y-8">{children}</main>
+                            {/* Kiri Bawah: Jual */}
+                            <div>
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Jual</h3>
+                                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Pusat Edukasi</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Cara Bergabung</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Cara Berjualan</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Keuntungan Jualan</a></li>
+                                </ul>
+                            </div>
 
-                <footer className="mt-10 flex flex-col items-center justify-between gap-4 rounded-3xl border border-slate-200/70 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 px-6 py-5 text-sm text-slate-600 dark:text-slate-400 backdrop-blur-sm sm:flex-row">
-                    <p className="text-center font-medium tracking-tight sm:text-left">© 2026 Go-Umkm. Proudly supporting local sellers.</p>
-                    <p className="inline-flex items-center gap-2 font-bold text-slate-700 dark:text-slate-300">
-                        <Sparkles className="size-4 animate-bounce text-orange-500" /> Belanja bijak, dukung UMKM.
-                    </p>
-                </footer>
-            </div>
+                            {/* Kanan Bawah: Beli */}
+                            <div>
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Beli</h3>
+                                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Cara Belanja</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Pembayaran</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Jaminan Aman</a></li>
+                                    <li><a href="#" className="hover:text-teal-600 dark:hover:text-teal-400">Lacak Pesanan</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-12 flex flex-col md:flex-row items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-8">
+                        <p className="text-sm text-slate-500 dark:text-slate-400">© 2026 Tokoku. Seluruh hak cipta dilindungi.</p>
+                        <div className="mt-4 md:mt-0 flex items-center gap-4 text-slate-400">
+                            {/* Dummy social icons */}
+                            <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Instagram</a>
+                            <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Facebook</a>
+                            <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }

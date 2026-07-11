@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+﻿import { Head, useForm, usePage } from '@inertiajs/react';
 import LayoutApp from '../../Layouts/App';
 import { 
     User, Mail, Phone, MapPin, Camera, Save, CheckCircle, Lock 
@@ -27,7 +27,7 @@ export default function Profile() {
 
     return (
         <LayoutApp pageTitle="Pengaturan Profil">
-            <Head title="Edit Profil | Go-UMKM" />
+            <Head title="Edit Profil | Tokoku" />
 
             <div className="w-full">
                 <section className={`glass-panel fade-in-up p-6 sm:p-8 border-t-4 ${auth.user.role === 'seller' ? 'border-t-emerald-400' : 'border-t-indigo-400'}`}>
