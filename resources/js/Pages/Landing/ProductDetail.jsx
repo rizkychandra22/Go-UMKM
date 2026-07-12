@@ -38,7 +38,7 @@ export default function ProductDetail({ productSlug }) {
 
                 <div className="grid gap-6 lg:gap-8 lg:grid-cols-2">
                     {/* SISI KIRI: Gambar Produk */}
-                    <Card className="rounded-3xl border-slate-200 shadow-sm dark:border-slate-800">
+                    <Card className="pt-1 rounded-3xl border-slate-200 shadow-sm dark:border-slate-800">
                         <CardContent className="flex flex-col justify-center items-center p-6">
                             <div className="mb-6 w-full self-start">
                                 <PageHeaderLink
@@ -60,7 +60,7 @@ export default function ProductDetail({ productSlug }) {
 
                     {/* SISI KANAN: Informasi & Transaksi */}
                     <section className="flex flex-col justify-between space-y-6">
-                        <Card className="rounded-3xl border-slate-200 shadow-sm dark:border-slate-800 flex-1">
+                        <Card className="pt-1 rounded-3xl border-slate-200 shadow-sm dark:border-slate-800 flex-1">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center gap-2">
                                     <span className="inline-flex items-center rounded-sm bg-teal-100 px-2.5 py-1 text-xs font-bold text-teal-700 dark:bg-teal-900/40 dark:text-teal-400">
