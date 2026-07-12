@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     Bell,
@@ -84,7 +84,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
         { label: 'Katalog Produk', href: route('product'), icon: Store, section: 'MARKETPLACE' },
         { label: 'Profile User', href: route('profile'), icon: Settings, section: 'ACCOUNT' },
         ...(isSeller
-            ? [{ label: 'Profile Business', href: route('ProfileBusiness'), icon: Store, section: 'ACCOUNT' }]
+            ? [{ label: 'Profile Business', href: route('profile.business'), icon: Store, section: 'ACCOUNT' }]
             : []),
     ];
 
