@@ -13,7 +13,7 @@ export default function Profile() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('profile.business.update'), {
+        post(route('ProfileBusiness.update'), {
             forceFormData: true, 
             onSuccess: () => reset('image'),
         });

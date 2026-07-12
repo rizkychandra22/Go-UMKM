@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers\Auth;
 
@@ -18,7 +18,7 @@ class ProfileBusinessController extends Controller
 
     public function edit()
     {
-        return Inertia::render('Auth/Profile.Business', [
+        return Inertia::render('Auth/ProfileBusiness', [
             'status' => session('status'),
         ]);
     }

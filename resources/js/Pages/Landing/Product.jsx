@@ -4,9 +4,9 @@ import LayoutApp from '@/Layouts/App';
 import { Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
-import BackRightLink from '@/Components/Shared/BackRight';
+import PageHeader from '@/Components/Shared/PageHeader';
 import { FilterBadge, FilterCategory, SearchBar } from '@/Components/Shared/FilterData';
-import { products } from '@/Constants/Data.Products';
+import { products } from '@/Constants/products';
 import ResetButton from '@/Components/Shared/ResetFilter';
 
 export default function Product({ categories = [] }) { 
@@ -48,7 +48,7 @@ export default function Product({ categories = [] }) {
                         <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-4 dark:border-slate-800">
 
                             {/* Tombol Kembali & Header */}
-                            <BackRightLink 
+                            <PageHeaderLink 
                                 title="Semua Produk"
                                 subtitle="Temukan produk lokal pilihan dari berbagai UMKM"
                                 icon={Package}

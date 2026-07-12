@@ -2,7 +2,7 @@
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import { Users, Store, ArrowRight, User } from 'lucide-react';
-import BackRightLink from '@/Components/Shared/BackRight';
+import PageHeader from '@/Components/Shared/PageHeader';
 
 export default function Mitra({ userMitra = [] }) {
     return(
@@ -15,7 +15,7 @@ export default function Mitra({ userMitra = [] }) {
                 <section className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
                     <div className="space-y-6">
                         <div className="border-b border-slate-100 pb-4 dark:border-slate-800">
-                            <BackRightLink
+                            <PageHeaderLink
                                 title="Jelajahi Mitra Kami"
                                 subtitle="Mengenal lebih dekat para penggerak ekonomi kreatif di sekitar kita."
                                 icon={Users}

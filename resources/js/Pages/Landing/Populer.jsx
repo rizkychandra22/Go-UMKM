@@ -4,8 +4,8 @@ import LayoutApp from '../../Layouts/App';
 import { Sparkles, Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
-import { products } from '@/Constants/Data.Products';
-import BackRightLink from '@/Components/Shared/BackRight';
+import { products } from '@/Constants/products';
+import PageHeader from '@/Components/Shared/PageHeader';
 
 export default function Populer() {
     const { auth } = usePage().props ?? {};
@@ -23,7 +23,7 @@ export default function Populer() {
                         
                         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
                             <div className="flex items-center gap-4">
-                                <BackRightLink 
+                                <PageHeaderLink 
                                     title="Produk Terlaris & Populer"
                                     subtitle="Produk unggulan yang paling banyak diminati."
                                     icon={Sparkles}

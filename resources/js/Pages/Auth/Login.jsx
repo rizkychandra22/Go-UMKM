@@ -1,7 +1,7 @@
 ﻿import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
-import HeroSection from '../../Components/Landing/Auth.HeroSection';
+import HeroSection from '../../Components/Landing/AuthHeroSection';
 import { 
     LogIn, ShieldAlert, XCircle, Mail, Lock, 
 } from 'lucide-react';

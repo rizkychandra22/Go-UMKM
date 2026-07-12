@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+﻿import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     Bell,
@@ -84,7 +84,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
         { label: 'Katalog Produk', href: route('product'), icon: Store, section: 'MARKETPLACE' },
         { label: 'Profile User', href: route('profile'), icon: Settings, section: 'ACCOUNT' },
         ...(isSeller
-            ? [{ label: 'Profile Business', href: route('profile.business'), icon: Store, section: 'ACCOUNT' }]
+            ? [{ label: 'Profile Business', href: route('ProfileBusiness'), icon: Store, section: 'ACCOUNT' }]
             : []),
     ];
 
@@ -532,7 +532,7 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                         </div>
                     </div>
                     <div className="mt-12 flex flex-col md:flex-row items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-8">
-                        <p className="text-sm text-slate-500 dark:text-slate-400">© 2026 Tokoku. Seluruh hak cipta dilindungi.</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">Â© 2026 Tokoku. Seluruh hak cipta dilindungi.</p>
                         <div className="mt-4 md:mt-0 flex items-center gap-4 text-slate-400">
                             {/* Dummy social icons */}
                             <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Instagram</a>

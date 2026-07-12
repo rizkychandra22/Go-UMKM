@@ -1,5 +1,5 @@
-import { usePage } from "@inertiajs/react";
-import { products } from '../../Constants/Data.Products';
+﻿import { usePage } from "@inertiajs/react";
+import { products } from '../../Constants/products';
 import ProductCard from '@/Components/Products/Card';
 import { useEffect, useRef } from "react";
 

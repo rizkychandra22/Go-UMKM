@@ -3,8 +3,8 @@ import { Head, Link } from '@inertiajs/react';
 import LayoutApp from '@/Layouts/App';
 import { ShoppingCart, Package, Star, Store, ShieldCheck, Truck } from 'lucide-react';
 
-import { products } from '@/Constants/Data.Products'; 
-import BackRightLink from '@/Components/Shared/BackRight';
+import { products } from '@/Constants/products'; 
+import PageHeader from '@/Components/Shared/PageHeader';
 import { findProductBySlug } from '@/lib/product';
 
 export default function ProductDetail({ productSlug }) {
@@ -38,7 +38,7 @@ export default function ProductDetail({ productSlug }) {
                     {/* SISI KIRI: Gambar Produk */}
                     <section className="flex flex-col justify-center items-center rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
                         <div className="mb-6 w-full self-start">
-                            <BackRightLink
+                            <PageHeaderLink
                                 title="Kembali ke Produk"
                                 subtitle="Lihat katalog produk UMKM lainnya."
                                 icon={Package}

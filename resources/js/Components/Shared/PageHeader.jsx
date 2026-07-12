@@ -1,8 +1,8 @@
-import { Link } from '@inertiajs/react';
+﻿import { Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { ArrowLeft } from 'lucide-react';
 
-export default function BackRightLink({ title, subtitle, icon: Icon, backRoute = 'home' }) {
+export default function PageHeader({ title, subtitle, icon: Icon, backRoute = 'home' }) {
     return (
         <div className="flex items-center gap-4">
             <Link 

@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 import CardHelloDashboard from '../../Components/Dashboard/HeroSection';
 import LayoutApp from '../../Layouts/App';
-import { products } from '../../Constants/Data.Products';
-import { paymentHistory } from '../../Constants/Data.Orders';
+import { products } from '../../Constants/products';
+import { paymentHistory } from '../../Constants/orders';
 import { FilterBadge, FilterCategory, SearchBar, FilterStatusOrder, FilterPaymentOrder } from '@/Components/Shared/FilterData';
 import ResetButton from '../../Components/Shared/ResetFilter';
 import { Card, CardContent, CardHeader } from '@/Components/UI/card';

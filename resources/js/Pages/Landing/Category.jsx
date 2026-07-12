@@ -3,7 +3,7 @@ import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import CategoryProduct from '@/Components/Landing/HeroCategory';
 import { Sparkles, Package } from 'lucide-react';
-import { products } from '@/Constants/Data.Products';
+import { products } from '@/Constants/products';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
 import { FilterBadge, SearchBar } from '@/Components/Shared/FilterData';

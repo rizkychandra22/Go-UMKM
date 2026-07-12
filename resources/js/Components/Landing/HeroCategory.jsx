@@ -1,7 +1,7 @@
-import { Link, usePage } from '@inertiajs/react';
+﻿import { Link, usePage } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
-import BackRightLink from '@/Components/Shared/BackRight';
+import PageHeader from '@/Components/Shared/PageHeader';
 import { Badge } from '@/Components/UI/badge';
 
 export default function CategoryProduct({ categories }) {
@@ -34,7 +34,7 @@ export default function CategoryProduct({ categories }) {
 
                 {/* Tombol Kembali & Header */}
                 {isCategory && (
-                    <BackRightLink
+                    <PageHeaderLink
                         title="Kategori Produk"
                         subtitle="Pilih sesuai kebutuhan: kuliner harian sampai hampers premium."
                         icon={LayoutDashboard}

@@ -1,11 +1,11 @@
-import { Head, Link } from '@inertiajs/react';
+﻿import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import HeroCarousel from '@/Components/Landing/HeroCarousel';
 import CategoryProduct from '@/Components/Landing/HeroCategory';
 import RecomendMarquee from '@/Components/Products/RecomendMarquee';
 import { Star, TrendingUp, Sparkles, ShieldCheck, Clock } from 'lucide-react';
-import { products } from '@/Constants/Data.Products';
+import { products } from '@/Constants/products';
 import { getProductDetailSlug } from '@/lib/product';
 
 export default function Home({categories}) {
