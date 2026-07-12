@@ -1,8 +1,7 @@
-﻿import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { HandPlatter, House, Shirt, ShoppingBasket, LayoutDashboard } from 'lucide-react';
 import { route } from 'ziggy-js';
 import PageHeader from '@/Components/Shared/PageHeader';
-import { Badge } from '@/Components/UI/badge';
 
 export default function CategoryProduct({ categories }) {
     // Kategori Product
@@ -34,7 +33,7 @@ export default function CategoryProduct({ categories }) {
 
                 {/* Tombol Kembali & Header */}
                 {isCategory && (
-                    <PageHeaderLink
+                    <PageHeader
                         title="Kategori Produk"
                         subtitle="Pilih sesuai kebutuhan: kuliner harian sampai hampers premium."
                         icon={LayoutDashboard}
@@ -52,14 +51,12 @@ export default function CategoryProduct({ categories }) {
                     const href = route('category', { slug: item.slug });
 
                     return (
-                        <Link
-                            href={href}
-                            key={item.id}
-                            className={`rounded-2xl border border-border bg-gradient-to-br ${tone} p-3 sm:p-4 transition duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-md dark:hover:border-teal-500`}
-                        >
-                            <div className="flex flex-col gap-2 sm:gap-3">
+                        <Link href={href} key={item.id}>
+                            <div
+                                className={`h-full rounded-xl border border-border shadow-sm bg-gradient-to-br ${tone} transition duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-md dark:hover:border-teal-500 flex flex-col gap-2 sm:gap-3 p-3 sm:p-4`}
+                            >
                                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                                    <div className="grid size-10 sm:size-11 place-content-center rounded-xl bg-slate-900 text-white dark:bg-teal-600 shrink-0">
+                                    <div className="grid size-10 sm:size-11 place-content-center rounded-xl bg-slate-900 text-white dark:bg-teal-600 shrink-0 shadow-sm">
                                         <Icon className="size-4 sm:size-5" />
                                     </div>
                                     <h4 className="text-sm sm:text-base font-extrabold text-foreground leading-tight">{item.name}</h4>

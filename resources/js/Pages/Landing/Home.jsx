@@ -1,4 +1,4 @@
-﻿import { Head, Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import HeroCarousel from '@/Components/Landing/HeroCarousel';
@@ -7,6 +7,9 @@ import RecomendMarquee from '@/Components/Products/RecomendMarquee';
 import { Star, TrendingUp, Sparkles, ShieldCheck, Clock } from 'lucide-react';
 import { products } from '@/Constants/products';
 import { getProductDetailSlug } from '@/lib/product';
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/UI/card';
+import { Badge } from '@/Components/UI/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/UI/avatar';
 
 export default function Home({categories}) {
     const populerItems = products.filter((p) => p.badge === 'Populer');
@@ -28,43 +31,44 @@ export default function Home({categories}) {
                     </div>
 
                     {/* Sidebar / Flash Sale / Top Products */}
-                    <article className="flex flex-col rounded-2xl border border-border bg-card text-card-foreground p-5 shadow-sm min-w-0">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="flex items-center gap-2 text-lg font-bold">
+                    <Card className="flex flex-col shadow-sm min-w-0">
+                        <CardHeader className="pb-3 flex flex-row items-center justify-between">
+                            <CardTitle className="flex items-center gap-2 text-lg font-bold m-0">
                                 <TrendingUp className="size-5 text-orange-500" />
                                 Sedang Tren
-                            </h3>
+                            </CardTitle>
                             <Link href={route('populer')} className="text-sm font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400">Lihat Semua</Link>
-                        </div>
+                        </CardHeader>
                         
-                        <ul className="flex-1 space-y-3 overflow-hidden">
-                            {heroList.map((item, index) => {
-                                const detailSlug = getProductDetailSlug(item);
-                                if (!detailSlug) return null;
+                        <CardContent className="flex-1">
+                            <ul className="space-y-3">
+                                {heroList.map((item, index) => {
+                                    const detailSlug = getProductDetailSlug(item);
+                                    if (!detailSlug) return null;
 
-                                return (
-                                    <li key={detailSlug} className="group">
-                                        <Link
-                                            href={route('product.show', { slug: detailSlug })}
-                                            className="flex items-center gap-4 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                                        >
-                                            <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
-                                                <img src={item.image} alt={item.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
-                                                {/* <div className="absolute top-0 left-0 bg-teal-600/90 text-white rounded-br-lg px-1.5 py-0.5 text-[10px] font-bold">{index + 1}</div> */}
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <h4 className="truncate text-sm font-semibold group-hover:text-teal-600 dark:group-hover:text-teal-400">{item.name}</h4>
-                                                <p className="mt-1 text-sm font-extrabold text-orange-500">{item.price}</p>
-                                            </div>
-                                            <span className={`inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${item.badge === 'Populer' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' : 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400'}`}>
-                                                {item.badge}
-                                            </span>
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </article>
+                                    return (
+                                        <li key={detailSlug} className="group">
+                                            <Link
+                                                href={route('product.show', { slug: detailSlug })}
+                                                className="flex items-center gap-4 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                                            >
+                                                <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
+                                                    <img src={item.image} alt={item.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="truncate text-sm font-semibold group-hover:text-teal-600 dark:group-hover:text-teal-400">{item.name}</h4>
+                                                    <p className="mt-1 text-sm font-extrabold text-orange-500">{item.price}</p>
+                                                </div>
+                                                <Badge className={`uppercase tracking-wider ${item.badge === 'Populer' ? 'bg-emerald-600 text-white hover:bg-emerald-700' : 'bg-orange-500 text-white hover:bg-orange-600'}`}>
+                                                    {item.badge}
+                                                </Badge>
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </CardContent>
+                    </Card>
                 </section>
 
                 {/* E-commerce Features */}
@@ -75,8 +79,8 @@ export default function Home({categories}) {
                         { icon: Clock, title: "Pengiriman Cepat", desc: "Didukung logistik handal" },
                         { icon: Sparkles, title: "Banyak Promo", desc: "Diskon & Cashback tiap hari" }
                     ].map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3 rounded-2xl border border-border bg-card text-card-foreground p-4 shadow-sm">
-                            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-teal-50 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400">
+                        <div key={idx} className="flex items-center gap-3 rounded-xl border border-border shadow-sm bg-slate-50 dark:bg-slate-900/50 p-4">
+                            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400">
                                 <feature.icon className="size-5" />
                             </div>
                             <div className="min-w-0 flex-1">
@@ -89,7 +93,7 @@ export default function Home({categories}) {
 
                 {/* Kategori Produk */}
                 <section className="mb-12">
-                    <div className="rounded-2xl border border-border bg-card text-card-foreground p-4 md:p-6 shadow-sm">
+                    <div className="rounded-xl border bg-card text-card-foreground shadow-sm p-4 md:p-6">
                         <CategoryProduct categories={categories}/>
                     </div>
                 </section>
@@ -100,21 +104,32 @@ export default function Home({categories}) {
                         <h2 className="text-xl md:text-2xl font-extrabold">Rekomendasi Untukmu</h2>
                         <Link href={route('product')} className="text-sm font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400">Lihat semua</Link>
                     </div>
-                    <div className="rounded-2xl border border-border bg-card text-card-foreground p-6 shadow-sm">
-                        <RecomendMarquee/>
-                    </div>
+                    <Card className="shadow-sm">
+                        <CardContent className="p-6">
+                            <RecomendMarquee/>
+                        </CardContent>
+                    </Card>
                 </section>
 
                 {/* Review Seller (Optional / Banner) */}
-                <section className="mt-16 rounded-3xl bg-linear-to-r from-teal-600 to-emerald-500 p-8 text-center text-white shadow-lg md:p-12">
-                    <p className="mx-auto max-w-3xl text-xl font-extrabold leading-relaxed md:text-3xl">
-                        "Sejak gabung Tokoku, toko saya dapat pelanggan dari luar kota dan repeat order naik 3x dalam 2 bulan."
-                    </p>
-                    <div className="mt-6 flex items-center justify-center gap-3">
-                        <div className="size-10 rounded-full bg-white/20"></div>
-                        <div className="text-left">
-                            <p className="font-bold">Rani</p>
-                            <p className="text-sm font-medium text-teal-100">Pemilik Rani Snackbox, Bandung</p>
+                <section className="mt-16 rounded-3xl bg-linear-to-r from-teal-600 to-emerald-500 p-8 text-center text-white shadow-lg md:p-12 relative overflow-hidden">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
+                    <div className="absolute top-0 right-0 translate-x-1/3 -translate-y-1/3 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+                    <div className="absolute -bottom-8 left-20 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+
+                    <div className="relative z-10">
+                        <p className="mx-auto max-w-3xl text-xl font-extrabold leading-relaxed md:text-3xl">
+                            "Sejak gabung Tokoku, toko saya dapat pelanggan dari luar kota dan repeat order naik 3x dalam 2 bulan."
+                        </p>
+                        <div className="mt-6 flex items-center justify-center gap-3">
+                            <Avatar className="h-12 w-12 border-2 border-white/20">
+                                <AvatarFallback className="bg-teal-700 text-white font-bold">RN</AvatarFallback>
+                            </Avatar>
+                            <div className="text-left">
+                                <p className="font-bold">Rani</p>
+                                <p className="text-sm font-medium text-teal-100">Pemilik Rani Snackbox, Bandung</p>
+                            </div>
                         </div>
                     </div>
                 </section>

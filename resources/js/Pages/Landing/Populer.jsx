@@ -1,11 +1,13 @@
-﻿import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '../../Layouts/App';
 import { Sparkles, Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
 import { products } from '@/Constants/products';
-import PageHeader from '@/Components/Shared/PageHeader';
+import PageHeaderLink from '@/Components/Shared/PageHeader';
+import { Card, CardContent } from '@/Components/UI/card';
+import { Button } from '@/Components/UI/button';
 
 export default function Populer() {
     const { auth } = usePage().props ?? {};
@@ -18,8 +20,8 @@ export default function Populer() {
             <Head title="Tokoku | Produk Kami" />
             
             <LayoutApp pageTitle="Marketplace Lokal">
-                <section className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
-                    <div className="space-y-6">
+                <Card className="pt-0 rounded-3xl border-slate-200 shadow-sm dark:border-slate-800">
+                    <CardContent className="p-6 md:p-8 space-y-6">
                         
                         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
                             <div className="flex items-center gap-4">
@@ -32,26 +34,30 @@ export default function Populer() {
 
                             {/* --- Switch Button Tanpa Icon & Warna Amber --- */}
                             <div className="inline-flex w-full items-center rounded-xl bg-slate-100 p-1 border border-slate-200 shadow-inner sm:w-auto dark:bg-slate-800 dark:border-slate-700">
-                                <button
+                                <Button
+                                    type="button"
+                                    variant={activeTab === 'Terlaris' ? 'default' : 'ghost'}
                                     onClick={() => setActiveTab('Terlaris')}
-                                    className={`flex-1 sm:flex-none flex items-center justify-center rounded-lg px-5 py-1.5 text-sm font-bold transition-all duration-200 ${
+                                    className={`flex-1 sm:flex-none rounded-lg px-5 text-sm font-bold transition-all duration-200 ${
                                         activeTab === 'Terlaris'
-                                        ? 'bg-teal-600 text-white shadow-sm'
-                                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-700'
+                                        ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-sm'
+                                        : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700'
                                     }`}
                                 >
                                     Terlaris
-                                </button>
-                                <button
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant={activeTab === 'Populer' ? 'default' : 'ghost'}
                                     onClick={() => setActiveTab('Populer')}
-                                    className={`flex-1 sm:flex-none flex items-center justify-center rounded-lg px-5 py-1.5 text-sm font-bold transition-all duration-200 ${
+                                    className={`flex-1 sm:flex-none rounded-lg px-5 text-sm font-bold transition-all duration-200 ${
                                         activeTab === 'Populer'
-                                        ? 'bg-teal-600 text-white shadow-sm'
-                                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-700'
+                                        ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-sm'
+                                        : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700'
                                     }`}
                                 >
                                     Populer
-                                </button>
+                                </Button>
                             </div>
                         </div>
 
@@ -71,8 +77,8 @@ export default function Populer() {
                                 </div>
                             )}
                         </div>
-                    </div>
-                </section>
+                    </CardContent>
+                </Card>
             </LayoutApp>
         </>
     );

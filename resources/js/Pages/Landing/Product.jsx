@@ -1,13 +1,14 @@
-﻿import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import LayoutApp from '@/Layouts/App';
 import { Package } from 'lucide-react';
 import ProductCard from '@/Components/Products/Card';
 import { useState } from 'react';
-import PageHeader from '@/Components/Shared/PageHeader';
+import PageHeaderLink from '@/Components/Shared/PageHeader';
 import { FilterBadge, FilterCategory, SearchBar } from '@/Components/Shared/FilterData';
 import { products } from '@/Constants/products';
 import ResetButton from '@/Components/Shared/ResetFilter';
+import { Card, CardContent } from '@/Components/UI/card';
 
 export default function Product({ categories = [] }) { 
     const { auth } = usePage().props ?? {};
@@ -43,8 +44,8 @@ export default function Product({ categories = [] }) {
             
             <LayoutApp pageTitle="Marketplace Lokal">
 
-                <section className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
-                    <div className="space-y-6">
+                <Card className="pt-0 rounded-3xl border-slate-200 shadow-sm dark:border-slate-800">
+                    <CardContent className="p-6 md:p-8 space-y-6">
                         <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-4 dark:border-slate-800">
 
                             {/* Tombol Kembali & Header */}
@@ -71,7 +72,7 @@ export default function Product({ categories = [] }) {
 
                             <div className="flex gap-4 flex-1">
                                 {/* Select Filter Category */}
-                                <div className="flex-1">
+                                <div className="flex-1 min-w-0">
                                     <FilterCategory 
                                         categories={categories}
                                         selectedCategory={selectedCategory}
@@ -80,7 +81,7 @@ export default function Product({ categories = [] }) {
                                 </div>
 
                                 {/* Select Filter Badge */}
-                                <div className="flex-1">
+                                <div className="flex-1 min-w-0">
                                     <FilterBadge 
                                         selectedBadge={selectedBadge}
                                         setSelectedBadge={setSelectedBadge}
@@ -108,8 +109,8 @@ export default function Product({ categories = [] }) {
                                 </div>
                             )}
                         </div>
-                    </div>
-                </section>
+                    </CardContent>
+                </Card>
             </LayoutApp>
         </>
     );

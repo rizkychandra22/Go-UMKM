@@ -407,8 +407,13 @@ export default function LayoutApp({ pageTitle, children, loading = false }) {
                                             <LayoutDashboard className="size-4 text-slate-500" /> Dashboard
                                         </Link>
                                         <Link href={route('profile')} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
-                                            <Settings className="size-4 text-slate-500" /> Pengaturan
+                                            <Settings className="size-4 text-slate-500" /> Profile User
                                         </Link>
+                                        {isSeller && (
+                                            <Link href={route('profile.business')} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                                                <Store className="size-4 text-slate-500" /> Profile Bisnis
+                                            </Link>
+                                        )}
                                         <button onClick={() => router.post(route('logout'))} className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30">
                                             <LogOut className="size-4" /> Keluar
                                         </button>

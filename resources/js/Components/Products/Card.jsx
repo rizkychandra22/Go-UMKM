@@ -2,6 +2,9 @@ import { Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { ShoppingCart, Star, MapPin } from 'lucide-react';
 import { getProductDetailSlug } from '@/lib/product';
+import { Card, CardContent, CardFooter } from '@/Components/UI/card';
+import { Badge } from '@/Components/UI/badge';
+import { Button } from '@/Components/UI/button';
 
 export default function ProductCard({ product, isCustomer, className = '', minHeight = 'auto', onAdd }) {
     const handleAdd = (e) => {
@@ -18,8 +21,8 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
     const storeLocation = product.storeLocation || "Kota Bandung";
 
     return (
-        <article
-            className={`group flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-lg dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-500 ${className}`}
+        <Card
+            className={`pt-0 group flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-lg dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-500 ${className}`}
             style={{ minHeight }}
         >
             {/* Product Image */}
@@ -33,24 +36,33 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                 {/* Badges */}
                 <div className="absolute top-2 left-2 right-2 flex flex-wrap justify-between gap-1 pointer-events-none">
                     {product.badge && (
-                        <span className={`inline-flex shrink-0 items-center rounded-sm px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm ${product.badge === 'Populer' ? 'bg-orange-500' : product.badge === 'Terlaris' ? 'bg-teal-600' : 'bg-rose-500'}`}>
+                        <Badge 
+                            variant="custom" 
+                            className={`shadow-sm font-bold border-transparent ${
+                                product.badge === 'Terlaris' ? 'bg-orange-500 text-white hover:bg-orange-600' :
+                                product.badge === 'Populer' ? 'bg-emerald-600 text-white hover:bg-emerald-700' :
+                                product.badge === 'Mewah' ? 'bg-blue-600 text-white hover:bg-blue-700' :
+                                product.badge === 'Spesial' ? 'bg-rose-500 text-white hover:bg-rose-600' :
+                                'bg-primary text-primary-foreground'
+                            }`}
+                        >
                             {product.badge}
-                        </span>
+                        </Badge>
                     )}
 
                     {/* Category Badge */}
                     {product.category && (
-                        <span className="inline-flex shrink-0 items-center rounded-sm bg-white/90 px-1.5 py-0.5 text-[10px] font-bold text-slate-800 shadow-sm backdrop-blur-md dark:bg-slate-900/90 dark:text-slate-200">
+                        <Badge variant="outline" className="bg-white/90 shadow-sm backdrop-blur-md dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 border-none">
                             {product.category}
-                        </span>
+                        </Badge>
                     )}
                 </div>
             </Link>
 
             {/* Product Details */}
-            <div className="flex flex-1 flex-col p-3">
+            <CardContent className="flex flex-1 flex-col p-3">
                 <Link href={route('product.show', { slug: productSlug })} className="mb-1">
-                    <h4 className="text-sm text-slate-800 line-clamp-2 leading-tight dark:text-slate-200 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                    <h4 className="text-sm font-semibold text-slate-800 line-clamp-2 leading-tight dark:text-slate-200 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         {product.name}
                     </h4>
                 </Link>
@@ -74,21 +86,21 @@ export default function ProductCard({ product, isCustomer, className = '', minHe
                     <span className="h-2 w-px bg-slate-300 dark:bg-slate-700" />
                     <span>{soldCount}</span>
                 </div>
-            </div>
+            </CardContent>
 
             {/* Actions */}
             {isCustomer && (
-                <div className="px-3 pb-3 pt-1">
-                    <button 
-                        type="button" 
-                        onClick={handleAdd} 
-                        className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-teal-500 bg-white py-1.5 text-xs font-bold text-teal-600 transition-colors hover:bg-teal-50 focus-visible:outline-teal-600 dark:border-teal-500/50 dark:bg-slate-900 dark:text-teal-400 dark:hover:bg-teal-950/40"
+                <CardFooter className="px-3 pb-3 pt-0">
+                    <Button 
+                        variant="outline"
+                        onClick={handleAdd}
+                        className="w-full gap-1.5 border-teal-500 text-teal-600 hover:bg-teal-50 dark:border-teal-500/50 dark:text-teal-400 dark:hover:bg-teal-950/40"
                     >
                         <ShoppingCart className="size-3.5" />
                         + Keranjang
-                    </button>
-                </div>
+                    </Button>
+                </CardFooter>
             )}
-        </article>
+        </Card>
     );
 }
