@@ -1,66 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 Tokoku
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Tokoku** adalah platform *marketplace* inovatif yang dirancang khusus untuk memajukan Usaha Mikro Kecil Menengah (UMKM) lokal. Dibangun dengan antarmuka yang modern, responsif, dan elegan, aplikasi ini memudahkan pelanggan untuk menemukan produk-produk UMKM berkualitas, mulai dari kuliner lokal hingga kerajinan dan fesyen.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Antarmuka Modern & Minimalis:** Desain UI/UX kelas atas yang dibangun menggunakan komponen **shadcn/ui** dan **Tailwind CSS**.
+- **Katalog & Filter Dinamis:** Pencarian produk yang cepat beserta penyaringan (*filtering*) berdasarkan kategori dan label (Terlaris, Populer, Mewah, Spesial).
+- **Desain Responsif:** Tampilan yang optimal di perangkat seluler (*mobile-friendly*) maupun *desktop*.
+- **Integrasi Cloudinary:** Penyimpanan dan optimasi gambar yang efisien di *cloud*.
+- **Performa Tinggi:** Aplikasi *Single Page Application* (SPA) dengan bantuan Inertia.js untuk perpindahan halaman seketika tanpa *reload*.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 💻 Teknologi & Library
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Proyek ini memanfaatkan perpaduan teknologi mutakhir (*modern stack*) pada sisi *frontend* dan *backend*:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 🌐 Frontend
+- **[React](https://react.dev/) (v19):** Library JavaScript utama untuk membangun antarmuka pengguna yang interaktif.
+- **[Inertia.js](https://inertiajs.com/):** Penghubung antara backend Laravel dan frontend React yang memungkinkan kita membangun *Single Page Application* murni menggunakan metode perutean server-side tradisional.
+- **[Tailwind CSS](https://tailwindcss.com/) (v4):** *Utility-first* CSS framework untuk desain dan *styling* yang cepat, konsisten, dan sangat dapat disesuaikan.
+- **[shadcn/ui](https://ui.shadcn.com/):** Koleksi komponen UI yang indah, *accessible*, dan siap pakai (dibangun di atas Radix UI).
+- **Library Pendukung Ekosistem React:**
+  - `lucide-react`: Untuk koleksi ikon bervektor yang konsisten dan menarik.
+  - `embla-carousel-react`: Untuk fitur *slider* (seperti pada *Hero Banner* halaman utama).
+  - `sonner`: Untuk notifikasi (*toast*) interaktif.
+  - `@tanstack/react-table` & `@tanstack/react-query`: Pengelolaan data dan tabel tingkat lanjut yang sangat efisien.
+  - `recharts`: Visualisasi grafik dan data (*charts*).
+  - `ziggy-js`: Menjembatani fungsi `route()` Laravel secara mulus di komponen JavaScript/React.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ⚙️ Backend
+- **[Laravel](https://laravel.com/) (v11):** Framework PHP (versi >= 8.2) yang tangguh dan elegan sebagai mesin utama (kerangka) *backend*, memproses *logic*, autentikasi, dan rute (*routing*).
+- **Cloudinary (`cloudinary-laravel`):** Terintegrasi untuk sistem manajemen dan distribusi aset media (gambar) agar proses muat aplikasi tetap cepat.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Panduan Instalasi (Development)
 
-### Premium Partners
+Ikuti panduan ringkas berikut untuk menyiapkan dan menjalankan proyek ini di mesin lokal Anda.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Persyaratan Sistem
+- PHP >= 8.2
+- Composer
+- Node.js & npm (atau yarn/pnpm)
 
-## Contributing
+### Langkah-langkah Menjalankan Proyek
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone Repositori (Jika menggunakan Git)**
+   ```bash
+   git clone <url-repo-anda>
+   cd Tokoku
+   ```
 
-## Code of Conduct
+2. **Instalasi Dependensi Backend (PHP)**
+   ```bash
+   composer install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Konfigurasi Environment**
+   Salin file `.env.example` menjadi `.env`, lalu buat *application key* yang baru:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   *Penting: Pastikan untuk menyesuaikan pengaturan database (seperti DB_DATABASE, DB_USERNAME, dll) serta mengisi kredensial Cloudinary (jika ada) di file `.env`.*
 
-## Security Vulnerabilities
+4. **Siapkan Database (Migrasi & Seeding)**
+   Jalankan perintah ini untuk membuat struktur tabel di *database*:
+   ```bash
+   php artisan migrate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Instalasi Dependensi Frontend (Node)**
+   ```bash
+   npm install
+   ```
 
-## License
+6. **Jalankan Aplikasi**
+   Jalankan server pengembangan Laravel secara paralel bersama server Vite (untuk *hot-module-replacement* Frontend):
+   ```bash
+   npm run dev
+   ```
+   *Aplikasi kini dapat Anda akses dan kembangkan melalui browser di alamat `http://localhost:8000` atau URL yang diberikan di terminal Anda.*
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🎨 Menyesuaikan Desain & Tema
+Karena proyek ini mengadopsi standar Tailwind CSS (v4) beserta *CSS Variables* dari shadcn/ui, Anda dapat dengan leluasa menyesuaikan nuansa warna primer, ukuran radius komponen, hingga pengaturan mode gelap (*dark mode*) pada direktori CSS utamanya (di dalam `resources/js/index.css` atau `resources/css/app.css`).
+
+---
+
+## 📄 Lisensi
+Sistem dasar kerangka (Laravel) bersifat terbuka (*open-source*) di bawah [MIT license](https://opensource.org/licenses/MIT).
