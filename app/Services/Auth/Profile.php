@@ -4,10 +4,10 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; 
 
 class Profile
 {
@@ -37,12 +37,24 @@ class Profile
             $user->password = bcrypt($data['password']);
         }
 
-        // Handle Image
+        // Handle Image Avatar Pribadi langsung menembak API Cloudinary
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+            
+            // JIKA ADA GAMBAR LAMA: Hapus dari Cloudinary menggunakan helper Public ID bawaan
             if ($user->image) {
-                Storage::disk('public')->delete($user->image);
+                $oldPublicId = $this->getCloudinaryPublicId($user->image);
+                if ($oldPublicId) {
+                    Cloudinary::uploadApi()->destroy($oldPublicId);
+                }
             }
-            $user->image = $data['image']->store('profiles', 'public');
+
+            // PROSES UPLOAD UMUM: Otomatis membuat folder / masuk ke folder yang ditentukan
+            $result = Cloudinary::uploadApi()->upload($data['image']->getRealPath(), [
+                'folder' => 'Tokoku/profile-account',
+            ]);
+
+            // Ambil secure URL HTTPS jika tersedia
+            $user->image = $result['secure_url'] ?? $result['url'] ?? null;
         }
 
         // Reset verifikasi jika email berubah
@@ -51,5 +63,22 @@ class Profile
         }
 
         return $user->save();
+    }
+
+    /**
+     * Helper umum untuk mengambil Public ID lengkap beserta path foldernya
+     */
+    private function getCloudinaryPublicId(string $url): ?string
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        if (!$path) return null;
+
+        $segments = explode('/', $path);
+        $startIndex = array_search('Tokoku', $segments);
+
+        if ($startIndex === false) return null;
+        $pathWithExtension = implode('/', array_slice($segments, $startIndex));
+
+        return pathinfo($pathWithExtension, PATHINFO_DIRNAME) . '/' . pathinfo($pathWithExtension, PATHINFO_FILENAME);
     }
 }

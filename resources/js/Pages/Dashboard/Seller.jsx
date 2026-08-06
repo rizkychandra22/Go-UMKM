@@ -1,114 +1,748 @@
-import { Head, Link } from '@inertiajs/react';
+﻿import { Head, Link, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
+import { useEffect, useState } from 'react';
 import {
-    ArrowRight, BellRing, House, LogOut,
-    Sparkles, PlusCircle, Package, ClipboardList,
-    LayoutDashboard, Edit, TrendingUp
+  ArrowRight,
+  PlusCircle,
+  Package,
+  ClipboardList,
+  Edit,
+  TrendingUp,
+  RotateCcw,
+  ReceiptText,
+  CreditCard,
+  Banknote,
+  Wallet,
+  UserIcon,
 } from 'lucide-react';
-import CardHelloDashboard from '../../Components/Dashboard.HeroSection';
+import CardHelloDashboard from '../../Components/Dashboard/HeroSection';
 import LayoutApp from '../../Layouts/App';
+import { products } from '../../Constants/products';
+import { paymentHistory } from '../../Constants/orders';
+import {
+  FilterBadge,
+  FilterCategory,
+  SearchBar,
+  FilterStatusOrder,
+  FilterPaymentOrder,
+} from '@/Components/Shared/FilterData';
+import ResetButton from '../../Components/Shared/ResetFilter';
+import { Card, CardContent, CardHeader } from '@/Components/UI/card';
+import { Skeleton } from '@/Components/UI/skeleton';
 
-export default function DashboardSeller() {
+export default function DashboardSeller({ categories = [] }) {
+  const [isLoading, setIsLoading] = useState(true);
 
-    // Data Produk Saya (7 Data - Mengikuti jumlah produk customer)
-    const myProducts = [
-        { id: 'P-001', name: 'Sambal Cumi Asin Premium', stock: 45, price: 'Rp 40.000', badge: 'Terlaris', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s' },
-        { id: 'P-002', name: 'Outer Batik Cap Abstrak', stock: 12, price: 'Rp 120.000', badge: 'Populer', image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae' },
-        { id: 'P-003', name: 'Reed Diffuser Serai Wangi', stock: 25, price: 'Rp 70.000', badge: 'Stok Aman', image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp' },
-        { id: 'P-004', name: 'Kopi Luwak Single Origin', stock: 8, price: 'Rp 45.000', badge: 'Limit', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s' },
-        { id: 'P-005', name: 'Kerupuk Ikan Khas Daerah', stock: 100, price: 'Rp 15.000', badge: 'Grosir', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s' },
-        { id: 'P-006', name: 'Kerajinan Anyaman Bambu', stock: 5, price: 'Rp 85.000', badge: 'Handmade', image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png' },
-        { id: 'P-007', name: 'Sabun Kopi Organik', stock: 30, price: 'Rp 35.000', badge: 'Baru', image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp' },
-    ];
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 700);
+    return () => window.clearTimeout(timer);
+  }, []);
 
-    // Data Pesanan Masuk (7 Data - Mengikuti jumlah pesanan customer)
-    const incomingOrders = [
-        { id: 'INV-001', customer: 'Andi Hermawan', date: '2026-05-01', product: 'Sambal Cumi Asin', price: 'Rp 40.000', qty: 2, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9kD_MWQFknLUAogk_0JQBxr3mozVNRcaTJg&s' },
-        { id: 'INV-002', customer: 'Siti Aminah', date: '2026-05-01', product: 'Outer Batik Cap', price: 'Rp 120.000', qty: 1, image: 'https://pix.toco.id/resize/w:700,h:700,fit:cover,f:webp,q:85/toco/img/image-1748237122592.png?s=e0f16280ba4f65826fb82a6dfcf11c49cc1622514b8f27f5c840d301091542ae' },
-        { id: 'INV-003', customer: 'Budi Doremi', date: '2026-05-02', product: 'Reed Diffuser', price: 'Rp 70.000', qty: 3, image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium/catalog-image/MTA-182114961/aroma_be_young_aroma_be_young_reed_diffuser_aromatherapy_50ml_-_pengharum_ruangan_aromaterapi_pewangi_kamar_premium_gift_murah_dekorasi_rumah_hadiah_full11_e5v8bzb2.webp' },
-        { id: 'INV-004', customer: 'Dewi Sartika', date: '2026-05-02', product: 'Kopi Luwak', price: 'Rp 45.000', qty: 1, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEvg8Vbm9R6ZJV0x71NpFl5TrTG38KNtslJg&s' },
-        { id: 'INV-005', customer: 'Rizky Chandra', date: '2026-05-03', product: 'Kerupuk Ikan', price: 'Rp 15.000', qty: 5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcdy2rAVwJT6yh5hGcIRimTulEeDUZYweyw&s' },
-        { id: 'INV-006', customer: 'Kayla Putri', date: '2026-05-03', product: 'Anyaman Bambu', price: 'Rp 85.000', qty: 2, image: 'https://smesta.umkm.go.id/storage/company/25fa2d39a0143f1f30c36eece145a526/product/images/syciHtmeORX8G3WA91L9rTKWKfRD5gjrbNKtkTae.png' },
-        { id: 'INV-007', customer: 'Gilang Ramadhan', date: '2026-05-04', product: 'Sabun Kopi', price: 'Rp 35.000', qty: 4, image: 'https://image.made-in-china.com/202f0j00bAWiCvzUfkgj/OEM-Handmade-Exfoliating-Natural-Organic-Coffee-Scrub-Soap-Bar.webp' },
-    ];
+  const { url } = usePage();
+  const currentTab = (() => {
+    try {
+      const activeTab = new URL(url, window.location.origin).searchParams.get(
+        'tab'
+      );
+      return ['produk', 'penjualan', 'pesanan'].includes(activeTab)
+        ? activeTab
+        : 'all';
+    } catch {
+      return 'all';
+    }
+  })();
+  const showProdukSection = currentTab === 'all' || currentTab === 'produk';
+  const showPesananSection = currentTab === 'all' || currentTab === 'pesanan';
+  const showPenjualanSection =
+    currentTab === 'all' || currentTab === 'penjualan';
 
+  // STATE FILTER KHUSUS DATA REKOMENDASI PRODUK
+  const [searchProdQuery, setSearchProdQuery] = useState('');
+  const [selectedProdCategory, setSelectedProdCategory] = useState('');
+  const [selectedProdBadge, setSelectedProdBadge] = useState('');
+
+  // STATE FILTER KHUSUS DATA PESANAN MASUK / PESANAN AKTIF
+  const [searchOrderQuery, setSearchOrderQuery] = useState('');
+  const [selectedOrderStatus, setSelectedOrderStatus] = useState('');
+  const [selectedOrderPayment, setSelectedOrderPayment] = useState('');
+
+  // STATE FILTER KHUSUS DATA PEMBAYARAN
+  const [searchPayQuery, setSearchPayQuery] = useState('');
+  const [selectedPayStatus, setSelectedPayStatus] = useState('');
+  const [selectedPayMethod, setSelectedPayMethod] = useState('');
+
+  // LOGIKA MULTI-FILTER REALTIME: PRODUK / KERANJANG
+  const filteredProducts = products.filter((product) => {
+    const searchLower = searchProdQuery.toLowerCase();
+
+    const productName = product.name || product.product_name || '';
+    const productDesc = product.description || '';
+    const productBadge = product.badge || '';
+    const productCategory = product.category || '';
+
+    const matchesSearch =
+      productName.toLowerCase().includes(searchLower) ||
+      productDesc.toLowerCase().includes(searchLower) ||
+      productBadge.toLowerCase().includes(searchLower) ||
+      productCategory.toLowerCase().includes(searchLower);
+
+    const productSlug =
+      typeof product.slug === 'object' ? product.slug?.slug : product.slug;
+    const matchesCategory = selectedProdCategory
+      ? productSlug === selectedProdCategory ||
+        productCategory.toLowerCase() === selectedProdCategory.toLowerCase()
+      : true;
+
+    const matchesBadge = selectedProdBadge
+      ? productBadge.toLowerCase() === selectedProdBadge.toLowerCase()
+      : true;
+
+    return matchesSearch && matchesCategory && matchesBadge;
+  });
+
+  // LOGIKA MULTI-FILTER REALTIME: PESANAN AKTIF (Mengikuti paymentHistory sebagai data Pesanan Customer)
+  const filteredOrders = paymentHistory.filter((order) => {
+    const searchLower = searchOrderQuery.toLowerCase();
+    const orderId = order.id || '';
+    const orderProduct = order.product || '';
+    const orderCustomer = order.customer || '';
+
+    const matchesSearch =
+      orderId.toLowerCase().includes(searchLower) ||
+      orderProduct.toLowerCase().includes(searchLower) ||
+      orderCustomer.toLowerCase().includes(searchLower);
+
+    const orderStatus = order.status?.toLowerCase() || '';
+    const filterStatus = selectedOrderStatus?.toLowerCase() || '';
+    const matchesStatus = filterStatus ? orderStatus === filterStatus : true;
+
+    const orderMethod = order.method?.toLowerCase() || '';
+    const filterMethod = selectedOrderPayment?.toLowerCase() || '';
+    const matchesPayment = filterMethod ? orderMethod === filterMethod : true;
+
+    return matchesSearch && matchesStatus && matchesPayment;
+  });
+
+  // LOGIKA FILTER RIWAYAT PEMBAYARAN (Menggunakan paymentHistory)
+  const filteredPayments = paymentHistory.filter((pay) => {
+    const searchLower = searchPayQuery.toLowerCase();
+    const payId = pay.id || '';
+    const payCustomer = pay.customer || '';
+    const payProduct = pay.product || '';
+
+    const matchesSearch =
+      payId.toLowerCase().includes(searchLower) ||
+      payProduct.toLowerCase().includes(searchLower) ||
+      payCustomer.toLowerCase().includes(searchLower);
+
+    const payStatus = pay.status?.toLowerCase() || '';
+    const filterStatus = selectedPayStatus?.toLowerCase() || '';
+    const matchesStatus = filterStatus ? payStatus === filterStatus : true;
+
+    const payMethod = pay.method?.toLowerCase() || '';
+    const filterMethod = selectedPayMethod?.toLowerCase() || '';
+    const matchesMethod = filterMethod ? payMethod === filterMethod : true;
+
+    return matchesSearch && matchesStatus && matchesMethod;
+  });
+
+  const resetProductFilters = () => {
+    setSearchProdQuery('');
+    setSelectedProdCategory('');
+    setSelectedProdBadge('');
+  };
+
+  const resetOrderFilters = () => {
+    setSearchOrderQuery('');
+    setSelectedOrderStatus('');
+    setSelectedOrderPayment('');
+  };
+
+  const resetPaymentFilters = () => {
+    setSearchPayQuery('');
+    setSelectedPayStatus('');
+    setSelectedPayMethod('');
+  };
+
+  // Helper fungsional styling badge status
+  const getStatusStyles = (status) => {
+    switch (status?.toLowerCase()) {
+      case 'completed':
+      case 'success':
+      case 'selesai':
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+      case 'cancelled':
+      case 'dibatalkan':
+        return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'pending':
+        return 'bg-amber-50 text-amber-700 border-amber-200';
+      default:
+        return 'bg-slate-50 text-slate-700 border-slate-200';
+    }
+  };
+
+  // Helper fungsional styling badge cara pembayaran
+  const getPaymentMethodStyles = (method) => {
+    switch (method?.toLowerCase()) {
+      case 'transfer':
+        return 'bg-indigo-50 text-indigo-700 border-indigo-100';
+      case 'cash':
+      case 'tunai':
+        return 'bg-slate-100 text-slate-800 border-slate-200';
+      default:
+        return 'bg-slate-50 text-slate-600 border-slate-200';
+    }
+  };
+
+  if (isLoading) {
     return (
-        <>
-            <Head title="Go-UMKM | Dashboard" />
-            <LayoutApp pageTitle="Dashboard Seller">
-                {/* Hero Section */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
-                    <CardHelloDashboard />
-                </section>
+      <>
+        <Head title="Tokoku | Dashboard" />
+        <LayoutApp pageTitle="Dashboard" loading={true}>
+          <div className="space-y-6">
+            <Card className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none">
+              <CardContent className="space-y-6 p-5 sm:p-8">
+                <div className="space-y-3">
+                  <Skeleton className="h-8 w-64 rounded-xl" />
+                  <Skeleton className="h-5 w-80 rounded-xl" />
+                </div>
 
-                {/* Produk Saya */}
-                <section className="glass-panel fade-in-up p-6 sm:p-8 border-t-4 border-t-emerald-400">
-                    <h3 className="text-2xl font-extrabold text-slate-900">Produk Saya</h3>
-                    <p className="mt-1 text-slate-600">Pantau ketersediaan stok produk Anda.</p>
-                    
-                    <div className="mt-5 overflow-hidden">
-                        <div 
-                            className="flex w-max gap-4 animate-marquee hover:[animation-play-state:paused] pb-4"
-                            style={{ animationDuration: `${myProducts.length * 8}s` }}
-                        >
-                            {[...myProducts, ...myProducts].map((product, index) => (
-                                <article key={`${product.id}-${index}`} className="flex w-[280px] flex-none flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:shadow-lg sm:w-[320px]">
-                                    <div className="relative mb-4 aspect-square overflow-hidden rounded-xl bg-slate-100 shadow-inner">
-                                        <img src={product.image} className="h-full w-full object-cover" />
-                                        <div className="absolute left-3 top-3">
-                                            <p className="inline-flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm px-2 py-1 text-[10px] font-bold uppercase text-teal-700 shadow-sm">
-                                                {product.badge} | Stok: {product.stock}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <h4 className="text-lg font-extrabold text-slate-900 line-clamp-1">{product.name}</h4>
-                                    <p className="mt-auto pt-3 text-lg font-bold text-slate-900">{product.price}</p>
-                                    <div className="mt-4 flex gap-2">
-                                        <a href="#" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-50 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-600 border border-teal-500 hover:text-white transition-colors">
-                                            <Edit className="size-4" />
-                                            Edit Produk
-                                        </a>
-                                    </div>
-                                </article>
-                            ))}
-                        </div>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-slate-200 bg-white/50 p-3 sm:p-4 dark:border-slate-800 dark:bg-slate-900/50"
+                    >
+                      <Skeleton className="h-5 w-24 rounded-xl" />
+                      <Skeleton className="mt-4 h-8 w-16 rounded-xl" />
                     </div>
-                </section>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-                {/* Pesanan Masuk */}
-                <section className="glass-panel fade-in-up-delay p-6 sm:p-8 border-t-4 border-t-emerald-400">
-                    <h3 className="text-2xl font-extrabold text-slate-900">Pesanan Masuk</h3>
-                    <p className="mt-2 text-slate-600">Daftar pesanan yang perlu diproses.</p>
-
-                    {/* Grid 2 Kolom Pesanan */}
-                    <div className="mt-6 grid gap-4 lg:grid-cols-2">
-                        {incomingOrders.map((order) => (
-                            <div key={order.id} className="flex items-center gap-4 rounded-2xl border border-slate-300 bg-white p-4 transition-all hover:border-teal-300 hover:shadow-md">
-                                <div className="size-20 flex-none overflow-hidden rounded-xl bg-slate-50">
-                                    <img src={order.image} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider">{order.id}</span>
-                                        <span className="text-[10px] text-slate-400">{order.date}</span>
-                                    </div>
-                                    <h4 className="text-sm font-bold text-slate-900 truncate mt-1">{order.product}</h4>
-                                    <p className="text-xs text-slate-500">Pembeli: <span className="text-slate-800 font-medium">{order.customer}</span></p>
-                                    <div className="mt-2 flex items-center justify-between">
-                                        <p className="text-sm font-black text-slate-900">
-                                            {order.price}
-                                            <span className="ml-2 text-xs font-medium text-slate-500">· {order.qty} pcs</span>
-                                        </p>
-                                        <button className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:gap-2 transition-all">
-                                            Proses Pesanan <ArrowRight className="size-3" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            {Array.from({ length: 3 }).map((_, sectionIndex) => (
+              <Card
+                key={sectionIndex}
+                className="glass-panel rounded-[28px] border-t-4 border-t-emerald-400 shadow-none"
+              >
+                <CardHeader className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="space-y-2">
+                      <Skeleton className="h-7 w-48 rounded-xl" />
+                      <Skeleton className="h-4 w-72 rounded-xl" />
                     </div>
-                </section>
-            </LayoutApp>
-        </>
+                    <Skeleton className="h-10 w-24 rounded-2xl" />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <Skeleton className="h-12 w-full rounded-2xl sm:col-span-1" />
+                    <Skeleton className="h-12 w-full rounded-2xl" />
+                    <Skeleton className="h-12 w-full rounded-2xl" />
+                  </div>
+                </CardHeader>
+
+                <CardContent>
+                  <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
+                    {Array.from({ length: sectionIndex === 2 ? 3 : 4 }).map(
+                      (__, itemIndex) => (
+                        <Skeleton
+                          key={itemIndex}
+                          className={
+                            sectionIndex === 2
+                              ? 'h-20 w-full rounded-3xl'
+                              : 'h-32 w-full rounded-3xl'
+                          }
+                        />
+                      )
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </LayoutApp>
+      </>
     );
+  }
+
+  return (
+    <>
+      <Head title="Tokoku | Dashboard" />
+      <LayoutApp pageTitle="Dashboard">
+        {/* Hero Section */}
+        <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+          <CardHelloDashboard />
+
+          {/* Statistik Cepat */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 sm:mt-8">
+            <div className="bg-white/50 dark:bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:shadow-sm transition-all">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="bg-teal-50 dark:bg-teal-950/50 rounded-xl text-teal-600 dark:text-teal-400">
+                  <Package className="size-4 sm:size-5" />
+                </div>
+                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                  Total Produk
+                </p>
+              </div>
+              <p className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                {products.length}
+              </p>
+            </div>
+            <div className="bg-white/50 dark:bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:shadow-sm transition-all">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="bg-sky-50 dark:bg-sky-950/50 rounded-xl text-sky-600 dark:text-sky-400">
+                  <ClipboardList className="size-4 sm:size-5" />
+                </div>
+                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                  Pesanan Baru
+                </p>
+              </div>
+              <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                {paymentHistory.filter((o) => o.status === 'pending').length}
+              </p>
+            </div>
+            <div className="bg-white/50 dark:bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:shadow-sm transition-all">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="bg-orange-50 dark:bg-orange-950/50 rounded-xl text-orange-600 dark:text-orange-400">
+                  <TrendingUp className="size-4 sm:size-5" />
+                </div>
+                <p className="text-[9px] sm:text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                  Penjualan
+                </p>
+              </div>
+              <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                12
+              </p>
+            </div>
+            <div className="bg-white/50 dark:bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:shadow-sm transition-all">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl text-indigo-600 dark:text-indigo-400">
+                  <Wallet className="size-4 sm:size-5" />
+                </div>
+                <p className="text-[9px] sm:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Dana
+                </p>
+              </div>
+              <p className="mt-2 p-0.5 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                Rp 2.8M
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {showProdukSection && (
+          <section className="glass-panel fade-in-up p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                  Produk Saya
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                  Pantau ketersediaan stok produk Anda.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <ResetButton resetFn={resetProductFilters} />
+                <button className="inline-flex h-9 sm:h-10 items-center justify-center gap-2 rounded-xl bg-teal-600 px-3 sm:px-4 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-teal-500 transition-colors shrink-0">
+                  <PlusCircle className="size-4 sm:size-5" />
+                  <span className="hidden sm:inline">Produk</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filter Area - Responsive Flex */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-5">
+              <div className="flex-[1] min-w-0 dark:text-slate">
+                <SearchBar
+                  searchQuery={searchProdQuery}
+                  setSearchQuery={setSearchProdQuery}
+                  placeholder="Cari produk berdasarkan nama atau deskripsi..."
+                />
+              </div>
+              <div className="flex gap-3 flex-1">
+                <div className="flex-1">
+                  <FilterCategory
+                    categories={categories}
+                    selectedCategory={selectedProdCategory}
+                    setSelectedCategory={setSelectedProdCategory}
+                  />
+                </div>
+                <div className="flex-1">
+                  <FilterBadge
+                    selectedBadge={selectedProdBadge}
+                    setSelectedBadge={setSelectedProdBadge}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+              <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product, index) => (
+                    <div
+                      key={`product-${product.id || index}`}
+                      className="flex items-center gap-3 sm:gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 sm:p-4 transition-all hover:border-teal-300 dark:hover:border-teal-500 hover:shadow-md"
+                    >
+                      <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
+                        <img
+                          src={product.image}
+                          className="h-full w-full object-cover"
+                          alt={product.name}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between flex-wrap">
+                          <div className="flex items-center gap-1">
+                            <span
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                                product.badge === 'Populer'
+                                  ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400'
+                                  : product.badge === 'Terlaris'
+                                    ? 'bg-teal-100 text-teal-700 dark:bg-teal-950/60 dark:text-teal-400'
+                                    : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                              }`}
+                            >
+                              {product.badge || 'PROD-UMKM'}
+                            </span>
+                            <span className="sm:inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                              {product.category}
+                            </span>
+                          </div>
+                          <div className="flex items-end">
+                            <Link
+                              href="#"
+                              className="inline-flex justify-between items-end rounded-xl bg-teal-50 dark:bg-teal-950/40 px-2 py-1.5 text-xs font-bold text-teal-700 dark:text-teal-400 hover:bg-teal-600 border border-teal-200 dark:border-teal-900 hover:text-white dark:hover:text-white hover:border-teal-600 transition-all"
+                            >
+                              <Edit className="size-3" />
+                            </Link>
+                          </div>
+                        </div>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate mt-1">
+                          {product.name}
+                        </h4>
+                        <div className="mt-2 flex items-center justify-between gap-2">
+                          <p className="text-sm font-black text-slate-900 dark:text-white">
+                            {product.price}
+                          </p>
+                          <span
+                            className={`text-[11px] font-extrabold px-2 py-0.5 rounded-md ${product.stock <= 5 ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400' : 'bg-slate-50 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                          >
+                            Stok: {product.stock}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-full py-8 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                    <Package className="size-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Produk jualan Anda tidak ditemukan
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {showPesananSection && (
+          <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                  Pesanan Masuk
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                  Daftar pesanan yang perlu diproses.
+                </p>
+              </div>
+              <ResetButton resetFn={resetOrderFilters} />
+            </div>
+
+            {/* Filter Area - Responsive Flex */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-5">
+              <div className="flex-1 min-w-0">
+                <SearchBar
+                  searchQuery={searchOrderQuery}
+                  setSearchQuery={setSearchOrderQuery}
+                  placeholder="Cari pesanan berdasarkan ID, produk, atau pelanggan..."
+                />
+              </div>
+              <div className="flex gap-3 flex-1">
+                <div className="flex-1">
+                  <FilterStatusOrder
+                    selectedStatus={selectedOrderStatus}
+                    setSelectedStatus={setSelectedOrderStatus}
+                  />
+                </div>
+                <div className="flex-1">
+                  <FilterPaymentOrder
+                    selectedPayment={selectedOrderPayment}
+                    setSelectedPayment={setSelectedOrderPayment}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* AREA SCROLLBOX PESANAN MASUK */}
+            <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+              <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
+                {filteredOrders.length > 0 ? (
+                  filteredOrders.map((order, index) => (
+                    <div
+                      key={`order-${order.id}-${index}`}
+                      className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 sm:p-4 transition-all hover:border-teal-300 dark:hover:border-teal-500 hover:shadow-md"
+                    >
+                      <div className="size-16 sm:size-20 flex-none overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
+                        <img
+                          src={order.image}
+                          className="h-full w-full object-cover"
+                          alt={order.product}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 flex-wrap">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span
+                              className={`rounded-full px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter border ${getStatusStyles(order.status)}`}
+                            >
+                              {order.status || 'Pending'}
+                            </span>
+                            <span
+                              className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[9px] gap-1 font-bold border shadow-sm ${getPaymentMethodStyles(order.method)}`}
+                            >
+                              {order.method === 'transfer' ? (
+                                <CreditCard className="size-2.5" />
+                              ) : (
+                                <Banknote className="size-2.5" />
+                              )}
+                              <span className="capitalize">{order.method}</span>
+                            </span>
+                          </div>
+                          <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400">
+                            {order.date}
+                          </p>
+                        </div>
+
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate mt-1">
+                          {order.product}
+                        </h4>
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                            {order.amount}
+                            <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400">
+                              {order.qty} Â· pcs
+                            </span>
+                          </p>
+                        </div>
+                        <div className="mt-1 flex items-center justify-between flex-wrap">
+                          <div className="flex items-center gap-2">
+                            <p className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                              <span className="text-slate-800 dark:text-slate-200 font-medium">
+                                <UserIcon className="size-3.5" />
+                              </span>
+                              <span className="text-slate-800 dark:text-slate-200 font-medium">
+                                {order.customer}
+                              </span>
+                              <span className="font-bold text-[10px] text-teal-600 dark:text-teal-400">
+                                {order.id}
+                              </span>
+                            </p>
+                          </div>
+                          <Link
+                            href="#"
+                            className="inline-flex items-center text-xs font-bold text-teal-700 dark:text-teal-400 hover:gap-2 transition-all"
+                          >
+                            Lihat <ArrowRight className="size-3" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-full py-8 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                    <ClipboardList className="size-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Data pesanan tidak ditemukan
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {showPenjualanSection && (
+          <section className="glass-panel fade-in-up-delay p-5 sm:p-8 border-t-4 border-t-emerald-400 mt-6 flex flex-col dark:bg-slate-900/40 dark:border-x-slate-800 dark:border-b-slate-800">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                  Riwayat Pembayaran
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                  Pantau arus kas dan status pembayaran pesanan.
+                </p>
+              </div>
+              <ResetButton resetFn={resetPaymentFilters} />
+            </div>
+
+            {/* Filter Area - Responsive Flex */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-5">
+              <div className="flex-1 min-w-0">
+                <SearchBar
+                  searchQuery={searchPayQuery}
+                  setSearchQuery={setSearchPayQuery}
+                  placeholder="Cari pesanan berdasarkan ID, produk, atau pelanggan..."
+                />
+              </div>
+              <div className="flex gap-3 flex-1">
+                <div className="flex-1">
+                  <FilterStatusOrder
+                    selectedStatus={selectedPayStatus}
+                    setSelectedStatus={setSelectedPayStatus}
+                  />
+                </div>
+                <div className="flex-1">
+                  <FilterPaymentOrder
+                    selectedPayment={selectedPayMethod}
+                    setSelectedPayment={setSelectedPayMethod}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 pr-1 max-h-[420px] overflow-y-auto overflow-x-hidden scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(13,148,136,0.3)_transparent]">
+              {/* Desktop Table */}
+              <div className="overflow-x-auto hidden sm:block">
+                <table className="w-full text-left border-separate border-spacing-y-2 min-w-[600px]">
+                  <thead>
+                    <tr className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      <th className="px-4 py-2">ID Transaksi</th>
+                      <th className="px-4 py-2">Tanggal</th>
+                      <th className="px-4 py-2">Pelanggan</th>
+                      <th className="px-4 py-2">Metode</th>
+                      <th className="px-4 py-2">Nominal</th>
+                      <th className="px-4 py-2">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredPayments.length > 0 ? (
+                      filteredPayments.map((pay) => (
+                        <tr
+                          key={pay.id}
+                          className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-300 dark:hover:border-teal-500 transition-all"
+                        >
+                          <td className="px-4 py-4 rounded-l-2xl border-y border-l border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500">
+                            <span className="text-xs font-bold text-teal-600 dark:text-teal-400">
+                              {pay.id}
+                            </span>
+                          </td>
+                          <td className="px-4 py-4 border-y border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500 text-xs text-slate-500 dark:text-slate-400">
+                            {pay.date}
+                          </td>
+                          <td className="px-4 py-4 border-y border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500 text-xs font-bold text-slate-900 dark:text-slate-100">
+                            {pay.customer}
+                          </td>
+                          <td className="px-4 py-4 border-y border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500">
+                            <span
+                              className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}
+                            >
+                              {pay.method === 'transfer' ? (
+                                <CreditCard className="size-3" />
+                              ) : (
+                                <Banknote className="size-3" />
+                              )}
+                              <span className="capitalize">{pay.method}</span>
+                            </span>
+                          </td>
+                          <td className="px-4 py-4 border-y border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500 text-sm font-black text-slate-900 dark:text-white">
+                            {pay.amount}
+                          </td>
+                          <td className="px-4 py-4 rounded-r-2xl border-y border-r border-slate-200 dark:border-slate-800 group-hover:border-teal-300 dark:group-hover:border-teal-500">
+                            <span
+                              className={`px-2 py-1 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}
+                            >
+                              {pay.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="6"
+                          className="py-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800"
+                        >
+                          <ReceiptText className="size-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                            Tidak ada riwayat pembayaran
+                          </p>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Card View */}
+              <div className="space-y-3 sm:hidden">
+                {filteredPayments.length > 0 ? (
+                  filteredPayments.map((pay) => (
+                    <div
+                      key={`mobile-${pay.id}`}
+                      className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 space-y-2 hover:border-teal-300 dark:hover:border-teal-500 transition-all"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-teal-600 dark:text-teal-400">
+                          {pay.id}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${getStatusStyles(pay.status)} uppercase`}
+                        >
+                          {pay.status}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-500 dark:text-slate-400">
+                          {pay.date}
+                        </span>
+                        <span className="font-bold text-slate-900 dark:text-slate-100">
+                          {pay.customer}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md ${getPaymentMethodStyles(pay.method)}`}
+                        >
+                          {pay.method === 'transfer' ? (
+                            <CreditCard className="size-3" />
+                          ) : (
+                            <Banknote className="size-3" />
+                          )}
+                          <span className="capitalize">{pay.method}</span>
+                        </span>
+                        <span className="text-sm font-black text-slate-900 dark:text-white">
+                          {pay.amount}
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="py-8 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                    <ReceiptText className="size-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Tidak ada riwayat pembayaran
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+      </LayoutApp>
+    </>
+  );
 }

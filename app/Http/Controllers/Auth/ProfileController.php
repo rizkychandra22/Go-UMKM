@@ -27,8 +27,8 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $validated = $this->profileService->validateProfile($request->all(), $user->id);
-        $this->profileService->updateProfile($user, $validated);
+        $this->profileService->validateProfile($request->all(), $user->id);
+        $this->profileService->updateProfile($user, $request->all());
 
         return back()->with('status', 'profile-updated');
     }

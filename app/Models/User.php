@@ -26,6 +26,11 @@ class User extends Authenticatable
         'image',
     ];
 
+    public function mitra()
+    {
+        return $this->hasOne(Mitra::class, 'user_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
