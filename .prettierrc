@@ -1,0 +1,21 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx", "*.json", "*.css"],
+      "options": {
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*.php", "*.blade.php"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}

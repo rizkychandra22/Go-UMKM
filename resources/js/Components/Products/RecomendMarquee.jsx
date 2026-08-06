@@ -1,102 +1,104 @@
-﻿import { usePage } from "@inertiajs/react";
+﻿import { usePage } from '@inertiajs/react';
 import { products } from '../../Constants/products';
 import ProductCard from '@/Components/Products/Card';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default function RecomendMarquee() {
-    const { auth } = usePage().props ?? {};
-    const isCustomer = Boolean(auth?.user);
-    
-    const scrollContainerRef = useRef(null);
-    const isInteractingRef = useRef(false);
+  const { auth } = usePage().props ?? {};
+  const isCustomer = Boolean(auth?.user);
 
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
+  const scrollContainerRef = useRef(null);
+  const isInteractingRef = useRef(false);
 
-        let animationFrameId;
-        const speed = 0.8; // Kecepatan jalan otomatis
-        
-        // SOLUSI UTAMA: Simpan posisi asli di variabel float agar tidak dibulatkan jadi 0 oleh PC
-        let currentScroll = container.scrollLeft;
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-        const autoScroll = () => {
-            // Jika user scroll pake mouse-wheel / trackpad di PC, sinkronkan posisinya
-            if (Math.abs(container.scrollLeft - currentScroll) > 1) {
-                currentScroll = container.scrollLeft;
-            }
+    let animationFrameId;
+    const speed = 0.8; // Kecepatan jalan otomatis
 
-            if (!isInteractingRef.current) {
-                currentScroll += speed;
+    // SOLUSI UTAMA: Simpan posisi asli di variabel float agar tidak dibulatkan jadi 0 oleh PC
+    let currentScroll = container.scrollLeft;
 
-                // Loop kembali ke awal kalau sudah mentok di ujung kanan
-                if (currentScroll >= container.scrollWidth - container.clientWidth) {
-                    currentScroll = 0;
-                }
-                container.scrollLeft = currentScroll;
-            }
-            animationFrameId = requestAnimationFrame(autoScroll);
-        };
+    const autoScroll = () => {
+      // Jika user scroll pake mouse-wheel / trackpad di PC, sinkronkan posisinya
+      if (Math.abs(container.scrollLeft - currentScroll) > 1) {
+        currentScroll = container.scrollLeft;
+      }
 
-        // Mulai animasi
-        animationFrameId = requestAnimationFrame(autoScroll);
+      if (!isInteractingRef.current) {
+        currentScroll += speed;
 
-        const handleInteractionStart = () => { 
-            isInteractingRef.current = true; 
-        };
+        // Loop kembali ke awal kalau sudah mentok di ujung kanan
+        if (currentScroll >= container.scrollWidth - container.clientWidth) {
+          currentScroll = 0;
+        }
+        container.scrollLeft = currentScroll;
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
+    };
 
-        const handleInteractionEnd = () => {
-            // Catat posisi terakhir setelah dilepas agar jalannya mulus tidak melompat
-            currentScroll = container.scrollLeft;
-            setTimeout(() => {
-                isInteractingRef.current = false;
-            }, 1000); 
-        };
+    // Mulai animasi
+    animationFrameId = requestAnimationFrame(autoScroll);
 
-        container.addEventListener("touchstart", handleInteractionStart, { passive: true });
-        container.addEventListener("touchend", handleInteractionEnd);
-        container.addEventListener("mousedown", handleInteractionStart);
-        container.addEventListener("mouseup", handleInteractionEnd);
-        container.addEventListener("mouseleave", handleInteractionEnd);
+    const handleInteractionStart = () => {
+      isInteractingRef.current = true;
+    };
 
-        return () => {
-            cancelAnimationFrame(animationFrameId);
-            container.removeEventListener("touchstart", handleInteractionStart);
-            container.removeEventListener("touchend", handleInteractionEnd);
-            container.removeEventListener("mousedown", handleInteractionStart);
-            container.removeEventListener("mouseup", handleInteractionEnd);
-            container.removeEventListener("mouseleave", handleInteractionEnd);
-        };
-    }, []);
+    const handleInteractionEnd = () => {
+      // Catat posisi terakhir setelah dilepas agar jalannya mulus tidak melompat
+      currentScroll = container.scrollLeft;
+      setTimeout(() => {
+        isInteractingRef.current = false;
+      }, 1000);
+    };
 
-    return (
-        <>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">
-                Rekomendasi Produk.
-            </h3>
-            <p className="mt-1 sm:mt-2 text-xs sm:text-base text-slate-600 dark:text-slate-400">
-                Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.
-            </p>
+    container.addEventListener('touchstart', handleInteractionStart, {
+      passive: true,
+    });
+    container.addEventListener('touchend', handleInteractionEnd);
+    container.addEventListener('mousedown', handleInteractionStart);
+    container.addEventListener('mouseup', handleInteractionEnd);
+    container.addEventListener('mouseleave', handleInteractionEnd);
 
-            <div className="mt-4 sm:mt-5">
-                <div 
-                    ref={scrollContainerRef}
-                    className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                >
-                    {[...products, ...products].map((p, index) => (
-                        <div 
-                            key={`${p.name}-${index}`} 
-                            className="w-[240px] sm:w-[320px] shrink-0"
-                        >
-                            <ProductCard
-                                product={p}
-                                isCustomer={isCustomer}
-                                minHeight="240px" 
-                            />
-                        </div>
-                    ))}
-                </div>
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      container.removeEventListener('touchstart', handleInteractionStart);
+      container.removeEventListener('touchend', handleInteractionEnd);
+      container.removeEventListener('mousedown', handleInteractionStart);
+      container.removeEventListener('mouseup', handleInteractionEnd);
+      container.removeEventListener('mouseleave', handleInteractionEnd);
+    };
+  }, []);
+
+  return (
+    <>
+      <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">
+        Rekomendasi Produk.
+      </h3>
+      <p className="mt-1 sm:mt-2 text-xs sm:text-base text-slate-600 dark:text-slate-400">
+        Produk unggulan berdasarkan kualitas dan tingkat penjualan teratas.
+      </p>
+
+      <div className="mt-4 sm:mt-5">
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {[...products, ...products].map((p, index) => (
+            <div
+              key={`${p.name}-${index}`}
+              className="w-[240px] sm:w-[320px] shrink-0"
+            >
+              <ProductCard
+                product={p}
+                isCustomer={isCustomer}
+                minHeight="240px"
+              />
             </div>
-        </>
-    );
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }

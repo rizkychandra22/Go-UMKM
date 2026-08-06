@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from 'tailwindcss/plugin'
+import plugin from 'tailwindcss/plugin';
 
 export default {
   content: [
@@ -22,17 +22,17 @@ export default {
   plugins: [
     // small helper to provide `.size-N` utilities used by icon classNames in JSX
     plugin(function ({ addUtilities, theme }) {
-      const sizes = [3, 4, 5, 6, 8, 10, 20]
-      const utils = {}
+      const sizes = [3, 4, 5, 6, 8, 10, 20];
+      const utils = {};
 
       sizes.forEach((s) => {
-        const value = theme(`spacing.${s}`)
+        const value = theme(`spacing.${s}`);
         if (value) {
-          utils[`.size-${s}`] = { width: value, height: value }
+          utils[`.size-${s}`] = { width: value, height: value };
         }
-      })
+      });
 
-      addUtilities(utils, { variants: ['responsive'] })
+      addUtilities(utils, { variants: ['responsive'] });
     }),
   ],
-}
+};

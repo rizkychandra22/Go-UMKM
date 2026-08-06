@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["CI Pipeline"]
+    workflows: ['CI Pipeline']
     types:
       - completed
 
@@ -26,11 +26,11 @@ jobs:
         shell: bash
         run: |
           echo "🚀 Starting Enterprise Deployment to Production (Tokoku)..."
-          
+
           # 1. Tarik kode terbaru
           git fetch origin main
           git reset --hard origin/main
-          
+
           # 2. Masuk mode maintenance (Kecualikan IP Developer/Admin jika perlu)
           php artisan down --render="errors::503" --secret="bypass-token-123"
 
@@ -55,7 +55,7 @@ jobs:
 
           # 8. Hidupkan kembali aplikasi
           php artisan up
-          
+
           echo "✅ Deployment Successful!"
 
       # OPSI B: Jika menggunakan Webhook Platform Deployment (contoh: Laravel Forge / Cloud)
