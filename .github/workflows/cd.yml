@@ -14,22 +14,21 @@ jobs:
   deploy-production:
     name: Deploy to Production
     # HANYA JALAN JIKA: CI Sukses DAN yang memicu adalah branch 'main'
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.head_branch == 'main') }}
     runs-on: self-hosted
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # OPSI A: Jika runner INI adalah server production itu sendiri (Linux/Bash)
+      # OPSI A: Jika runner INI adalah server production itu sendiri (Windows/PowerShell)
       - name: Zero-Downtime Deployment Script
-        shell: bash
         run: |
           echo "🚀 Starting Enterprise Deployment to Production (Tokoku)..."
 
           # 1. Tarik kode terbaru
-          git fetch origin main
-          git reset --hard origin/main
+          git fetch origin ${{ github.event.workflow_run.head_branch }}
+          git reset --hard origin/${{ github.event.workflow_run.head_branch }}
 
           # 2. Masuk mode maintenance (Kecualikan IP Developer/Admin jika perlu)
           php artisan down --render="errors::503" --secret="bypass-token-123"
